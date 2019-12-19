@@ -14,6 +14,12 @@ limitations under the License. -->
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="Autofill">
 
+    <data>
+        <variable
+            name="myName"
+            type="com.example.android.aboutme.MyName" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,7 +32,7 @@ limitations under the License. -->
             style="@style/NameStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/name"
+            android:text="@={myName.name}"
             android:textAlignment="center" />
 
         <TextView
@@ -34,6 +40,7 @@ limitations under the License. -->
             style="@style/NameStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@={myName.nickname}"
             android:textAlignment="center"
             android:visibility="gone" />
 
