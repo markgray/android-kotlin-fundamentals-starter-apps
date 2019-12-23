@@ -22,9 +22,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+/**
+ * [Fragment] which displays the simple "About" screen describing the app contained in the resource
+ * file R.layout.fragment_about
+ */
 class AboutFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    /**
+     * Called to have the fragment instantiate its user interface view. We just use our
+     * [LayoutInflater] parameter [inflater] to inflate our layout file R.layout.fragment_about,
+     * using our [ViewGroup] parameter [container] for its `LayoutParams` without attaching to it
+     * and return the resulting [View] to our caller.
+     *
+     * @param inflater The [LayoutInflater] object that can be used to inflate any views in the
+     * fragment
+     * @param container If non-null, this is the parent view that the fragment's UI will be attached
+     * to.  The fragment should not add the view itself, but this can be used to generate the
+     * `LayoutParams` of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous
+     * saved state as given here.
+     * @return Return the [View] for the fragment's UI, or null.
+     */
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
