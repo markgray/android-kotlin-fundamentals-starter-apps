@@ -24,7 +24,8 @@ import android.view.ViewGroup
 
 /**
  * [Fragment] which displays the simple "About" screen describing the app contained in the resource
- * file R.layout.fragment_about
+ * file R.layout.fragment_about. This fragment is navigated to either through the options menu of
+ * [TitleFragment] or through the `DrawerLayout` which is accessible from all of the fragments.
  */
 class AboutFragment : Fragment() {
     /**
