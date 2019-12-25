@@ -21,6 +21,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+import com.example.android.navigation.databinding.FragmentAboutBinding
 
 /**
  * [Fragment] which displays the simple "About" screen describing the app contained in the resource
@@ -48,7 +51,19 @@ class AboutFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        val binding = DataBindingUtil.inflate<FragmentAboutBinding>(
+                inflater,
+                R.layout.fragment_about,
+                container,
+                false
+        )
+        /**
+         * The complete onClickListener with Navigation to the [GameFragment]
+         */
+        binding.playButton.setOnClickListener { view : View ->
+            view.findNavController().navigate(R.id.action_aboutFragment_to_gameFragment)
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false)
+        return binding.root
     }
 }
