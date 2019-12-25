@@ -25,7 +25,9 @@ class TitleFragment : Fragment() {
      * `playButton` `Button` in our layout and set its `OnClickListener` to a lambda which
      * uses the [View] parameter `view` to call [View.findNavController] to fetch a handle to the
      * `NavController` associated with the [View], which it then uses to navigate to the
-     * [GameFragment].
+     * [GameFragment]. For the homework assignment we also add `OnClickListener`'s for the buttons
+     * `rulesButton` and `aboutButton` which navigate to the [RulesFragment] and [AboutFragment]
+     * respectively.
      *
      * Finally we return the `root` [View] of `binding` to the caller (this is outermost [View] in
      * the layout file associated with the Binding).
@@ -55,6 +57,18 @@ class TitleFragment : Fragment() {
          */
         binding.playButton.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
+        }
+        /**
+         * The complete onClickListener with Navigation to the [RulesFragment]
+         */
+        binding.rulesButton.setOnClickListener {view: View ->
+            view.findNavController().navigate(R.id.action_titleFragment_to_rulesFragment)
+        }
+        /**
+         * The complete onClickListener with Navigation to the [AboutFragment]
+         */
+        binding.aboutButton.setOnClickListener {view: View ->
+            view.findNavController().navigate(R.id.action_titleFragment_to_aboutFragment)
         }
         setHasOptionsMenu(true)
         return binding.root
