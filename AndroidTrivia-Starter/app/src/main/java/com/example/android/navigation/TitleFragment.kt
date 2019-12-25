@@ -29,8 +29,8 @@ class TitleFragment : Fragment() {
      * `rulesButton` and `aboutButton` which navigate to the [RulesFragment] and [AboutFragment]
      * respectively.
      *
-     * Finally we return the `root` [View] of `binding` to the caller (this is outermost [View] in
-     * the layout file associated with the Binding).
+     * Finally we return the `root` [View] of `binding` to the caller (this is the outermost [View]
+     * in the layout file associated with the Binding).
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate any views in the
      * fragment

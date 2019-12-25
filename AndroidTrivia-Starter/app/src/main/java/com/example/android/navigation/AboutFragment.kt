@@ -27,15 +27,24 @@ import com.example.android.navigation.databinding.FragmentAboutBinding
 
 /**
  * [Fragment] which displays the simple "About" screen describing the app contained in the resource
- * file R.layout.fragment_about. This fragment is navigated to either through the options menu of
- * [TitleFragment] or through the `DrawerLayout` which is accessible from all of the fragments.
+ * file R.layout.fragment_about. This fragment is navigated to through the options menu of
+ * [TitleFragment] or through the `DrawerLayout` which is accessible from all of the fragments, or
+ * by pressing the "Rules" button in the [TitleFragment].
  */
 class AboutFragment : Fragment() {
     /**
-     * Called to have the fragment instantiate its user interface view. We just use our
-     * [LayoutInflater] parameter [inflater] to inflate our layout file R.layout.fragment_about,
-     * using our [ViewGroup] parameter [container] for its `LayoutParams` without attaching to it
-     * and return the resulting [View] to our caller.
+     * Called to have the fragment instantiate its user interface view. We use the method
+     * [DataBindingUtil.inflate] to use our [LayoutInflater] parameter [inflater] to inflate our
+     * layout file R.layout.fragment_about using our [ViewGroup] parameter [container] for its
+     * `LayoutParams` without attaching to it in order to initialize our variable `val binding`
+     * to the [FragmentAboutBinding] for our layout file. We then use `binding` to find the
+     * `playButton` `Button` in our layout and set its `OnClickListener` to a lambda which
+     * uses the [View] parameter `view` to call [View.findNavController] to fetch a handle to the
+     * `NavController` associated with the [View], which it then uses to navigate to the
+     * [GameFragment].
+     *
+     * Finally we return the `root` [View] of `binding` to the caller (this is the outermost [View]
+     * in the layout file associated with the Binding).
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate any views in the
      * fragment
@@ -63,7 +72,9 @@ class AboutFragment : Fragment() {
         binding.playButton.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_aboutFragment_to_gameFragment)
         }
-        // Inflate the layout for this fragment
+        /**
+         * Return the inflated view.
+         */
         return binding.root
     }
 }

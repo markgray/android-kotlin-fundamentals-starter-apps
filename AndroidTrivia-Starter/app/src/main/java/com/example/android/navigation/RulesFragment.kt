@@ -27,15 +27,24 @@ import com.example.android.navigation.databinding.FragmentRulesBinding
 
 /**
  * Displays the rules for the game, which are contained in our layout file R.layout.fragment_rules.
- * This fragment is navigated to either through the options menu of [TitleFragment] or through the
- * `DrawerLayout` which is accessible from all of the fragments.
+ * This fragment is navigated to through the options menu of [TitleFragment] or through the
+ * `DrawerLayout` which is accessible from all of the fragments, or by pressing the "Rules" button
+ * in the [TitleFragment].
  */
 class RulesFragment : Fragment() {
     /**
-     * Called to have the fragment instantiate its user interface view. We just use our [LayoutInflater]
-     * parameter [inflater] to inflate our layout file R.layout.fragment_rules using our [ViewGroup]
-     * parameter [container] for its `LayoutParams` without attaching to it and return the [View]
-     * created to our caller.
+     * Called to have the fragment instantiate its user interface view. We use the method
+     * [DataBindingUtil.inflate] to use our [LayoutInflater] parameter [inflater] to inflate our
+     * layout file R.layout.fragment_rules using our [ViewGroup] parameter [container] for its
+     * `LayoutParams` without attaching to it in order to initialize our variable `val binding`
+     * to the [FragmentRulesBinding] for our layout file. We then use `binding` to find the
+     * `playButton` `Button` in our layout and set its `OnClickListener` to a lambda which
+     * uses the [View] parameter `view` to call [View.findNavController] to fetch a handle to the
+     * `NavController` associated with the [View], which it then uses to navigate to the
+     * [GameFragment].
+     *
+     * Finally we return the `root` [View] of `binding` to the caller (this is the outermost [View]
+     * in the layout file associated with the Binding).
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
      * any views in the fragment,
@@ -64,7 +73,7 @@ class RulesFragment : Fragment() {
             view.findNavController().navigate(R.id.action_rulesFragment_to_gameFragment)
         }
         /**
-         * Inflate the layout for this fragment
+         * Return the inflated view.
          */
         return binding.root
     }
