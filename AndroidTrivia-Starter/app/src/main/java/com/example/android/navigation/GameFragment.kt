@@ -192,8 +192,10 @@ class GameFragment : Fragment() {
                          * We've won!  Navigate to the gameWonFragment.
                          */
                         // Using directions to navigate to the GameWonFragment
+                        // Adding the parameters to the Action
                         view.findNavController()
-                                .navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment())
+                                .navigate(GameFragmentDirections
+                                        .actionGameFragmentToGameWonFragment(numQuestions, questionIndex))
                     }
                 } else {
                     /**
