@@ -55,20 +55,23 @@ class TitleFragment : Fragment() {
         /**
          * The complete onClickListener with Navigation to the [GameFragment]
          */
-        binding.playButton.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
+        binding.playButton.setOnClickListener { view: View ->
+            view.findNavController()
+                    .navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
         }
         /**
          * The complete onClickListener with Navigation to the [RulesFragment]
          */
         binding.rulesButton.setOnClickListener {view: View ->
-            view.findNavController().navigate(R.id.action_titleFragment_to_rulesFragment)
+            view.findNavController()
+                    .navigate(TitleFragmentDirections.actionTitleFragmentToRulesFragment())
         }
         /**
          * The complete onClickListener with Navigation to the [AboutFragment]
          */
         binding.aboutButton.setOnClickListener {view: View ->
-            view.findNavController().navigate(R.id.action_titleFragment_to_aboutFragment)
+            view.findNavController()
+                    .navigate(TitleFragmentDirections.actionTitleFragmentToAboutFragment())
         }
         setHasOptionsMenu(true)
         return binding.root
