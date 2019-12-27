@@ -70,7 +70,7 @@ class AboutFragment : Fragment() {
          * The complete onClickListener with Navigation to the [GameFragment]
          */
         binding.playButton.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_aboutFragment_to_gameFragment)
+            view.findNavController().navigate(AboutFragmentDirections.actionAboutFragmentToGameFragment())
         }
         /**
          * Return the inflated view.

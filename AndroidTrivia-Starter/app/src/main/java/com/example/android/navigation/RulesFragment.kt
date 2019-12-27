@@ -70,7 +70,7 @@ class RulesFragment : Fragment() {
          * The complete onClickListener with Navigation to the [GameFragment]
          */
         binding.playButton.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_rulesFragment_to_gameFragment)
+            view.findNavController().navigate(RulesFragmentDirections.actionRulesFragmentToGameFragment())
         }
         /**
          * Return the inflated view.
