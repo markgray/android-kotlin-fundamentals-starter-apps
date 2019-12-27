@@ -27,7 +27,7 @@ class TitleFragment : Fragment() {
      * `NavController` associated with the [View], which it then uses to navigate to the
      * [GameFragment]. For the homework assignment we also add `OnClickListener`'s for the buttons
      * `rulesButton` and `aboutButton` which navigate to the [RulesFragment] and [AboutFragment]
-     * respectively.
+     * respectively using a `ActionOnlyNavDirections`.
      *
      * Finally we return the `root` [View] of `binding` to the caller (this is the outermost [View]
      * in the layout file associated with the Binding).
@@ -54,6 +54,7 @@ class TitleFragment : Fragment() {
         )
         /**
          * The complete onClickListener with Navigation to the [GameFragment]
+         * using a `ActionOnlyNavDirections`
          */
         binding.playButton.setOnClickListener { view: View ->
             view.findNavController()
@@ -61,6 +62,7 @@ class TitleFragment : Fragment() {
         }
         /**
          * The complete onClickListener with Navigation to the [RulesFragment]
+         * using a `ActionOnlyNavDirections`
          */
         binding.rulesButton.setOnClickListener {view: View ->
             view.findNavController()
@@ -68,6 +70,7 @@ class TitleFragment : Fragment() {
         }
         /**
          * The complete onClickListener with Navigation to the [AboutFragment]
+         * using a `ActionOnlyNavDirections`
          */
         binding.aboutButton.setOnClickListener {view: View ->
             view.findNavController()

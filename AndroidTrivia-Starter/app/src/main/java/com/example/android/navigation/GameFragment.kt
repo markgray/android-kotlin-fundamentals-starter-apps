@@ -156,11 +156,14 @@ class GameFragment : Fragment() {
          * of `binding` to invalidate all binding expressions and request a new rebind to refresh
          * the UI. If the user has already answered [numQuestions] questions we call the method
          * [View.findNavController] to find the `NavController` associated with the [View] `view`
-         * that was clicked and use its `navigate` method to navigate to the `GameWonFragment`.
+         * that was clicked and use its `navigate` method to navigate to the `GameWonFragment` using
+         * a `NavDirections` constructed to pass [numQuestions] and [questionIndex] as safe arguments
+         * in the arguments bundle.
          *
          * If the answer chosen by the user is wrong on the otherhand we call the method
          * [View.findNavController] to find the `NavController` associated with the [View] `view`
-         * that was clicked and use its `navigate` method to navigate to the `GameOverFragment`
+         * that was clicked and use its `navigate` method to navigate to the `GameOverFragment` using
+         * a `NavDirections` which is a `ActionOnlyNavDirections` (no argument bundle).
          */
         binding.submitButton.setOnClickListener { view: View ->
             val checkedId = binding.questionRadioGroup.checkedRadioButtonId
@@ -190,9 +193,10 @@ class GameFragment : Fragment() {
                     } else {
                         /**
                          * We've won!  Navigate to the gameWonFragment.
+                         * Using directions to navigate to the [GameWonFragment]
+                         * with the parameters to the Action stored as safe args
+                         * in the argument bundle.
                          */
-                        // Using directions to navigate to the GameWonFragment
-                        // Adding the parameters to the Action
                         view.findNavController()
                                 .navigate(GameFragmentDirections
                                         .actionGameFragmentToGameWonFragment(numQuestions, questionIndex))
@@ -200,8 +204,8 @@ class GameFragment : Fragment() {
                 } else {
                     /**
                      * Game over! A wrong answer sends us to the gameOverFragment.
+                     * Using directions to navigate to the GameOverFragment
                      */
-                    // Using directions to navigate to the GameOverFragment
                     view.findNavController()
                             .navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment())
                 }

@@ -40,7 +40,7 @@ class GameWonFragment : Fragment() {
      * `nextMatchButton` `Button` in our layout and set its `OnClickListener` to a lambda which
      * uses the [View] parameter `view` to call [View.findNavController] to fetch a handle to the
      * `NavController` associated with the [View], which it then uses to navigate to the
-     * [GameFragment].
+     * [GameFragment] using a `ActionOnlyNavDirections`.
      *
      * Finally we return the `root` [View] of `binding` to the caller (this is outermost [View] in
      * the layout file associated with the Binding).
