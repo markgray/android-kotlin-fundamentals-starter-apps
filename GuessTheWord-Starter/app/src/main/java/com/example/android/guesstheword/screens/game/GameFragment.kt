@@ -21,9 +21,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.GameFragmentBinding
 
@@ -52,10 +54,20 @@ class GameFragment : Fragment() {
 
         binding.correctButton.setOnClickListener { onCorrect() }
         binding.skipButton.setOnClickListener { onSkip() }
+        binding.endGameButton.setOnClickListener { onEndGame() }
         updateScoreText()
         updateWordText()
         return binding.root
+    }
 
+    /**
+     * Called when the game is finished
+     */
+    private fun gameFinished() {
+        Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
+        val action = GameFragmentDirections.actionGameToScore()
+        action.score = viewModel.score
+        NavHostFragment.findNavController(this).navigate(action)
     }
 
     /** Methods for button click handlers **/
@@ -69,6 +81,10 @@ class GameFragment : Fragment() {
         viewModel.onCorrect()
         updateScoreText()
         updateWordText()
+    }
+
+    private fun onEndGame() {
+        gameFinished()
     }
 
     /** Methods for updating the UI **/
