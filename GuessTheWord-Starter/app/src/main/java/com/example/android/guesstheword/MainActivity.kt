@@ -17,6 +17,7 @@
 package com.example.android.guesstheword
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -24,9 +25,18 @@ import androidx.appcompat.app.AppCompatActivity
  */
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Called when the activity is starting or restarting after a configuration change. First we
+     * call our super's implementation of `onCreate`, then we set our content view to our layout
+     * file R.layout.main_activity.
+     *
+     * @param savedInstanceState We do not override [onSaveInstanceState] so do not use.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
+        Log.i("MainActivity", "onCreate called")
     }
 
 }

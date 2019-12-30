@@ -31,16 +31,47 @@ import com.example.android.guesstheword.databinding.ScoreFragmentBinding
  */
 class ScoreFragment : Fragment() {
 
+    /**
+     * The [ScoreViewModel] that holds the data and business logic for our fragment.
+     */
     private lateinit var viewModel: ScoreViewModel
+    /**
+     * The [ScoreViewModelFactory] that we use to build our [ScoreViewModel] field [viewModel]
+     */
     private lateinit var viewModelFactory: ScoreViewModelFactory
 
+    /**
+     * Called to have the fragment instantiate its user interface view. We initialize our
+     * [ScoreFragmentBinding] variable `binding` by having the [DataBindingUtil.inflate] method
+     * inflate our layout file R.layout.score_fragment using our [LayoutInflater] parameter
+     * [inflater] and our [ViewGroup] parameter [container] (for its `LayoutParams`) without
+     * attaching to it. We initialize our [ScoreViewModelFactory] field [viewModelFactory] to
+     * an instance constructed using the [Int] stored under the key `score` in our arguments as
+     * its `finalScore` parameter. We then use the [ViewModelProviders.of] method to initialize
+     * our [ScoreViewModel] field [viewModel] to an [ScoreViewModel] for our fragment's scope using
+     * either one that already exists or creating a new one. We then retrieve the `score` field of
+     * [viewModel] and set the text of the `scoreText` `TextView` in our UI that we find using
+     * `binding` to the string value of that score. Finally we return the root view of our
+     * [ScoreFragmentBinding] variable `binding` to the caller.
+     *
+     * @param inflater The [LayoutInflater] object that can be used to inflate
+     * any views in the fragment
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     * @return Return the [View] for the fragment's UI, or null.
+     */
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
 
-        // Inflate view and obtain an instance of the binding class.
+        /**
+         * Inflate view and obtain an instance of the binding class.
+         */
         val binding: ScoreFragmentBinding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.score_fragment,
