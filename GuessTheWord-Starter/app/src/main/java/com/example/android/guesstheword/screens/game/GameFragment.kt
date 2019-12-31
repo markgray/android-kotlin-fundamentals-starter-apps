@@ -24,6 +24,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import com.example.android.guesstheword.R
@@ -54,11 +55,7 @@ class GameFragment : Fragment() {
      * `ViewModel` (if we are being recreated) or a newly created one in the scope of *this*
      * `Fragment`. We then use [binding] to set the `OnClickListener` of `correctButton` to our
      * method [onCorrect], the `OnClickListener` of `skipButton` to our method [onSkip], and the
-     * `OnClickListener` of `endGameButton` to our method [onEndGame]. We then call our method
-     * [updateScoreText] to update the text in the `binding.scoreText` `TextView` of our UI to
-     * the string value of the `score` field in our [GameViewModel] field [viewModel] and call
-     * our method [updateWordText] to update the text in the `binding.wordText` `TextView` of our
-     * UI to the value of the `word` field in our [GameViewModel] field [viewModel]. Finally we
+     * `OnClickListener` of `endGameButton` to our method [onEndGame]. Finally we
      * return the root view of our [GameFragmentBinding] field [binding] to the caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
@@ -88,12 +85,18 @@ class GameFragment : Fragment() {
 
         Log.i("GameFragment", "Called ViewModelProviders.of")
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
+        /** Setting up LiveData observation relationship **/
+        viewModel.score.observe(this, Observer { newScore ->
+            binding.scoreText.text = newScore.toString()
+        })
+        /** Setting up LiveData observation relationship **/
+        viewModel.word.observe(this, Observer { newWord ->
+            binding.wordText.text = newWord
+        })
 
         binding.correctButton.setOnClickListener { onCorrect() }
         binding.skipButton.setOnClickListener { onSkip() }
         binding.endGameButton.setOnClickListener { onEndGame() }
-        updateScoreText()
-        updateWordText()
         return binding.root
     }
 
@@ -102,29 +105,19 @@ class GameFragment : Fragment() {
     /**
      * `OnClickListener` for the `skipButton` `Button` in our UI. We call the `onSkip` method of our
      * [GameViewModel] field [viewModel] to have it update its data (moves to next word and subtracts
-     * one from the score), then we call our [updateWordText] method to update the `TextView` for
-     * the word in our UI from the new word contained in our [viewModel], and our [updateScoreText]
-     * method to update the `TextView` for the score in our UI from the score contained in our
-     * [viewModel].
+     * one from the score).
      */
     private fun onSkip() {
         viewModel.onSkip()
-        updateWordText()
-        updateScoreText()
     }
 
     /**
      * `OnClickListener` for the `correctButton` `Button` in our UI. We call the `onCorrect` method
      * of our [GameViewModel] field [viewModel] to have it update its data (moves to next word and
-     * adds one to the score), then we call our [updateWordText] method to update the `TextView` for
-     * the word in our UI from the new word contained in our [viewModel], and our [updateScoreText]
-     * method to update the `TextView` for the score in our UI from the score contained in our
-     * [viewModel].
+     * adds one to the score).
      */
     private fun onCorrect() {
         viewModel.onCorrect()
-        updateScoreText()
-        updateWordText()
     }
 
     /**
@@ -136,25 +129,6 @@ class GameFragment : Fragment() {
     }
 
     /** Methods for updating the UI **/
-
-    /**
-     * Reads the `word` field of our [GameViewModel] field [viewModel] and sets the text of the
-     * `wordText` `TextView` in our UI (found using our [GameFragmentBinding] field [binding]) to
-     * that string.
-     */
-    private fun updateWordText() {
-        binding.wordText.text = viewModel.word
-    }
-
-    /**
-     * Reads the `score` field of our [GameViewModel] field [viewModel] and sets the text of the
-     * `score` `TextView` in our UI (found using our [GameFragmentBinding] field [binding]) to
-     * the string value of that score.
-     */
-    private fun updateScoreText() {
-        binding.scoreText.text = viewModel.score.toString()
-    }
-
     /**
      * Called when the game is finished. We toast the fact that the game has finished, then
      * initialize our [GameFragmentDirections.ActionGameToScore] variable `val action` to
@@ -167,7 +141,7 @@ class GameFragment : Fragment() {
     private fun gameFinished() {
         Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
         val action = GameFragmentDirections.actionGameToScore()
-        action.score = viewModel.score
+        action.score = viewModel.score.value?:0
         NavHostFragment.findNavController(this).navigate(action)
     }
 }
