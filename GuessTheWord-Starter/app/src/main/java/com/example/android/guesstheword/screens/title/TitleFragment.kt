@@ -31,6 +31,26 @@ import com.example.android.guesstheword.databinding.TitleFragmentBinding
  */
 class TitleFragment : Fragment() {
 
+    /**
+     * Called to have the fragment instantiate its user interface view. We use the library method
+     * [DataBindingUtil.inflate] to inflate our layout file R.layout.title_fragment using our
+     * [LayoutInflater] parameter [inflater] and our [ViewGroup] parameter [container] (for its
+     * layout parameters without attaching to it) and use the [TitleFragmentBinding] returned to
+     * initialize our variable `val binding`. We then use `binding` to find the `playGameButton`
+     * in our layout and set its `OnClickListener` to a lambda which uses the `NavController`
+     * in our layout that the [findNavController] method finds to navigate to the `GameFragment`.
+     * Finally we return the root view of our [TitleFragmentBinding] variable `binding` to the
+     * caller.
+     *
+     * @param inflater The [LayoutInflater] object that can be used to inflate
+     * any views in the fragment
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     * @return Return the [View] for the fragment's UI, or null.
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
