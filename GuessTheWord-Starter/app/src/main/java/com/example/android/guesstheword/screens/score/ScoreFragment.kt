@@ -38,22 +38,29 @@ class ScoreFragment : Fragment() {
      */
     private lateinit var viewModel: ScoreViewModel
     /**
-     * The [ScoreViewModelFactory] that we use to build our [ScoreViewModel] field [viewModel]
+     * The [ScoreViewModelFactory] that we use to build our [ScoreViewModel] field
+     * [viewModel]
      */
     private lateinit var viewModelFactory: ScoreViewModelFactory
 
     /**
      * Called to have the fragment instantiate its user interface view. We initialize our
-     * [ScoreFragmentBinding] variable `binding` by having the [DataBindingUtil.inflate] method
-     * inflate our layout file R.layout.score_fragment using our [LayoutInflater] parameter
-     * [inflater] and our [ViewGroup] parameter [container] (for its `LayoutParams`) without
-     * attaching to it. We initialize our [ScoreViewModelFactory] field [viewModelFactory] to
-     * an instance constructed using the [Int] stored under the key `score` in our arguments as
-     * its `finalScore` parameter. We then use the [ViewModelProviders.of] method to initialize
-     * our [ScoreViewModel] field [viewModel] to an [ScoreViewModel] for our fragment's scope using
-     * either one that already exists or creating a new one. We then retrieve the `score` field of
-     * [viewModel] and set the text of the `scoreText` `TextView` in our UI that we find using
-     * `binding` to the string value of that score. Finally we return the root view of our
+     * [ScoreFragmentBinding] variable `binding` by having the [DataBindingUtil.inflate]
+     * method inflate our layout file R.layout.score_fragment using our [LayoutInflater]
+     * parameter [inflater] and our [ViewGroup] parameter [container] (for its
+     * `LayoutParams`) without attaching to it. We initialize our [ScoreViewModelFactory]
+     * field [viewModelFactory] to an instance constructed using the [Int] stored under
+     * the key `score` in our arguments as its `finalScore` parameter. We then use the
+     * [ViewModelProviders.of] method to initialize our [ScoreViewModel] field [viewModel]
+     * to an [ScoreViewModel] for our fragment's scope using either one that already exists
+     * or creating a new one. We add an [Observer] to the `LiveData<Int>` field `score`
+     * of [viewModel] whose `onChanged` override is a lambda which sets the text of the
+     * `scoreText` `TextView` of `binding` to the string value of its `newScore` parameter.
+     * We add an [Observer] to the `LiveData<Boolean>` field `eventPlayAgain` of
+     * [viewModel] whose `onChanged` override is a lambda which will if its `playAgain`
+     * parameter is *true* use the `NavController` returned by the [findNavController]
+     * method to navigate to the `ActionOnlyNavDirections` action `actionRestart` which
+     * navigates back to the `GameFragment`. Finally we return the root view of our
      * [ScoreFragmentBinding] variable `binding` to the caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
@@ -81,7 +88,9 @@ class ScoreFragment : Fragment() {
                 false
         )
 
-        viewModelFactory = ScoreViewModelFactory(ScoreFragmentArgs.fromBundle(arguments!!).score)
+        viewModelFactory = ScoreViewModelFactory(
+                ScoreFragmentArgs.fromBundle(arguments!!).score
+        )
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(ScoreViewModel::class.java)
 

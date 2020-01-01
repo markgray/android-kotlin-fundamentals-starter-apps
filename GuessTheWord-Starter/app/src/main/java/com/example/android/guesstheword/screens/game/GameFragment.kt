@@ -53,10 +53,19 @@ class GameFragment : Fragment() {
      * [inflater] and our [ViewGroup] parameter [container] (for its `LayoutParams`) without
      * attaching to it. We then initialize our [GameViewModel] field [viewModel] with an existing
      * `ViewModel` (if we are being recreated) or a newly created one in the scope of *this*
-     * `Fragment`. We then use [binding] to set the `OnClickListener` of `correctButton` to our
-     * method [onCorrect], the `OnClickListener` of `skipButton` to our method [onSkip], and the
-     * `OnClickListener` of `endGameButton` to our method [onEndGame]. Finally we
-     * return the root view of our [GameFragmentBinding] field [binding] to the caller.
+     * `Fragment`. We add an [Observer] to the `score` `LiveData<Int>` field of [viewModel]
+     * with an `onChanged` override which is a lambda which will set the text of the
+     * `scoreText` `TextView in [binding] to the string value of the `newScore` passed it
+     * when the `LiveData` changes. We add an [Observer] to the `word` `LiveData<String>`
+     * field of [viewModel] with an `onChanged` override which is a lambda which will set
+     * the text of the `wordText` `TextView` value of the `newWord` passed it when the
+     * `LiveData` changes. We add an [Observer] to the `eventGameFinish` `LiveData<Boolean>`
+     * field of [viewModel] with an `onChanged` override which is a lambda which will call
+     * our method [gameFinished] if the `hasFinished` flag passed it is true. We then use
+     * [binding] to set the `OnClickListener` of `correctButton` to our method [onCorrect],
+     * the `OnClickListener` of `skipButton` to our method [onSkip], and the
+     * `OnClickListener` of `endGameButton` to our method [onEndGame]. Finally we return
+     * the root view of our [GameFragmentBinding] field [binding] to the caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
      * any views in the fragment
@@ -107,26 +116,26 @@ class GameFragment : Fragment() {
     /** Methods for button click handlers **/
 
     /**
-     * `OnClickListener` for the `skipButton` `Button` in our UI. We call the `onSkip` method of our
-     * [GameViewModel] field [viewModel] to have it update its data (moves to next word and subtracts
-     * one from the score).
+     * `OnClickListener` for the `skipButton` `Button` in our UI. We call the `onSkip`
+     * method of our [GameViewModel] field [viewModel] to have it update its data (moves
+     * to next word and subtracts one from the score).
      */
     private fun onSkip() {
         viewModel.onSkip()
     }
 
     /**
-     * `OnClickListener` for the `correctButton` `Button` in our UI. We call the `onCorrect` method
-     * of our [GameViewModel] field [viewModel] to have it update its data (moves to next word and
-     * adds one to the score).
+     * `OnClickListener` for the `correctButton` `Button` in our UI. We call the `onCorrect`
+     * method of our [GameViewModel] field [viewModel] to have it update its data (moves to
+     * next word and adds one to the score).
      */
     private fun onCorrect() {
         viewModel.onCorrect()
     }
 
     /**
-     * `OnClickListener` for the `endGameButton` `Button` in our UI. We just call our [gameFinished]
-     * method.
+     * `OnClickListener` for the `endGameButton` `Button` in our UI. We just call our
+     * [gameFinished] method.
      */
     private fun onEndGame() {
         gameFinished()
@@ -137,11 +146,14 @@ class GameFragment : Fragment() {
     /**
      * Called when the game is finished. We toast the fact that the game has finished, then
      * initialize our [GameFragmentDirections.ActionGameToScore] variable `val action` to
-     * the `NavDirections` for navigating to the `ScoreFragment`. We fetch the `score` field
-     * from our [GameViewModel] field [viewModel] and set the `score` field of `action` to it.
-     * We use the [NavHostFragment.findNavController] method to find the `NavController` for
-     * our fragment and then use its `navigate` method to navigate using `action` as the
-     * `NavDirections` for that navigation.
+     * the `NavDirections` for navigating to the `ScoreFragment`. We fetch the `score` value
+     * of the `LiveData` field for the score from our [GameViewModel] field [viewModel] and
+     * set the `score` field of `action` to it (defaulting to 0 is the `value` is *null*).
+     * We use the [NavHostFragment.findNavController] method to find the `NavController`
+     * for our fragment and then use its `navigate` method to navigate using `action` as
+     * the `NavDirections` for that navigation. Finally we call the `onGameFinishComplete`
+     * method of our [GameViewModel] field [viewModel] to have it set the value of the
+     * `eventGameFinish` `LiveData` to *false*.
      */
     private fun gameFinished() {
         Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
