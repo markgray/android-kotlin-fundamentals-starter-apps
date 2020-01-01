@@ -132,7 +132,8 @@ class GameFragment : Fragment() {
         gameFinished()
     }
 
-    /** Methods for updating the UI **/
+    /** Methods for updating the UI Now handled by the LiveData **/
+
     /**
      * Called when the game is finished. We toast the fact that the game has finished, then
      * initialize our [GameFragmentDirections.ActionGameToScore] variable `val action` to
