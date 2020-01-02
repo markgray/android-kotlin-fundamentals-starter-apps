@@ -53,15 +53,15 @@ class ScoreFragment : Fragment() {
      * the key `score` in our arguments as its `finalScore` parameter. We then use the
      * [ViewModelProviders.of] method to initialize our [ScoreViewModel] field [viewModel]
      * to an [ScoreViewModel] for our fragment's scope using either one that already exists
-     * or creating a new one. We add an [Observer] to the `LiveData<Int>` field `score`
-     * of [viewModel] whose `onChanged` override is a lambda which sets the text of the
-     * `scoreText` `TextView` of `binding` to the string value of its `newScore` parameter.
-     * We add an [Observer] to the `LiveData<Boolean>` field `eventPlayAgain` of
-     * [viewModel] whose `onChanged` override is a lambda which will if its `playAgain`
-     * parameter is *true* use the `NavController` returned by the [findNavController]
-     * method to navigate to the `ActionOnlyNavDirections` action `actionRestart` which
-     * navigates back to the `GameFragment`. Finally we return the root view of our
-     * [ScoreFragmentBinding] variable `binding` to the caller.
+     * or creating a new one. We set the `scoreViewModel` variable of `binding` to our
+     * [ScoreViewModelFactory] field [viewModel] and set the `LifecycleOwner` that should
+     * be used for observing changes of `LiveData` in `binding` to *this*. We add an [Observer]
+     * to the `LiveData<Boolean>` field `eventPlayAgain` of [viewModel] whose `onChanged`
+     * override is a lambda which will, if its `playAgain` parameter is *true*, use the
+     * `NavController` returned by the [findNavController] method to navigate to the
+     * `ActionOnlyNavDirections` action `actionRestart` which navigates back to the
+     * `GameFragment`. Finally we return the root view of our [ScoreFragmentBinding] variable
+     * `binding` to the caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
      * any views in the fragment
@@ -94,10 +94,10 @@ class ScoreFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(ScoreViewModel::class.java)
 
-        // Add observer for score
-        viewModel.score.observe(this, Observer { newScore ->
-            binding.scoreText.text = newScore.toString()
-        })
+        binding.scoreViewModel = viewModel
+        // Specify the current activity as the lifecycle owner of the binding.
+        // This is used so that the binding can observe LiveData updates
+        binding.lifecycleOwner = this
 
         // Navigates back to game when button is pressed
         viewModel.eventPlayAgain.observe(this, Observer { playAgain ->
@@ -106,8 +106,6 @@ class ScoreFragment : Fragment() {
                 viewModel.onPlayAgainComplete()
             }
         })
-
-        binding.playAgainButton.setOnClickListener {  viewModel.onPlayAgain() }
 
         return binding.root
     }

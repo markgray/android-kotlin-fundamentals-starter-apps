@@ -53,19 +53,12 @@ class GameFragment : Fragment() {
      * [inflater] and our [ViewGroup] parameter [container] (for its `LayoutParams`) without
      * attaching to it. We then initialize our [GameViewModel] field [viewModel] with an existing
      * `ViewModel` (if we are being recreated) or a newly created one in the scope of *this*
-     * `Fragment`. We add an [Observer] to the `score` `LiveData<Int>` field of [viewModel]
-     * with an `onChanged` override which is a lambda which will set the text of the
-     * `scoreText` `TextView in [binding] to the string value of the `newScore` passed it
-     * when the `LiveData` changes. We add an [Observer] to the `word` `LiveData<String>`
-     * field of [viewModel] with an `onChanged` override which is a lambda which will set
-     * the text of the `wordText` `TextView` value of the `newWord` passed it when the
-     * `LiveData` changes. We add an [Observer] to the `eventGameFinish` `LiveData<Boolean>`
-     * field of [viewModel] with an `onChanged` override which is a lambda which will call
-     * our method [gameFinished] if the `hasFinished` flag passed it is true. We then use
-     * [binding] to set the `OnClickListener` of `correctButton` to our method [onCorrect],
-     * the `OnClickListener` of `skipButton` to our method [onSkip], and the
-     * `OnClickListener` of `endGameButton` to our method [onEndGame]. Finally we return
-     * the root view of our [GameFragmentBinding] field [binding] to the caller.
+     * `Fragment`. We set the `gameViewModel` variable in our [binding] to [viewModel], and set
+     * the `LifecycleOwner` that should be used for observing changes of `LiveData` in [binding]
+     * to *this*. We add an [Observer] to the `eventGameFinish` `LiveData<Boolean>` field of
+     * [viewModel] with an `onChanged` override which is a lambda which will call our method
+     * [gameFinished] if the `hasFinished` flag passed it is true. Finally we return the root
+     * view of our [GameFragmentBinding] field [binding] to the caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
      * any views in the fragment
@@ -94,51 +87,24 @@ class GameFragment : Fragment() {
 
         Log.i("GameFragment", "Called ViewModelProviders.of")
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
-        /** Setting up LiveData observation relationship **/
-        viewModel.score.observe(this, Observer { newScore ->
-            binding.scoreText.text = newScore.toString()
-        })
-        /** Setting up LiveData observation relationship **/
-        viewModel.word.observe(this, Observer { newWord ->
-            binding.wordText.text = newWord
-        })
+
+        /**
+         * Set the viewmodel for databinding - this allows the
+         * bound layout access to all the data in the ViewModel
+         */
+        binding.gameViewModel = viewModel
+        /**
+         * Specify the current activity as the lifecycle owner of the binding.
+         * This is used so that the binding can observe LiveData updates
+         */
+        binding.lifecycleOwner = this
+
         /** Observer for the Game finished event **/
         viewModel.eventGameFinish.observe(this, Observer<Boolean> { hasFinished ->
             if (hasFinished) gameFinished()
         })
 
-        binding.correctButton.setOnClickListener { onCorrect() }
-        binding.skipButton.setOnClickListener { onSkip() }
-        binding.endGameButton.setOnClickListener { onEndGame() }
         return binding.root
-    }
-
-    /** Methods for button click handlers **/
-
-    /**
-     * `OnClickListener` for the `skipButton` `Button` in our UI. We call the `onSkip`
-     * method of our [GameViewModel] field [viewModel] to have it update its data (moves
-     * to next word and subtracts one from the score).
-     */
-    private fun onSkip() {
-        viewModel.onSkip()
-    }
-
-    /**
-     * `OnClickListener` for the `correctButton` `Button` in our UI. We call the `onCorrect`
-     * method of our [GameViewModel] field [viewModel] to have it update its data (moves to
-     * next word and adds one to the score).
-     */
-    private fun onCorrect() {
-        viewModel.onCorrect()
-    }
-
-    /**
-     * `OnClickListener` for the `endGameButton` `Button` in our UI. We just call our
-     * [gameFinished] method.
-     */
-    private fun onEndGame() {
-        gameFinished()
     }
 
     /** Methods for updating the UI Now handled by the LiveData **/
