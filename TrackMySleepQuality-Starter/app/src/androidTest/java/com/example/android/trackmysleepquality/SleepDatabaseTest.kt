@@ -84,4 +84,18 @@ class SleepDatabaseTest {
         sleepDao.clear()
     }
 
+    @Test
+    fun fillAndUpdate() {
+        var night = SleepNight()
+        sleepDao.clear()
+        repeat(10) {
+            night.sleepQuality = it
+            sleepDao.insert(night)
+        }
+        val newNight = sleepDao.get(10)!!
+        newNight.sleepQuality = 5
+        sleepDao.update(newNight)
+        night = sleepDao.get(10)!!
+        assertEquals(newNight, night)
+    }
 }
