@@ -32,6 +32,7 @@ import kotlinx.coroutines.withContext
 /**
  * ViewModel for SleepTrackerFragment.
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class SleepTrackerViewModel(
         val database: SleepDatabaseDao,
         application: Application) : AndroidViewModel(application) {
