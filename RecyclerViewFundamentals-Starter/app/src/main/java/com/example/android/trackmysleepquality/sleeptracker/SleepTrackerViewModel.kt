@@ -33,6 +33,7 @@ import kotlinx.coroutines.withContext
 /**
  * ViewModel for SleepTrackerFragment.
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class SleepTrackerViewModel(
         dataSource: SleepDatabaseDao,
         application: Application) : ViewModel() {
@@ -63,11 +64,12 @@ class SleepTrackerViewModel(
 
     private var tonight = MutableLiveData<SleepNight?>()
 
-    private val nights = database.getAllNights()
+    val nights = database.getAllNights()
 
     /**
      * Converted nights to Spanned for displaying.
      */
+    @Suppress("unused")
     val nightsString = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
     }
@@ -108,14 +110,14 @@ class SleepTrackerViewModel(
         get() = _showSnackbarEvent
 
     /**
-     * Variable that tells the Fragment to navigate to a specific [SleepQualityFragment]
+     * Variable that tells the Fragment to navigate to a specific `SleepQualityFragment`
      *
      * This is private because we don't want to expose setting this value to the Fragment.
      */
     private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
 
     /**
-     * If this is non-null, immediately navigate to [SleepQualityFragment] and call [doneNavigating]
+     * If this is non-null, immediately navigate to `SleepQualityFragment` and call [doneNavigating]
      */
     val navigateToSleepQuality: LiveData<SleepNight>
         get() = _navigateToSleepQuality
@@ -131,7 +133,7 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Call this immediately after navigating to [SleepQualityFragment]
+     * Call this immediately after navigating to `SleepQualityFragment`
      *
      * It will clear the navigation request, so if the user rotates their phone it won't navigate
      * twice.
