@@ -33,9 +33,9 @@ import com.example.android.trackmysleepquality.databinding.FragmentSleepDetailBi
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [SleepDetailFragment.OnFragmentInteractionListener] interface
+ * `SleepDetailFragment.OnFragmentInteractionListener` interface
  * to handle interaction events.
- * Use the [SleepDetailFragment.newInstance] factory method to
+ * Use the `SleepDetailFragment.newInstance` factory method to
  * create an instance of this fragment.
  *
  */
@@ -49,7 +49,7 @@ class SleepDetailFragment : Fragment() {
                 inflater, R.layout.fragment_sleep_detail, container, false)
 
         val application = requireNotNull(this.activity).application
-        val arguments = SleepDetailFragmentArgs.fromBundle(arguments)
+        val arguments = SleepDetailFragmentArgs.fromBundle(arguments!!)
 
         // Create an instance of the ViewModel Factory.
         val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
@@ -64,7 +64,7 @@ class SleepDetailFragment : Fragment() {
         // give the binding object a reference to it.
         binding.sleepDetailViewModel = sleepDetailViewModel
 
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         // Add an Observer to the state variable for Navigating when a Quality icon is tapped.
         sleepDetailViewModel.navigateToSleepTracker.observe(this, Observer {
