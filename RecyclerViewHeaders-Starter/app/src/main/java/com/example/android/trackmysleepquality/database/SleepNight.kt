@@ -25,14 +25,28 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "daily_sleep_quality_table")
 data class SleepNight(
+        /**
+         * The PrimaryKey of our table, must be unique so we have room automatically generate it.
+         */
         @PrimaryKey(autoGenerate = true)
         var nightId: Long = 0L,
 
+        /**
+         * The start time of the [SleepNight] entry, it is set when the START button is clicked.
+         */
         @ColumnInfo(name = "start_time_milli")
         val startTimeMilli: Long = System.currentTimeMillis(),
 
+        /**
+         * The stop time of the [SleepNight] entry, it is set when the STOP button is clicked.
+         */
         @ColumnInfo(name = "end_time_milli")
         var endTimeMilli: Long = startTimeMilli,
 
+        /**
+         * The subjective quality rating of the night's sleep, it is set by clicking one of the
+         * icons in the SleepQualityFragment. The minus 1 initial value denotes a "sleep in
+         * progress" state.
+         */
         @ColumnInfo(name = "quality_rating")
         var sleepQuality: Int = -1)

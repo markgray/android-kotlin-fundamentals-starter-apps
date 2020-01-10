@@ -19,7 +19,6 @@ package com.example.android.trackmysleepquality.database
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 
@@ -30,6 +29,11 @@ import androidx.room.Update
 @Dao
 interface SleepDatabaseDao {
 
+    /**
+     * Inserts a new row.
+     *
+     * @param night new value to insert
+     */
     @Insert
     fun insert(night: SleepNight)
 
@@ -43,7 +47,8 @@ interface SleepDatabaseDao {
     fun update(night: SleepNight)
 
     /**
-     * Selects and returns the row that matches the supplied start time, which is our key.
+     * Selects and returns the row that matches the supplied `nightId` PrimaryKey, which is our
+     * parameter [key].
      *
      * @param key startTimeMilli to match
      */
@@ -59,21 +64,28 @@ interface SleepDatabaseDao {
     fun clear()
 
     /**
-     * Selects and returns all rows in the table,
+     * Selects and returns all rows in the table, sorted by `nightId` PrimaryKey in descending order.
      *
-     * sorted by start time in descending order.
+     * @return a [LiveData] containing a [List] of all the [SleepNight] entries in our table.
      */
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC")
     fun getAllNights(): LiveData<List<SleepNight>>
 
     /**
      * Selects and returns the latest night.
+     *
+     * @return returns the [SleepNight] entry whose PrimaryKey is the highest one in our table
      */
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC LIMIT 1")
     fun getTonight(): SleepNight?
 
     /**
-     * Selects and returns the night with given nightId.
+     * Selects and returns the [SleepNight] night with `nightId` PrimaryKey of our parameter [key]
+     * wrapped in a [LiveData]
+     *
+     * @param key the `nightId` PrimaryKey of the [SleepNight] we want.
+     * @return the [SleepNight] with the `nightId` PrimaryKey matching our parameter [key], wrapped
+     * in a [LiveData].
      */
     @Query("SELECT * from daily_sleep_quality_table WHERE nightId = :key")
     fun getNightWithId(key: Long): LiveData<SleepNight>
