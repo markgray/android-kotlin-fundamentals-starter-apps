@@ -24,7 +24,7 @@ import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 /**
  * This is pretty much boiler plate code for a ViewModel Factory.
  *
- * Provides the key for the night and the SleepDatabaseDao to the ViewModel.
+ * Provides the key for the night and the [SleepDatabaseDao] to the [SleepDetailViewModel] ViewModel.
  */
 class SleepDetailViewModelFactory(
         private val sleepNightKey: Long,

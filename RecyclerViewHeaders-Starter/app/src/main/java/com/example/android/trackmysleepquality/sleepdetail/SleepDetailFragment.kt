@@ -52,8 +52,8 @@ class SleepDetailFragment : Fragment() {
      *
      * We then set the `sleepDetailViewModel` `variable` of our variable `binding` to this
      * `sleepDetailViewModel` and its `LifecycleOwner` to *this*. Next we add an Observer to the
-     * [Boolean] `LiveData` state variable in our `sleepDetailViewModel` for Navigating when a
-     * Quality icon is tapped in our `RecyclerView` to a lambda which when the variable changes to
+     * [Boolean] `LiveData` state variable in our `sleepDetailViewModel` for Navigating when the
+     * close button in our UI is clicked to a lambda which when the variable changes to
      * *true* will find the `NavController` of our Fragment and call its `navigate` method to
      * navigate back to the `SleepTrackerFragment` and then call the `doneNavigating` method of
      * `sleepDetailViewModel` to have it reset the `navigateToSleepTracker` to *null*.

@@ -27,6 +27,7 @@ import kotlinx.coroutines.Job
  * ViewModel for SleepDetailFragment.
  *
  * @param sleepNightKey The key of the current night we are working on.
+ * @param dataSource the [SleepDatabaseDao] that provides access to our database.
  */
 class SleepDetailViewModel(
         private val sleepNightKey: Long = 0L,
@@ -40,37 +41,49 @@ class SleepDetailViewModel(
     /** Coroutine setup variables */
 
     /**
-     * viewModelJob allows us to cancel all coroutines started by this ViewModel.
+     * [viewModelJob] allows us to cancel all coroutines started by this ViewModel.
      */
     private val viewModelJob = Job()
 
+    /**
+     * The [SleepNight] entry in our database with the `nightId` PrimaryKey.
+     */
     private val night: LiveData<SleepNight>
 
+    /**
+     * Getter for our [night] field.
+     */
     fun getNight() = night
 
-
+    /**
+     * We just initialize our `night` field by querying the database for the night whose `nightId`
+     * PrimaryKey is the same as our field `sleepNightKey`
+     */
     init {
         night=database.getNightWithId(sleepNightKey)
     }
 
     /**
      * Variable that tells the fragment whether it should navigate to `SleepTrackerFragment`.
-     *
      * This is `private` because we don't want to expose the ability to set [MutableLiveData] to
-     * the `Fragment`
+     * the `Fragment`. It is set by our [onClose] method which is called by the android:onClick
+     * attribute of the "Close" button in our UI, and set to *null* by our [doneNavigating] method
+     * by the `SleepDetailFragment` after it navigates back to the `SleepTrackerFragment`
      */
     private val _navigateToSleepTracker = MutableLiveData<Boolean?>()
 
     /**
-     * When true immediately navigate back to the `SleepTrackerFragment`
+     * When *true* immediately navigate back to the `SleepTrackerFragment`, it is observed by a
+     * lambda which is created in the `onCreateView` method of `SleepDetailFragment`.
      */
     val navigateToSleepTracker: LiveData<Boolean?>
         get() = _navigateToSleepTracker
 
     /**
-     * Cancels all coroutines when the ViewModel is cleared, to cleanup any pending work.
-     *
-     * onCleared() gets called when the ViewModel is destroyed.
+     * Cancels all coroutines when the ViewModel is cleared, to cleanup any pending work,
+     * onCleared() gets called when the ViewModel is destroyed. After calling our super's
+     * implementation of `onCleared` we call the `cancel` method of our [Job] field [viewModelJob]
+     * to cancel all coroutines started by this ViewModel.
      */
     override fun onCleared() {
         super.onCleared()
@@ -84,6 +97,10 @@ class SleepDetailViewModel(
         _navigateToSleepTracker.value = null
     }
 
+    /**
+     * Causes this fragment to be closed, and has the app navigate to the `SleepTrackerFragment`.
+     * This is called by the android:onClick attribute of the "Close" button in our UI.
+     */
     fun onClose() {
         _navigateToSleepTracker.value = true
     }

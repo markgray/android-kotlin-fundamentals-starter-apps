@@ -31,15 +31,38 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * This is the View type we use for our header, there is one and only one header in our dataset with
+ * the ID [Long.MIN_VALUE]. We return a `TextViewHolder` for this entry which is a three column wide
+ * `TextView` displaying the string "Sleep Results".
+ */
 private const val ITEM_VIEW_TYPE_HEADER = 0
+/**
+ * This is the View type we use for the individual [SleepNight] data items in our dataset. We return
+ * a `ViewHolder` whose `binding` is the [ListItemSleepNightBinding] that is automatically generated
+ * from our layout/list_item_sleep_night.xml layout file (the [ListItemSleepNightBinding] Impl class
+ * provides an `inflate` method for that layout file auto-magically).
+ */
 private const val ITEM_VIEW_TYPE_ITEM = 1
 
+/**
+ * The [ListAdapter] we use to fill our [RecyclerView] with [SleepNight] data (and Header)
+ */
 @Suppress("MemberVisibilityCanBePrivate")
 class SleepNightAdapter(val clickListener: SleepNightListener):
         ListAdapter<DataItem, RecyclerView.ViewHolder>(SleepNightDiffCallback()) {
 
+    /**
+     * The is the [CoroutineScope] we use in our [addHeaderAndSubmitList] method to run the
+     * suspending call to submit a new list to be diffed, and displayed. That method is called
+     * by an `Observer` which is placed on the `LiveData` field `nights` of the [SleepTrackerViewModel]
+     * when the `onCreateView` method is called in [SleepTrackerFragment].
+     */
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
+    /**
+     *
+     */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ViewHolder -> {

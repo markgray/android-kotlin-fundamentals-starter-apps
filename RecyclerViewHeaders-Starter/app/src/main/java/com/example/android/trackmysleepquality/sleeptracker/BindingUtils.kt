@@ -24,7 +24,14 @@ import com.example.android.trackmysleepquality.convertDurationToFormatted
 import com.example.android.trackmysleepquality.convertNumericQualityToString
 import com.example.android.trackmysleepquality.database.SleepNight
 
-
+/**
+ * This is the [BindingAdapter] for the app:sleepDurationFormatted attribute of [TextView] which is
+ * used to set the text of the android:id="@+id/sleep_length" [TextView] of the fragment_sleep_detail
+ * layout file used by the `SleepDetailFragment`. If our [SleepNight] parameter [item] is not *null*
+ * we set the text of the [TextView] that uses our attribute to the string returned by our method
+ * [convertDurationToFormatted] when it is passed the `startTimeMilli` and `endTimeMilli` fields of
+ * [item].
+ */
 @BindingAdapter("sleepDurationFormatted")
 fun TextView.setSleepDurationFormatted(item: SleepNight?) {
     item?.let {
@@ -32,7 +39,13 @@ fun TextView.setSleepDurationFormatted(item: SleepNight?) {
     }
 }
 
-
+/**
+ * This is the [BindingAdapter] for the app:sleepQualityString attribute of [TextView] which is
+ * used to set the text of the android:id="@+id/quality_string" [TextView] of the fragment_sleep_detail
+ * layout file used by the `SleepDetailFragment`. If our [SleepNight] parameter [item] is not *null*
+ * we set the text of the [TextView] that uses our attribute to the string returned by our method
+ * [convertNumericQualityToString] when it is passed the `sleepQuality` field of [item].
+ */
 @BindingAdapter("sleepQualityString")
 fun TextView.setSleepQualityString(item: SleepNight?) {
     item?.let {
@@ -40,7 +53,15 @@ fun TextView.setSleepQualityString(item: SleepNight?) {
     }
 }
 
-
+/**
+ * This is the [BindingAdapter] for the app:sleepImage attribute of [ImageView] which is used to set
+ * the image of the android:id="@+id/quality_image" [ImageView] of the fragment_sleep_detail layout
+ * file used by the `SleepDetailFragment`. If our [SleepNight] parameter [item] is not *null* we
+ * branch on the value of its `sleepQuality` in a *when* expression which returns the resource ID
+ * for the icon drawable that depicts that sleep quality and use the value returned as the resource
+ * ID for the `setImageResource` method to use as the content of the [ImageView] that uses our
+ * attribute.
+ */
 @BindingAdapter("sleepImage")
 fun ImageView.setSleepImage(item: SleepNight?) {
     item?.let {
