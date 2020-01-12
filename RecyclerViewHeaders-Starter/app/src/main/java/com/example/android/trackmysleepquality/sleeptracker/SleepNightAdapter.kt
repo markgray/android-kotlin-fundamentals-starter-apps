@@ -61,7 +61,24 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
     /**
+     * Called by RecyclerView to display the data at the specified position. This method should
+     * update the contents of the [ViewHolder] to reflect the item at the given position. We branch
+     * on whether our [RecyclerView.ViewHolder] parameter [holder] is a [ViewHolder] (our holder for
+     * a [SleepNight] from the database) and if it is we initialize our [DataItem.SleepNightItem]
+     * variable `val nightItem` to the [DataItem] in position [position] that [getItem] returns from
+     * the list that our [addHeaderAndSubmitList] method has submitted to our [ListAdapter] super to
+     * be diffed and displayed (an observer which the `onCreateView` method of [SleepTrackerFragment]
+     * added to the `LiveData` `nights` property of [SleepTrackerViewModel] calls [addHeaderAndSubmitList]
+     * when the list of [SleepNight] in the database has changed). We then call the `bind` method
+     * of [holder] to have it set its binding `<variable>` `sleep` to the `sleepNight` field of
+     * `nightItem` and the `clickListener` binding `<variable>` to our [SleepNightListener] field
+     * [clickListener] (it then calls the `executePendingBindings` method of `binding` to have it
+     * evaluate the pending bindings, updating any Views that have expressions bound to modified
+     * variables.
      *
+     * @param holder The ViewHolder which should be updated to represent the contents of the
+     *        item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -72,6 +89,27 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
         }
     }
 
+    /**
+     * Called when RecyclerView needs a new [ViewHolder] of the given type to represent an item.
+     * This new ViewHolder should be constructed with a new View that can represent the items
+     * of the given type. You can either create a new View manually or inflate it from an XML
+     * layout file. We branch on our parameter [viewType]:
+     *
+     *  * ITEM_VIEW_TYPE_HEADER - the [ViewHolder] holding our header: we return a [TextViewHolder]
+     *  which contains the [View] that the [TextViewHolder.from] method inflates from our header
+     *  layout file R.layout.header
+     *
+     *  * ITEM_VIEW_TYPE_ITEM - the [ViewHolder] holding an individual [SleepNight]: we return a
+     *  [ViewHolder] that the [ViewHolder.from] method creates which holds the binding that the
+     *  [ListItemSleepNightBinding.inflate] method returns.
+     *
+     *  * All other values of [viewType]: we *throw* an [ClassCastException]
+     *
+     * @param parent The ViewGroup into which the new View will be added after it is bound to
+     *               an adapter position.
+     * @param viewType The view type of the new View.
+     * @return A new ViewHolder that holds a View of the given view type.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         @Suppress("RemoveCurlyBracesFromTemplate")
         return when (viewType) {
@@ -81,6 +119,26 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
         }
     }
 
+    /**
+     * Adds the [DataItem.Header] datum to the beginning of a [List] it constructs of datums which
+     * hold [DataItem.SleepNightItem] objects constructed to hold the `nightId` PrimaryKey of every
+     * [SleepNight] in the `List<SleepNight>` parameter [list], then calls [submitList] to submit
+     * the new list to be diffed, and displayed. We launch a co-routine on the [CoroutineScope] of
+     * [adapterScope] which first initializes the `List<DataItem>` variable `val items` to either
+     * a [List] holding only the [DataItem.Header] header datum if our parameter list is *null* or
+     * one formed by concatenating [DataItem.Header] to the beginning of a [DataItem] list that is
+     * constructed by using the `map` method of our parameter [list] to construct and add a
+     * [DataItem.SleepNightItem] holding the `nightId` PrimaryKey of every [SleepNight] that is in
+     * our parameter [list]. Then using the [Dispatchers.Main] coroutine dispatcher we launch a
+     * co-routine on the UI thread which calls the [submitList] method to submit the new list to be
+     * diffed, and displayed. We are called from an `Observer` that the `onCreateView` method of
+     * [SleepTrackerFragment] added to the `LiveData` `nights` property of [SleepTrackerViewModel]
+     * which gets notified when the `getAllNights` method of our database signals that the `LiveData`
+     * list of [SleepNight]'s in the database has changed.
+     *
+     * @param list the [List] of all [SleepNight] datums retrieved from the room database by the
+     * `getAllNights` method of our `SleepDatabaseDao`
+     */
     fun addHeaderAndSubmitList(list: List<SleepNight>?) {
         adapterScope.launch {
             val items = when (list) {
@@ -93,6 +151,20 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
         }
     }
 
+    /**
+     * Return the view type of the item at [position] for the purposes of view recycling. We branch
+     * on the type of the datum at position [position] in our dataset:
+     *
+     *  * [DataItem.Header]: we return ITEM_VIEW_TYPE_HEADER
+     *
+     *  * [DataItem.SleepNightItem]: we return ITEM_VIEW_TYPE_ITEM
+     *
+     *  * all other classes: we *throw* [IllegalArgumentException]
+     *
+     * @param position position to query
+     * @return integer value identifying the type of the view needed to represent the item at
+     * position [position]. Type codes need not be contiguous.
+     */
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is DataItem.Header -> ITEM_VIEW_TYPE_HEADER
@@ -101,8 +173,21 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
         }
     }
 
+    /**
+     * The [RecyclerView.ViewHolder] used to hold the header `TextView` inflated from the layout
+     * file R.layout.header
+     *
+     * @param view the [View] we are to hold
+     */
     class TextViewHolder(view: View): RecyclerView.ViewHolder(view) {
         companion object {
+            /**
+             * Constructs a [TextViewHolder] to hold the `TextView` inflated from the header layout
+             * file R.layout.header
+             *
+             * @param parent the [ViewGroup] to use for our `LayoutParams`
+             * @return a [TextViewHolder] holding the header `TextView` in its `view` field.
+             */
             fun from(parent: ViewGroup): TextViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val view = layoutInflater.inflate(R.layout.header, parent, false)
@@ -111,8 +196,27 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
         }
     }
 
-    class ViewHolder private constructor(val binding: ListItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root){
+    /**
+     * The [RecyclerView.ViewHolder] constructed to hold the `binding` to a [ViewGroup] which can
+     * display the data that an individual [SleepNight] datum represents.
+     *
+     * @param binding the [ListItemSleepNightBinding] binding we are to hold
+     */
+    class ViewHolder private constructor(
+            val binding: ListItemSleepNightBinding
+    ) : RecyclerView.ViewHolder(binding.root){
 
+        /**
+         * "Binds" the `<variable>`'s of our [ViewGroup] to the parameters passed us. We set the
+         * `sleep` `<variable>` of [binding] to our [SleepNight] parameter [item] and its
+         * `clickListener` `<variable>` to our [SleepNightListener] parameter [clickListener].
+         * Then we call the `executePendingBindings` method of [binding] to have if evaluate the
+         * pending bindings, updating any Views that have expressions bound to modified variables.
+         *
+         * @param item the [SleepNight] data that should be displayed by our [ViewGroup]
+         * @param clickListener the [SleepNightListener] that will be called when our [ViewGroup] is
+         * clicked.
+         */
         fun bind(item: SleepNight, clickListener: SleepNightListener) {
             binding.sleep = item
             binding.clickListener = clickListener
@@ -120,25 +224,68 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
         }
 
         companion object {
+            /**
+             * Factory method to create a [ViewHolder] which will hold the [ListItemSleepNightBinding]
+             * binding to a newly inflated [View] auto-magically inflated from the layout file
+             * list_item_sleep_night.xml by the generated [ListItemSleepNightBinding.inflate] method.
+             * We initialize our [LayoutInflater] variable `val layoutInflater` to the [LayoutInflater]
+             * for the context of our [ViewGroup] parameter [parent], then initialize our variable
+             * `val binding` to the [ListItemSleepNightBinding] binding that the `inflate` method
+             * returns when it uses `layoutInflater` to inflate the list_item_sleep_night.xml layout
+             * file. Finally we return a [ViewHolder] constructed to hold `binding`.
+             *
+             * @param parent the [ViewGroup] we can use for its `Context` and `LayoutParams`
+             */
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemSleepNightBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemSleepNightBinding.inflate(
+                        layoutInflater,
+                        parent,
+                        false
+                )
                 return ViewHolder(binding)
             }
         }
     }
 }
 
+/**
+ * [DiffUtil.ItemCallback] callback that our [ListAdapter] will use to determine if our dataset has
+ * changed.
+ */
 class SleepNightDiffCallback : DiffUtil.ItemCallback<DataItem>() {
+    /**
+     * Called to check whether two objects represent the same item. For example, if your items have
+     * unique ids, this method should check their id equality. And that is indeed what we do.
+     *
+     * @param oldItem The item in the old list.
+     * @param newItem The item in the new list.
+     * @return *true* if the two items represent the same object or *false* if they are different.
+     */
     override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
         return oldItem.id == newItem.id
     }
+
+    /**
+     * Called to check whether two items have the same data. This information is used to detect if
+     * the contents of an item have changed. This method is used to check equality instead of
+     * `equals` so that you can change its behavior depending on your UI. We just return the result
+     * of comparing the two items using the "==" operator.
+     *
+     * @param oldItem The item in the old list.
+     * @param newItem The item in the new list.
+     * @return *true* if the contents of the items are the same or *false* if they are different.
+     */
     @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
         return oldItem == newItem
     }
 }
 
+/**
+ * The [onClick] method of this class is used whenever a [SleepNight] icon in the [RecyclerView] is
+ * clicked
+ */
 class SleepNightListener(val clickListener: (sleepId: Long) -> Unit) {
     fun onClick(night: SleepNight) = clickListener(night.nightId)
 }
