@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModel
 import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.formatNights
+import com.example.android.trackmysleepquality.sleepquality.SleepQualityFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -32,6 +33,9 @@ import kotlinx.coroutines.withContext
 
 /**
  * ViewModel for SleepTrackerFragment.
+ *
+ * @param dataSource handle to the [SleepDatabaseDao] for our Room database
+ * @param application used to fetch resources from our apk.
  */
 class SleepTrackerViewModel(
         dataSource: SleepDatabaseDao,
@@ -45,7 +49,9 @@ class SleepTrackerViewModel(
     /** Coroutine variables */
 
     /**
-     * viewModelJob allows us to cancel all coroutines started by this ViewModel.
+     * [viewModelJob] allows us to cancel all coroutines started by this ViewModel, this is because
+     * our [CoroutineScope] field [uiScope] appends [viewModelJob] to [Dispatchers.Main] to create
+     * its context and we use [uiScope] to launch all of our background co-routines.
      */
     private var viewModelJob = Job()
 
@@ -61,13 +67,22 @@ class SleepTrackerViewModel(
      */
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    /**
+     * Holds tonight's [SleepNight] retrieved from the database by our [getTonightFromDatabase]
+     * method by calling the `getTonight` method of the [SleepDatabaseDao] of the [database] handle
+     * to our database.
+     */
     private var tonight = MutableLiveData<SleepNight?>()
 
+    /**
+     * Contains all rows in the table, sorted by `nightId` PrimaryKey in descending order.
+     */
     val nights = database.getAllNights()
 
     /**
      * Converted nights to Spanned for displaying.
      */
+    @Suppress("unused")
     val nightsString = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
     }
@@ -94,20 +109,21 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Request a toast by setting this value to true.
+     * Request a `SnackBar` by setting this value to true.
      *
      * This is private because we don't want to expose setting this value to the Fragment.
      */
     private var _showSnackbarEvent = MutableLiveData<Boolean?>()
 
     /**
-     * If this is true, immediately `show()` a toast and call `doneShowingSnackbar()`.
+     * If this is true, immediately `show()` a `SnackBar` and call `doneShowingSnackbar()`.
      */
     val showSnackBarEvent: LiveData<Boolean?>
         get() = _showSnackbarEvent
 
     /**
-     * Variable that tells the Fragment to navigate to a specific [SleepQualityFragment]
+     * Variable that tells the Fragment to navigate to [SleepQualityFragment] to select a quality
+     * ICON for the [SleepNight] being edited.
      *
      * This is private because we don't want to expose setting this value to the Fragment.
      */
@@ -120,10 +136,10 @@ class SleepTrackerViewModel(
         get() = _navigateToSleepQuality
 
     /**
-     * Call this immediately after calling `show()` on a toast.
+     * Call this immediately after calling `show()` on a `SnackBar`.
      *
-     * It will clear the toast request, so if the user rotates their phone it won't show a duplicate
-     * toast.
+     * It will clear the `SnackBar` request, so if the user rotates their phone it won't show a
+     * duplicate `SnackBar`.
      */
     fun doneShowingSnackbar() {
         _showSnackbarEvent.value = null
@@ -140,16 +156,29 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Navigation for the SleepDetail fragment.
+     * Private Navigation for the SleepDetail fragment.
      */
     private val _navigateToSleepDetail = MutableLiveData<Long>()
+    /**
+     * Read only access to [_navigateToSleepDetail]
+     */
     val navigateToSleepDetail
         get() = _navigateToSleepDetail
 
+    /**
+     * Setter for the value of our [MutableLiveData] property [_navigateToSleepDetail]. It is called
+     * by a lambda which calls us with the `nightId` PrimaryKey of a [SleepNight] item in the
+     * `RecyclerView` of `SleepTrackerFragment` which the user has clicked.
+     */
     fun onSleepNightClicked(id: Long) {
         _navigateToSleepDetail.value = id
     }
 
+    /**
+     * Resets the value of our [MutableLiveData] property [_navigateToSleepDetail] to *null*. Needs
+     * to be called immediately after navigating to `SleepDetailFragment` to prevent navigating
+     * again when a configuration change occurs.
+     */
     fun onSleepDetailNavigated() {
         _navigateToSleepDetail.value = null
     }
@@ -158,6 +187,12 @@ class SleepTrackerViewModel(
         initializeTonight()
     }
 
+    /**
+     * Called to initialize the value of our [MutableLiveData] property [tonight] (holds the result
+     * of calling the `getTonight` method of [database] to retrieve the [SleepNight] for "tonight").
+     * We use our [uiScope]  to launch on the UI [CoroutineScope] a call to our suspending method
+     * [getTonightFromDatabase] and set the value of [tonight] to the [SleepNight] it returns.
+     */
     private fun initializeTonight() {
         uiScope.launch {
             tonight.value = getTonightFromDatabase()
@@ -165,11 +200,13 @@ class SleepTrackerViewModel(
     }
 
     /**
-     *  Handling the case of the stopped app or forgotten recording,
-     *  the start and end times will be the same.j
-     *
-     *  If the start time and end time are not the same, then we do not have an unfinished
-     *  recording.
+     * Handling the case of the stopped app or forgotten recording, the start and end times will be
+     * the same. If the start time and end time are not the same, then we do not have an unfinished
+     * recording. We launch a lambda on the background [CoroutineScope] of [Dispatchers.IO]. The
+     * lambda initializes the [SleepNight] variable `var night` to the [SleepNight] returned by the
+     * `getTonight` method of our [database], and if the `endTimeMilli` field of `night` is not equal
+     * to its `startTimeMilli` field (the entry for the last [SleepNight] is completed already) we
+     * set `night` to *null*. Finally we return `night` to the caller.
      */
     private suspend fun getTonightFromDatabase(): SleepNight? {
         return withContext(Dispatchers.IO) {
@@ -181,18 +218,37 @@ class SleepTrackerViewModel(
         }
     }
 
+    /**
+     * Inserts a new [SleepNight] into the database. We launch a suspending lambda on the background
+     * [CoroutineScope] of [Dispatchers.IO] which calls the `insert` method of [database] to have
+     * Room insert our [SleepNight] parameter [night] into the database.
+     *
+     * @param night the [SleepNight] to insert into the database.
+     */
     private suspend fun insert(night: SleepNight) {
         withContext(Dispatchers.IO) {
             database.insert(night)
         }
     }
 
+    /**
+     * Updates a [SleepNight] in the database. We launch a suspending lambda on the background
+     * [CoroutineScope] of [Dispatchers.IO] which calls the `update` method of [database] to have
+     * Room update the entry for our [SleepNight] parameter [night] in the database.
+     *
+     * @param night the [SleepNight] to insert into the database.
+     */
     private suspend fun update(night: SleepNight) {
         withContext(Dispatchers.IO) {
             database.update(night)
         }
     }
 
+    /**
+     * Clears the database. We launch a suspending lambda on the background [CoroutineScope] of
+     * [Dispatchers.IO] which calls the `clear` method of [database] to have Room clear all
+     * entries in the database.
+     */
     private suspend fun clear() {
         withContext(Dispatchers.IO) {
             database.clear()

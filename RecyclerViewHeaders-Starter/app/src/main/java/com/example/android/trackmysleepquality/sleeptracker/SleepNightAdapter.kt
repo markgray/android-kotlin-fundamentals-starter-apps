@@ -284,18 +284,49 @@ class SleepNightDiffCallback : DiffUtil.ItemCallback<DataItem>() {
 
 /**
  * The [onClick] method of this class is used whenever a [SleepNight] icon in the [RecyclerView] is
- * clicked
+ * clicked. An instance is passed to the constructor of [SleepNightAdapter], and this instance is
+ * bound to the `clickListener` `<variable>` of each `ViewHolder` holding a [SleepNight] by the
+ * `bind` method of `ViewHolder`, and the `ConstraintLayout` displaying the [SleepNight] calls
+ * [onClick] because of the attribute: android:onClick="@{() -> clickListener.onClick(sleep)}".
+ * The [clickListener] passed the constructor of [SleepNightAdapter] in our case is a lambda which
+ * calls the `onSleepNightClicked` method of [SleepTrackerViewModel] with the `nightId` field of
+ * the [SleepNight] that the `ViewHolder` holds causing a navigation to a `SleepDetailFragment`
+ * displaying the details of that [SleepNight].
+ *
+ * @param clickListener a lambda which will be invoked when our [onClick] method is called.
  */
 class SleepNightListener(val clickListener: (sleepId: Long) -> Unit) {
+    /**
+     * Called using the binding magic when a view in the `RecyclerView` is clicked. Each view holds
+     * an instance of the [SleepNightListener] passed our constructor in its `clickListener` variable
+     * and the android:onClick attribute calls its [onClick] method with its [SleepNight] variable
+     * `sleep`.
+     *
+     * @param night the [SleepNight] datum displayed in the icon which was cicked
+     */
     fun onClick(night: SleepNight) = clickListener(night.nightId)
 }
 
+/**
+ * The parent class of a datum in our dataset, which can hold either a [SleepNightItem] or a
+ * [Header] subclass of [DataItem]
+ */
 sealed class DataItem {
+    /**
+     * The ID of this [DataItem], must be overridden by subclass
+     */
     abstract val id: Long
+
+    /**
+     * A [DataItem] holding a [SleepNight] entry from the database
+     */
     data class SleepNightItem(val sleepNight: SleepNight): DataItem()      {
         override val id = sleepNight.nightId
     }
 
+    /**
+     * The singleton [DataItem] for our header "entry"
+     */
     object Header: DataItem() {
         override val id = Long.MIN_VALUE
     }
