@@ -256,7 +256,16 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Executes when the START button is clicked.
+     * Executes when the START button is clicked. This is because the android:id="@+id/start_button"
+     * button in our layout file fragment_sleep_tracker.xml has the attribute:
+     *
+     * android:onClick="@{() -> sleepTrackerViewModel.onStart()}"
+     *
+     * We launch a lambda on the [CoroutineScope] of [uiScope] which initializes our [SleepNight]
+     * variable `val newNight` with a new instance then calls our *suspending* method [insert] to
+     * insert it into our database. We then set the *value* of [tonight] to the [SleepNight] which
+     * our *suspending* method [getTonightFromDatabase] retrieves from the database (should be the
+     * same on we just inserted of course).
      */
     fun onStart() {
         uiScope.launch {
@@ -271,7 +280,19 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Executes when the STOP button is clicked.
+     * Executes when the STOP button is clicked. This is because the android:id="@+id/stop_button"
+     * button in our layout file fragment_sleep_tracker.xml has the attribute:
+     *
+     * android:onClick="@{() -> sleepTrackerViewModel.onStop()}"
+     *
+     * We launch a lambda on the [CoroutineScope] of [uiScope] which initializes our [SleepNight]
+     * variable `val oldNight` with the *value* of [tonight] if it is not *null* (or returns from
+     * the *launch* if it is *null*). We set the `endTimeMilli` field of `oldNight` to the current
+     * system time, then call our *suspending* method [update] to update the `oldNight` entry in
+     * the database. Finally we set the *value* of [_navigateToSleepQuality] to `oldNight` (this
+     * will trigger navigation to [SleepQualityFragment] to allow the user to select a sleep quality
+     * for this [SleepNight] due to an `Observer` of this field which is added in the `onCreateView`
+     * method of [SleepTrackerFragment]).
      */
     fun onStop() {
         uiScope.launch {
@@ -291,7 +312,16 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Executes when the CLEAR button is clicked.
+     * Executes when the CLEAR button is clicked. This is because the android:id="@+id/clear_button"
+     * button in our layout file fragment_sleep_tracker.xml has the attribute:
+     *
+     * android:onClick="@{() -> sleepTrackerViewModel.onClear()}"
+     *
+     * We launch a lambda on the [CoroutineScope] of [uiScope] which calls our *suspending* method
+     * [clear] to clear all entries from our database, set the *value* of [tonight] to *null*, and
+     * set the *value* of [_showSnackbarEvent] to *true* (this will trigger a `SnackBar` message
+     * announcing the deletion of all data due to an `Observer` of this field which is added in the
+     * `onCreateView` method of [SleepTrackerFragment]).
      */
     fun onClear() {
         uiScope.launch {
