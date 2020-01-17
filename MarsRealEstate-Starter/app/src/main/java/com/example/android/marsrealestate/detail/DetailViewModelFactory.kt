@@ -28,6 +28,19 @@ class DetailViewModelFactory(
         private val marsProperty: MarsProperty,
         private val application: Application) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
+
+    /**
+     * Creates a new instance of the given [Class]. We perform a sanity check to make sure that
+     * our [Class] parameter [modelClass] is either the same as, or is a superclass or superinterface
+     * of [DetailViewModel] and throw [IllegalArgumentException] if it is not. Otherwise we return
+     * a new instance of [DetailViewModel] constructed to display our [MarsProperty] field
+     * [marsProperty] using our [Application] field [application] to access any resources it might
+     * need.
+     *
+     * @param modelClass a [Class] whose instance is requested
+     * @param T          The type parameter for the ViewModel.
+     * @return a newly created [DetailViewModel]
+     */
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(marsProperty, application) as T

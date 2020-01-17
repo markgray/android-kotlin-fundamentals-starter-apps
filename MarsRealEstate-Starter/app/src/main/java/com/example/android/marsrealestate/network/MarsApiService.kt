@@ -26,23 +26,45 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/**
+ * Enum used by the options menu of `OverViewFragment` to select a filter string to use when forming
+ * a Retrofit query.
+ */
 enum class MarsApiFilter(val value: String) {
     SHOW_RENT("rent"),
     SHOW_BUY("buy"),
     SHOW_ALL("all") }
 
+/**
+ * The API base URL for our Retrofit query.
+ */
 private const val BASE_URL = " https://android-kotlin-fun-mars-server.appspot.com/"
 
+/**
+ * The [Moshi] instance we use to create a converter factory for serialization and deserialization
+ * of objects in our Retrofit query. It uses a `KotlinJsonAdapter` to encode Kotlin classes using
+ * their property names as keys to the Json object, and the values of the Json object are assigned
+ * to the corresponding property in the Kotlin class when the Json is converted.
+ */
 private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
 
+/**
+ * The Refrofit instance we use for our queries. It uses a converter factory created from our field
+ * [moshi] to make a `KotlinJsonAdapter` when it needs to convert Json to [MarsProperty] instances,
+ * uses a `CoroutineCallAdapterFactory` to use a Co-routine service method return type rather than
+ * a CallBack one, and uses [BASE_URL] as its base url.
+ */
 private val retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .baseUrl(BASE_URL)
         .build()
 
+/**
+ * The interface we use to fetch the [List] of [MarsProperty] objects from the REST service.
+ */
 @Suppress("DeferredIsResult")
 interface MarsApiService {
     @GET("realestate")
@@ -52,5 +74,6 @@ interface MarsApiService {
 
 object MarsApi {
     val retrofitService : MarsApiService by lazy {
-        retrofit.create(MarsApiService::class.java) }
+        retrofit.create(MarsApiService::class.java)
+    }
 }
