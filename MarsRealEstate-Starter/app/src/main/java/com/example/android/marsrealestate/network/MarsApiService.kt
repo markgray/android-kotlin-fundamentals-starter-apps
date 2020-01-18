@@ -67,6 +67,13 @@ private val retrofit = Retrofit.Builder()
  */
 @Suppress("DeferredIsResult")
 interface MarsApiService {
+    /**
+     * Makes a GET request of our Retrofit service with the "filter" [type] added to the end of
+     * the [BASE_URL] of the query.
+     *
+     * @param type The "filter" value to be added to the query
+     * @return a [Deferred] list of [MarsProperty] objects retrieved from the REST server.
+     */
     @GET("realestate")
     fun getProperties(@Query("filter") type: String):
             Deferred<List<MarsProperty>>
