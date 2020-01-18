@@ -126,7 +126,7 @@ class DevByteFragment : Fragment() {
 
 
         // Observer for the network error.
-        viewModel.eventNetworkError.observe(this, Observer<Boolean> { isNetworkError ->
+        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
             if (isNetworkError) onNetworkError()
         })
 
