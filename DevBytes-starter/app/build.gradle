@@ -24,7 +24,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.example.android.devbyteviewer"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -40,6 +40,10 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 
 }
@@ -101,5 +105,9 @@ dependencies {
     def room_version = "2.2.3"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    // Work dependency
+    def work_version = "2.2.0"
+    implementation "androidx.work:work-runtime-ktx:$work_version"
 
 }
