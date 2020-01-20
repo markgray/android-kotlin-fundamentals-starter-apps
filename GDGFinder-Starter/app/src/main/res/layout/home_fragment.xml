@@ -42,7 +42,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/behind" />
+                app:srcCompat="@drawable/behind"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/title"
@@ -95,7 +96,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/description"
-                app:srcCompat="@drawable/wtm" />
+                app:srcCompat="@drawable/wtm"
+                tools:ignore="ContentDescription" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/start_guideline"
