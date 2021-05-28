@@ -24,17 +24,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.android.gdgfinder.R
 import com.example.android.gdgfinder.databinding.FragmentGdgListBinding
 import com.google.android.gms.location.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
-import com.example.android.gdgfinder.R
 
 private const val LOCATION_PERMISSION_REQUEST = 1
 
