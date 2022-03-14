@@ -65,7 +65,8 @@
                 android:layout_marginTop="14dp"
                 app:layout_constraintStart_toStartOf="@+id/left_well"
                 app:layout_constraintTop_toBottomOf="@+id/video_thumbnail"
-                app:srcCompat="@drawable/ic_play_circle_outline_black_48dp" />
+                app:srcCompat="@drawable/ic_play_circle_outline_black_48dp"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/title"
@@ -113,7 +114,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                tools:srcCompat="@tools:sample/backgrounds/scenic"
+                tools:ignore="ContentDescription" />
 
             <View
                 android:id="@+id/clickableOverlay"
