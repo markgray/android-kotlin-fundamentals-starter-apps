@@ -26,10 +26,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="DataExtractionRules,GoogleAppIndexingWarning">
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout">
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -16,6 +16,7 @@
 
 package com.example.android.navigation
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -54,6 +55,7 @@ class GameWonFragment : Fragment() {
      * saved state as given here.
      * @return Return the [View] for the fragment's UI, or null.
      */
+    @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -72,7 +74,7 @@ class GameWonFragment : Fragment() {
             view.findNavController()
                     .navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
         }
-        val args = GameWonFragmentArgs.fromBundle(arguments!!)
+        val args = GameWonFragmentArgs.fromBundle(requireArguments())
         Toast.makeText(
                 context,
                 "NumCorrect: ${args.numCorrect}, NumQuestions: ${args.numQuestions}",
@@ -85,7 +87,7 @@ class GameWonFragment : Fragment() {
 
     // Creating our Share Intent
     private fun getShareIntent() : Intent {
-        val args = GameWonFragmentArgs.fromBundle(arguments!!)
+        val args = GameWonFragmentArgs.fromBundle(requireArguments())
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.setType("text/plain")
                 .putExtra(
@@ -101,11 +103,12 @@ class GameWonFragment : Fragment() {
     }
 
     // Showing the Share Menu Item Dynamically
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.winner_menu, menu)
         // check if the activity resolves
-        if (null == getShareIntent().resolveActivity(activity!!.packageManager)) {
+        if (null == getShareIntent().resolveActivity(requireActivity().packageManager)) {
             // hide the menu item if it doesn't resolve
             menu.findItem(R.id.share)?.isVisible = false
         }
