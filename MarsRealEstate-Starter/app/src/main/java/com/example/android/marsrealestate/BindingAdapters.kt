@@ -27,6 +27,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.android.marsrealestate.network.MarsProperty
 import com.example.android.marsrealestate.overview.MarsApiStatus
 import com.example.android.marsrealestate.overview.PhotoGridAdapter
+import java.lang.RuntimeException
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
@@ -62,5 +63,6 @@ fun bindStatus(statusImageView: ImageView, status: MarsApiStatus?) {
         MarsApiStatus.DONE -> {
             statusImageView.visibility = View.GONE
         }
+        else -> {}
     }
 }
