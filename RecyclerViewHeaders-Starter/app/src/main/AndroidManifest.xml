@@ -10,8 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_sleep_tracker_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        tools:ignore="DataExtractionRules,GoogleAppIndexingWarning">
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
