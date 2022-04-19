@@ -26,6 +26,7 @@ import com.example.android.gdgfinder.network.GdgChapter
 import com.example.android.gdgfinder.search.GdgListAdapter.GdgListViewHolder
 import com.example.android.gdgfinder.databinding.ListItemBinding
 
+@Suppress("MemberVisibilityCanBePrivate")
 class GdgListAdapter(val clickListener: GdgClickListener): ListAdapter<GdgChapter, GdgListViewHolder>(DiffCallback){
     companion object DiffCallback : DiffUtil.ItemCallback<GdgChapter>() {
         override fun areItemsTheSame(oldItem: GdgChapter, newItem: GdgChapter): Boolean {
@@ -57,7 +58,7 @@ class GdgListAdapter(val clickListener: GdgClickListener): ListAdapter<GdgChapte
     }
 
     /**
-     * Part of the RecyclerView adapter, called when RecyclerView needs a new [ViewHolder].
+     * Part of the RecyclerView adapter, called when RecyclerView needs a new [GdgListViewHolder].
      *
      * A ViewHolder holds a view for the [RecyclerView] as well as providing additional information
      * to the RecyclerView such as where on the screen it was last drawn during scrolling.

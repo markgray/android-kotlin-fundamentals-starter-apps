@@ -17,14 +17,11 @@
 
 package com.example.android.gdgfinder
 
-import android.view.LayoutInflater
 import android.view.View
-import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.gdgfinder.network.GdgChapter
 import com.example.android.gdgfinder.search.GdgListAdapter
-import com.google.android.material.chip.ChipGroup
 
 /**
  * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.

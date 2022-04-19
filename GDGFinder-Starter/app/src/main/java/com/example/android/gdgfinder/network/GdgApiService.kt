@@ -15,6 +15,8 @@
  */
 
 
+@file:Suppress("DeferredIsResult")
+
 package com.example.android.gdgfinder.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory

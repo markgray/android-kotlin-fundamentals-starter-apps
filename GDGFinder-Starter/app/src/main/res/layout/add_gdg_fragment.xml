@@ -76,7 +76,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/EditTextEmail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView">
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                tools:ignore="Autofill,TextFields">
 
             </EditText>
 
@@ -93,7 +94,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/EditTextCity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EditTextName" />
+                app:layout_constraintTop_toBottomOf="@+id/EditTextName"
+                tools:ignore="Autofill,TextFields" />
 
             <EditText
                 android:id="@+id/EditTextCity"
@@ -109,7 +111,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EditTextEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/EditTextEmail"
+                tools:ignore="Autofill,TextFields" />
 
             <EditText
                 android:id="@+id/EditTextCountry"
@@ -124,7 +127,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/EditTextRegion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EditTextCity" />
+                app:layout_constraintTop_toBottomOf="@+id/EditTextCity"
+                tools:ignore="Autofill,TextFields" />
 
             <EditText
                 android:id="@+id/EditTextRegion"
@@ -139,7 +143,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/contentGroup"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EditTextCountry" />
+                app:layout_constraintTop_toBottomOf="@+id/EditTextCountry"
+                tools:ignore="Autofill,TextFields" />
 
             <LinearLayout
                 android:id="@+id/contentGroup"
@@ -176,7 +181,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/contentGroup"
                     app:layout_constraintBottom_toTopOf="@+id/button"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="Autofill" />
 
             </LinearLayout>
 
