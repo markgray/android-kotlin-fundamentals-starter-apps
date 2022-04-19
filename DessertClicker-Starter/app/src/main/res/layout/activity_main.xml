@@ -43,7 +43,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/bakery_back" />
+            app:srcCompat="@drawable/bakery_back"
+            tools:ignore="ContentDescription" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/margin_end_guide"
@@ -76,7 +77,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/cupcake" />
+            tools:src="@drawable/cupcake"
+            tools:ignore="ContentDescription" />
 
         <!-- Code for white box at the bottom, using ShapeDrawable defined in the drawable folder -->
 

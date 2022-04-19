@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.example.android.dessertclicker
 
 import android.app.Application
