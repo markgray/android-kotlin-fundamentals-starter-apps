@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("RedundantNullableReturnType", "DEPRECATION")
+
 package com.example.android.guesstheword.screens.game
 
 import android.os.Bundle
@@ -100,9 +102,9 @@ class GameFragment : Fragment() {
         binding.lifecycleOwner = this
 
         /** Observer for the Game finished event **/
-        viewModel.eventGameFinish.observe(this, Observer<Boolean> { hasFinished ->
+        viewModel.eventGameFinish.observe(viewLifecycleOwner) { hasFinished ->
             if (hasFinished) gameFinished()
-        })
+        }
 
         return binding.root
     }

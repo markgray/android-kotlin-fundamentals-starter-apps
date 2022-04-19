@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.example.android.guesstheword.screens.score
 
 import android.os.Bundle
@@ -72,6 +74,7 @@ class ScoreFragment : Fragment() {
      * from a previous saved state as given here.
      * @return Return the [View] for the fragment's UI, or null.
      */
+    @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -89,7 +92,7 @@ class ScoreFragment : Fragment() {
         )
 
         viewModelFactory = ScoreViewModelFactory(
-                ScoreFragmentArgs.fromBundle(arguments!!).score
+                ScoreFragmentArgs.fromBundle(requireArguments()).score
         )
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(ScoreViewModel::class.java)
@@ -100,12 +103,12 @@ class ScoreFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Navigates back to game when button is pressed
-        viewModel.eventPlayAgain.observe(this, Observer { playAgain ->
+        viewModel.eventPlayAgain.observe(viewLifecycleOwner) { playAgain ->
             if (playAgain) {
                 findNavController().navigate(ScoreFragmentDirections.actionRestart())
                 viewModel.onPlayAgainComplete()
             }
-        })
+        }
 
         return binding.root
     }
