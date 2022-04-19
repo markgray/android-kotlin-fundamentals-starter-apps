@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("PackageDirectoryMismatch")
+
 package com.android.example.aboutme
 
 import androidx.appcompat.app.AppCompatActivity
