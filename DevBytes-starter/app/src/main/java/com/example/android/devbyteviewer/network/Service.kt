@@ -29,6 +29,7 @@ import retrofit2.http.GET
 /**
  * A retrofit service to fetch a devbyte playlist.
  */
+@Suppress("DeferredIsResult")
 interface DevbyteService {
     @GET("devbytes")
     fun getPlaylist(): Deferred<NetworkVideoContainer>
@@ -46,6 +47,7 @@ object DevByteNetwork {
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
+    @Suppress("HasPlatformType")
     val devbytes = retrofit.create(DevbyteService::class.java)
 
 }

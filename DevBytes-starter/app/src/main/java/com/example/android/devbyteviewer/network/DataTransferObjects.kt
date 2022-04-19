@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  * or formatting objects to send to the server. You should convert these to domain objects before
  * using them.
  *
- * @see domain package for
+ * See domain package for
  */
 
 /**
@@ -55,6 +55,7 @@ data class NetworkVideo(
 /**
  * Convert Network results to database objects
  */
+@Suppress("unused")
 fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
     return videos.map {
         DevByteVideo(

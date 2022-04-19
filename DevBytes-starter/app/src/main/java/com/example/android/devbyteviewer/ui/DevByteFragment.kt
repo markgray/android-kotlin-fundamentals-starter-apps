@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
+@file:Suppress("RedundantNullableReturnType", "DEPRECATION")
+
 package com.example.android.devbyteviewer.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -26,7 +29,6 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -65,13 +67,15 @@ class DevByteFragment : Fragment() {
      * initialization once these pieces are in place, such as retrieving
      * views or restoring state.
      */
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        @Suppress("DEPRECATION")
         super.onActivityCreated(savedInstanceState)
-        viewModel.playlist.observe(viewLifecycleOwner, Observer<List<DevByteVideo>> { videos ->
+        viewModel.playlist.observe(viewLifecycleOwner) { videos ->
             videos?.apply {
                 viewModelAdapter?.videos = videos
             }
-        })
+        }
     }
 
     /**
@@ -90,6 +94,7 @@ class DevByteFragment : Fragment() {
      *
      * @return Return the View for the fragment's UI.
      */
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding: FragmentDevByteBinding = DataBindingUtil.inflate(
@@ -98,7 +103,7 @@ class DevByteFragment : Fragment() {
                 container,
                 false)
         // Set the lifecycleOwner so DataBinding can observe LiveData
-        binding.setLifecycleOwner(viewLifecycleOwner)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.viewModel = viewModel
 
@@ -126,9 +131,9 @@ class DevByteFragment : Fragment() {
 
 
         // Observer for the network error.
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
+        viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
-        })
+        }
 
         return binding.root
     }
@@ -169,12 +174,14 @@ class VideoClick(val block: (DevByteVideo) -> Unit) {
 /**
  * RecyclerView Adapter for setting up data binding on the items in the list.
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteViewHolder>() {
 
     /**
      * The videos that our Adapter will show
      */
     var videos: List<DevByteVideo> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             // For an extra challenge, update this to use the paging library.

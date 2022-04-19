@@ -23,11 +23,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.devbyteviewer.database.getDatabase
-import com.example.android.devbyteviewer.domain.DevByteVideo
-import com.example.android.devbyteviewer.network.DevByteNetwork
-import com.example.android.devbyteviewer.network.asDomainModel
 import com.example.android.devbyteviewer.repository.VideosRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import java.io.IOException
 
 /**
@@ -71,7 +71,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * Event triggered for network error. This is private to avoid exposing a
      * way to set this value to observers.
      */
-    private var _eventNetworkError = MutableLiveData<Boolean>(false)
+    private var _eventNetworkError = MutableLiveData(false)
 
     /**
      * Event triggered for network error. Views should use this to get access
@@ -84,7 +84,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * Flag to display the error message. This is private to avoid exposing a
      * way to set this value to observers.
      */
-    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+    private var _isNetworkErrorShown = MutableLiveData(false)
 
     /**
      * Flag to display the error message. Views should use this to get access
@@ -138,7 +138,9 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
     /**
      * Factory for constructing DevByteViewModel with parameter
      */
+    @Suppress("MemberVisibilityCanBePrivate")
     class Factory(val app: Application) : ViewModelProvider.Factory {
+        @Suppress("WRONG_NULLABILITY_FOR_JAVA_OVERRIDE")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DevByteViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

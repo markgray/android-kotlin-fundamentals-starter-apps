@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("unused")
+
 package com.example.android.devbyteviewer
 
 import android.app.Application
