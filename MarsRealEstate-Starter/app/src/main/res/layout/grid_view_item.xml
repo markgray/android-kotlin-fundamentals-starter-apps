@@ -38,7 +38,8 @@
             android:adjustViewBounds="true"
             android:padding="2dp"
             app:imageUrl="@{property.imgSrcUrl}"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+            tools:src="@tools:sample/backgrounds/scenic"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/mars_property_type"
@@ -50,6 +51,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_for_sale_outline"
             android:visibility="@{property.rental ? View.GONE : View.VISIBLE}"
-            tools:src="@drawable/ic_for_sale_outline"/>
+            tools:src="@drawable/ic_for_sale_outline"
+            tools:ignore="ContentDescription" />
     </FrameLayout>
 </layout>

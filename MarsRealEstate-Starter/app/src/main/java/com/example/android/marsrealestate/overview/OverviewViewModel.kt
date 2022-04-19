@@ -50,8 +50,8 @@ class OverviewViewModel : ViewModel() {
     val properties: LiveData<List<MarsProperty>>
         get() = _properties
 
-    private val _navigateToSelectedProperty = MutableLiveData<MarsProperty>()
-    val navigateToSelectedProperty: LiveData<MarsProperty>
+    private val _navigateToSelectedProperty = MutableLiveData<MarsProperty?>()
+    val navigateToSelectedProperty: LiveData<MarsProperty?>
         get() = _navigateToSelectedProperty
 
     private var viewModelJob = Job()
@@ -71,11 +71,11 @@ class OverviewViewModel : ViewModel() {
      */
     private fun getMarsRealEstateProperties(filter: MarsApiFilter) {
         coroutineScope.launch {
-            var getPropertiesDeferred =
+            val getPropertiesDeferred =
                     MarsApi.retrofitService.getProperties(filter.value)
             try {
                 _status.value = MarsApiStatus.LOADING
-                var listResult = getPropertiesDeferred.await()
+                val listResult = getPropertiesDeferred.await()
                 _status.value = MarsApiStatus.DONE
                 _properties.value = listResult
             } catch (e: Exception) {

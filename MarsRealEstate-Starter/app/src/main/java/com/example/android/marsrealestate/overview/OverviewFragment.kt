@@ -15,12 +15,18 @@
  *
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.example.android.marsrealestate.overview
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.android.marsrealestate.R
@@ -43,6 +49,7 @@ class OverviewFragment : Fragment() {
      * Inflates the layout with Data Binding, sets its lifecycle owner to the OverviewFragment
      * to enable Data Binding to observe LiveData, and sets up the RecyclerView with an adapter.
      */
+    @Suppress("RedundantNullableReturnType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = FragmentOverviewBinding.inflate(inflater)
@@ -57,13 +64,14 @@ class OverviewFragment : Fragment() {
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
             viewModel.displayPropertyDetails(it)
         })
-        viewModel.navigateToSelectedProperty.observe(this, Observer {
-            if ( null != it ) {
+        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner) {
+            if (null != it) {
                 this.findNavController().navigate(
-                        OverviewFragmentDirections.actionShowDetail(it))
+                    OverviewFragmentDirections.actionShowDetail(it)
+                )
                 viewModel.displayPropertyDetailsComplete()
             }
-        })
+        }
         setHasOptionsMenu(true)
         return binding.root
     }
