@@ -38,7 +38,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/youWinImage" />
+            app:layout_constraintTop_toBottomOf="@+id/youWinImage"
+            tools:ignore="HardcodedText" />
 
         <ImageView
             android:id="@+id/youWinImage"
@@ -53,7 +54,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/you_win" />
+            app:srcCompat="@drawable/you_win"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

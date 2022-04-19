@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+@file:Suppress("RedundantNullableReturnType", "RedundantNullableReturnType",
+    "RedundantNullableReturnType", "RedundantNullableReturnType", "RedundantNullableReturnType"
+)
+
 package com.example.android.navigation
 
 import android.os.Bundle

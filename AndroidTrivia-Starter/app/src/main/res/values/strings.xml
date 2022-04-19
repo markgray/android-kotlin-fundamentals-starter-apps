@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Android Trivia</string>
     <string name="game_over">Game Over</string>
     <string name="try_again">Try Again?</string>
@@ -29,7 +29,7 @@
     <string name="title_android_trivia_question">Android Trivia (%1$d/%2$d)</string>
     <string name="title_about_trivia">About Trivia</string>
     <string name="title_trivia_rules">Trivia Rules</string>
-    <string name="share_success_text">I mastered #UdacityAndroidTrivia with %1$d/%2$d correct questions!</string>
+    <string name="share_success_text" tools:ignore="PluralsCandidate">I mastered #UdacityAndroidTrivia with %1$d/%2$d correct questions!</string>
     <string name="submit_button">Submit</string>
     <string name="congratulations">Congratulations!</string>
     <string name="share">Share</string>

@@ -43,6 +43,7 @@ class TitleFragment : Fragment() {
      * saved state as given here.
      * @return Return the [View] for the fragment's UI, or null.
      */
+    @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -93,7 +94,9 @@ class TitleFragment : Fragment() {
         super.onCreate(savedInstanceState)
         Log.i("TitleFragment", "onCreate called")
     }
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        @Suppress("DEPRECATION")
         super.onActivityCreated(savedInstanceState)
         Log.i("TitleFragment", "onActivityCreated called")
     }
@@ -149,7 +152,7 @@ class TitleFragment : Fragment() {
      *         proceed, true to consume it here.
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
                 || super.onOptionsItemSelected(item)
     }
 
