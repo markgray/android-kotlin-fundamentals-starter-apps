@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("unused")
+
 package com.example.android.trackmysleepquality
 
 import android.annotation.SuppressLint
@@ -21,12 +23,11 @@ import android.content.res.Resources
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
-import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.trackmysleepquality.database.SleepNight
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 /**
@@ -153,4 +154,16 @@ fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
  * A ViewHolder holds a view for the [RecyclerView] as well as providing additional information
  * to the RecyclerView such as where on the screen it was last drawn during scrolling.
  */
-class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
+class
+
+
+
+
+
+
+
+
+
+
+
+TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)

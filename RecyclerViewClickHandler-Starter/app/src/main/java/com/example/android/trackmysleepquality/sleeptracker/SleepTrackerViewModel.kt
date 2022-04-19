@@ -68,6 +68,7 @@ class SleepTrackerViewModel(
     /**
      * Converted nights to Spanned for displaying.
      */
+    @Suppress("unused")
     val nightsString = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
     }
@@ -112,15 +113,15 @@ class SleepTrackerViewModel(
      *
      * This is private because we don't want to expose setting this value to the Fragment.
      */
-    private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
+    private val _navigateToSleepQuality = MutableLiveData<SleepNight?>()
 
     /**
      * If this is non-null, immediately navigate to `SleepQualityFragment` and call [doneNavigating]
      */
-    val navigateToSleepQuality: LiveData<SleepNight>
+    val navigateToSleepQuality: LiveData<SleepNight?>
         get() = _navigateToSleepQuality
 
-    private val _navigateToSleepDetail = MutableLiveData<Long>()
+    private val _navigateToSleepDetail = MutableLiveData<Long?>()
     val navigateToSleepDetail
         get() = _navigateToSleepDetail
 
