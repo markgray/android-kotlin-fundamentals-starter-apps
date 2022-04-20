@@ -127,12 +127,12 @@ class SleepTrackerViewModel(
      *
      * This is private because we don't want to expose setting this value to the Fragment.
      */
-    private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
+    private val _navigateToSleepQuality = MutableLiveData<SleepNight?>()
 
     /**
      * If this is non-null, immediately navigate to [SleepQualityFragment] and call [doneNavigating]
      */
-    val navigateToSleepQuality: LiveData<SleepNight>
+    val navigateToSleepQuality: LiveData<SleepNight?>
         get() = _navigateToSleepQuality
 
     /**
@@ -158,7 +158,7 @@ class SleepTrackerViewModel(
     /**
      * Private Navigation for the SleepDetail fragment.
      */
-    private val _navigateToSleepDetail = MutableLiveData<Long>()
+    private val _navigateToSleepDetail = MutableLiveData<Long?>()
     /**
      * Read only access to [_navigateToSleepDetail]
      */

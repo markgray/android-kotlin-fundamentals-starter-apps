@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.app.Application
@@ -113,6 +115,7 @@ class SleepTrackerFragment : Fragment() {
      * from a previous saved state as given here.
      * @return Return the View for the fragment's UI, or null.
      */
+    @Suppress("RedundantNullableReturnType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -142,11 +145,11 @@ class SleepTrackerFragment : Fragment() {
         })
         binding.sleepList.adapter = adapter
 
-        sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
+        sleepTrackerViewModel.nights.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.addHeaderAndSubmitList(it)
             }
-        })
+        }
 
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
@@ -154,21 +157,21 @@ class SleepTrackerFragment : Fragment() {
 
         // Add an Observer on the state variable for showing a Snackbar message
         // when the CLEAR button is pressed.
-        sleepTrackerViewModel.showSnackBarEvent.observe(this, Observer {
+        sleepTrackerViewModel.showSnackBarEvent.observe(viewLifecycleOwner) {
             if (it == true) { // Observed state is true.
                 Snackbar.make(
-                        activity!!.findViewById(android.R.id.content),
-                        getString(R.string.cleared_message),
-                        Snackbar.LENGTH_SHORT // How long to display the message.
+                    requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.cleared_message),
+                    Snackbar.LENGTH_SHORT // How long to display the message.
                 ).show()
                 // Reset state to make sure the Snackbar is only shown once, even if the device
                 // has a configuration change.
                 sleepTrackerViewModel.doneShowingSnackbar()
             }
-        })
+        }
 
         // Add an Observer on the state variable for Navigating when STOP button is pressed.
-        sleepTrackerViewModel.navigateToSleepQuality.observe(this, Observer { night ->
+        sleepTrackerViewModel.navigateToSleepQuality.observe(viewLifecycleOwner) { night ->
             night?.let {
                 // We need to get the navController from this, because button is not ready, and it
                 // just has to be a view. For some reason, this only matters if we hit stop again
@@ -178,24 +181,26 @@ class SleepTrackerFragment : Fragment() {
                 // followed by back.
                 // Also: https://stackoverflow.com/questions/28929637/difference-and-uses-of-oncreate-oncreateview-and-onactivitycreated-in-fra
                 this.findNavController().navigate(
-                        SleepTrackerFragmentDirections
-                                .actionSleepTrackerFragmentToSleepQualityFragment(night.nightId))
+                    SleepTrackerFragmentDirections
+                        .actionSleepTrackerFragmentToSleepQualityFragment(night.nightId)
+                )
                 // Reset state to make sure we only navigate once, even if the device
                 // has a configuration change.
                 sleepTrackerViewModel.doneNavigating()
             }
-        })
+        }
 
         // Add an Observer on the state variable for Navigating when an item is clicked.
-        sleepTrackerViewModel.navigateToSleepDetail.observe(this, Observer { night ->
+        sleepTrackerViewModel.navigateToSleepDetail.observe(viewLifecycleOwner) { night ->
             night?.let {
 
                 this.findNavController().navigate(
-                        SleepTrackerFragmentDirections
-                                .actionSleepTrackerFragmentToSleepDetailFragment(night))
+                    SleepTrackerFragmentDirections
+                        .actionSleepTrackerFragmentToSleepDetailFragment(night)
+                )
                 sleepTrackerViewModel.onSleepDetailNavigated()
             }
-        })
+        }
 
         val manager = GridLayoutManager(activity, 3)
         manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

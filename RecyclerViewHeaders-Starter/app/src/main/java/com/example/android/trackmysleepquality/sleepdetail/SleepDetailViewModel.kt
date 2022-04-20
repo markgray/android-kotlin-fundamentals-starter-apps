@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("JoinDeclarationAndAssignment")
+
 package com.example.android.trackmysleepquality.sleepdetail
 
 import androidx.lifecycle.LiveData
