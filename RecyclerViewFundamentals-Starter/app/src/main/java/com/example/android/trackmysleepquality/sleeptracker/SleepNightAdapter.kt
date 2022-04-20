@@ -1,5 +1,6 @@
 package com.example.android.trackmysleepquality.sleeptracker
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.example.android.trackmysleepquality.database.SleepNight
 class SleepNightAdapter: RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
 
     var data =  listOf<SleepNight>()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -31,8 +33,11 @@ class SleepNightAdapter: RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
     }
 
     class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView){
+        @Suppress("MemberVisibilityCanBePrivate")
         val sleepLength: TextView = itemView.findViewById(R.id.sleep_length)
+        @Suppress("MemberVisibilityCanBePrivate")
         val quality: TextView = itemView.findViewById(R.id.quality_string)
+        @Suppress("MemberVisibilityCanBePrivate")
         val qualityImage: ImageView = itemView.findViewById(R.id.quality_image)
         fun bind(item: SleepNight) {
             val res = itemView.context.resources
