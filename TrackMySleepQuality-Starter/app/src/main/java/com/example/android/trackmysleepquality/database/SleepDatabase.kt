@@ -31,6 +31,7 @@ abstract class SleepDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: SleepDatabase? = null
 
+        @Suppress("unused")
         fun getInstance(context: Context): SleepDatabase {
             synchronized(this) {
                 var instance = INSTANCE

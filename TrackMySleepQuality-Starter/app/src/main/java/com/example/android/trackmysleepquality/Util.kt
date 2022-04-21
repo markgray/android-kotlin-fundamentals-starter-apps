@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat
 /**
  * Returns a string representing the numeric quality rating.
  */
+@Suppress("unused")
 fun convertNumericQualityToString(quality: Int, resources: Resources): String {
     var qualityString = resources.getString(R.string.three_ok)
     when (quality) {
@@ -50,6 +51,7 @@ fun convertNumericQualityToString(quality: Int, resources: Resources): String {
  * dd-yyyy - day in month and full year numerically
  * HH:mm - Hours and minutes in 24hr format
  */
+@Suppress("unused")
 @SuppressLint("SimpleDateFormat")
 fun convertLongToDateString(systemTime: Long): String {
     return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
@@ -63,8 +65,8 @@ fun convertLongToDateString(systemTime: Long): String {
  * applicable per word. So, we build a formatted string using HTML. This is handy, but we will
  * learn a better way of displaying this data in a future lesson.
  *
- * @param   nights - List of all SleepNights in the database.
- * @param   resources - Resources object for all the resources defined for our app.
+ *  - param   nights - List of all SleepNights in the database.
+ *  - param   resources - Resources object for all the resources defined for our app.
  *
  * @return  Spanned - An interface for text that has formatting attached to it.
  *           See: https://developer.android.com/reference/android/text/Spanned
