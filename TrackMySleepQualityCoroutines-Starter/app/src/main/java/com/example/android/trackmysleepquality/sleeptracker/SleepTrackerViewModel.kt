@@ -183,6 +183,7 @@ class SleepTrackerViewModel(
      * method of our [SleepDatabaseDao] field [database] on a background thread to have it clear
      * all entries from the database.
      */
+    @Suppress("MemberVisibilityCanBePrivate")
     suspend fun clear() {
         withContext(Dispatchers.IO) {
             database.clear()
