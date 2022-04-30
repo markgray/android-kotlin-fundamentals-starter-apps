@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.example.android.trackmysleepquality.sleepdetail
 
 import android.os.Bundle
@@ -24,7 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
@@ -72,12 +70,16 @@ class SleepDetailFragment : Fragment() {
      * @return Return the View for the fragment's UI, or null.
      */
     @Suppress("RedundantNullableReturnType")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepDetailBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_detail, container, false)
+            inflater, R.layout.fragment_sleep_detail, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         val arguments = SleepDetailFragmentArgs.fromBundle(requireArguments())
@@ -88,8 +90,7 @@ class SleepDetailFragment : Fragment() {
 
         // Get a reference to the ViewModel associated with this fragment.
         val sleepDetailViewModel =
-                ViewModelProviders.of(
-                        this, viewModelFactory).get(SleepDetailViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory).get(SleepDetailViewModel::class.java)
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.

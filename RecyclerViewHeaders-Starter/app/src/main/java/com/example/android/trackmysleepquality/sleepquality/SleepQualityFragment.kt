@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.example.android.trackmysleepquality.sleepquality
 
 import android.os.Bundle
@@ -25,7 +23,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
@@ -59,7 +57,7 @@ class SleepQualityFragment : Fragment() {
      * of our [SleepQualityFragmentArgs] `arguments` as the `nightId` PrimaryKey for the `SleepNight`
      * we are to have updated by our [SleepQualityViewModel] with the sleep quality value selected
      * by the user, and our [SleepDatabaseDao] `dataSource` as the Room handle to the database to use
-     * to access that database. We then use the [ViewModelProviders.of] method to have the
+     * to access that database. We then use the [ViewModelProvider.get] method to have the
      * `viewModelFactory` create (or return the existing) [SleepQualityViewModel] and save the
      * reference in our [SleepQualityViewModel] variable `val sleepQualityViewModel`. We initialize
      * the `sleepQualityViewModel` field of `binding` to `sleepQualityViewModel` (this allows our
@@ -85,12 +83,16 @@ class SleepQualityFragment : Fragment() {
      * @return Return the View for the fragment's UI, or null.
      */
     @Suppress("RedundantNullableReturnType")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepQualityBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_quality, container, false)
+            inflater, R.layout.fragment_sleep_quality, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         val arguments = SleepQualityFragmentArgs.fromBundle(requireArguments())
@@ -101,8 +103,9 @@ class SleepQualityFragment : Fragment() {
 
         // Get a reference to the ViewModel associated with this fragment.
         val sleepQualityViewModel =
-                ViewModelProviders.of(
-                        this, viewModelFactory).get(SleepQualityViewModel::class.java)
+            ViewModelProvider(
+                this, viewModelFactory
+            ).get(SleepQualityViewModel::class.java)
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
