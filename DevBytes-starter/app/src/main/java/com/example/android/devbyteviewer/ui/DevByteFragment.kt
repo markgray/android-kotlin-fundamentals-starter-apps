@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("RedundantNullableReturnType", "DEPRECATION")
-
 package com.example.android.devbyteviewer.ui
 
 import android.annotation.SuppressLint
@@ -29,7 +27,8 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.devbyteviewer.R
@@ -46,14 +45,20 @@ class DevByteFragment : Fragment() {
     /**
      * One way to delay creation of the viewModel until an appropriate lifecycle method is to use
      * lazy. This requires that viewModel not be referenced before onActivityCreated, which we
-     * do in this Fragment.
+     * do in this Fragment. To verify that [onActivityCreated] has been called we use the
+     * [requireNotNull] method which will throw an [IllegalArgumentException] with the message
+     * "You can only access the viewModel after onActivityCreated()" if the the [FragmentActivity]
+     * this fragment is currently associated is `null` and if it is not `null` we set our variable
+     * `val activity` to our [FragmentActivity]. Then we initialize [viewModel] to the singleton
+     * [DevByteViewModel] returned by the [ViewModelProvider.get] method when it uses the
+     * [DevByteViewModel.Factory] to create it if it did not already exist.
      */
     private val viewModel: DevByteViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
+        val activity: FragmentActivity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        ViewModelProviders.of(this, DevByteViewModel.Factory(activity.application))
-                .get(DevByteViewModel::class.java)
+        ViewModelProvider(this, DevByteViewModel.Factory(activity.application))
+            .get(DevByteViewModel::class.java)
     }
 
     /**
@@ -62,15 +67,16 @@ class DevByteFragment : Fragment() {
     private var viewModelAdapter: DevByteAdapter? = null
 
     /**
-     * Called when the fragment's activity has been created and this
-     * fragment's view hierarchy instantiated.  It can be used to do final
-     * initialization once these pieces are in place, such as retrieving
-     * views or restoring state.
+     * Called when all saved state has been restored into the view hierarchy of the fragment. This
+     * can be used to do initialization based on saved state that you are letting the view hierarchy
+     * track itself, such as whether check box widgets are currently checked. This is called after
+     * [onViewCreated] and before [onStart].
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
      */
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        @Suppress("DEPRECATION")
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         viewModel.playlist.observe(viewLifecycleOwner) { videos ->
             videos?.apply {
                 viewModelAdapter?.videos = videos
@@ -82,7 +88,7 @@ class DevByteFragment : Fragment() {
      * Called to have the fragment instantiate its user interface view.
      *
      * <p>If you return a View from here, you will later be called in
-     * {@link #onDestroyView} when the view is being released.
+     * [onDestroyView] when the view is being released.
      *
      * @param inflater The LayoutInflater object that can be used to inflate
      * any views in the fragment,
@@ -94,14 +100,19 @@ class DevByteFragment : Fragment() {
      *
      * @return Return the View for the fragment's UI.
      */
+    @Suppress("RedundantNullableReturnType")
     @SuppressLint("QueryPermissionsNeeded")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding: FragmentDevByteBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_dev_byte,
-                container,
-                false)
+            inflater,
+            R.layout.fragment_dev_byte,
+            container,
+            false
+        )
         // Set the lifecycleOwner so DataBinding can observe LiveData
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -116,7 +127,7 @@ class DevByteFragment : Fragment() {
 
             // Try to generate a direct intent to the YouTube app
             var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
-            if(intent.resolveActivity(packageManager) == null) {
+            if (intent.resolveActivity(packageManager) == null) {
                 // YouTube app isn't found, use the web url
                 intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
             }
@@ -142,7 +153,7 @@ class DevByteFragment : Fragment() {
      * Method for displaying a Toast error message for network errors.
      */
     private fun onNetworkError() {
-        if(!viewModel.isNetworkErrorShown.value!!) {
+        if (!viewModel.isNetworkErrorShown.value!!) {
             Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }
@@ -192,15 +203,16 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
         }
 
     /**
-     * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
+     * Called when RecyclerView needs a new [DevByteViewHolder] of the given type to represent
      * an item.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DevByteViewHolder {
         val withDataBinding: DevbyteItemBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                DevByteViewHolder.LAYOUT,
-                parent,
-                false)
+            LayoutInflater.from(parent.context),
+            DevByteViewHolder.LAYOUT,
+            parent,
+            false
+        )
         return DevByteViewHolder(withDataBinding)
     }
 
@@ -208,7 +220,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
 
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
-     * update the contents of the {@link ViewHolder#itemView} to reflect the item at the given
+     * update the contents of the [DevByteViewHolder.itemView] to reflect the item at the given
      * position.
      */
     override fun onBindViewHolder(holder: DevByteViewHolder, position: Int) {
@@ -224,7 +236,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
  * ViewHolder for DevByte items. All work is done by data binding.
  */
 class DevByteViewHolder(val viewDataBinding: DevbyteItemBinding) :
-        RecyclerView.ViewHolder(viewDataBinding.root) {
+    RecyclerView.ViewHolder(viewDataBinding.root) {
     companion object {
         @LayoutRes
         val LAYOUT = R.layout.devbyte_item
