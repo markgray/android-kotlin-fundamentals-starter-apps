@@ -45,15 +45,15 @@ class TitleFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(
-                inflater,
-                R.layout.fragment_title,
-                container,
-                false
+            inflater,
+            R.layout.fragment_title,
+            container,
+            false
         )
         /**
          * The complete onClickListener with Navigation to the [GameFragment]
@@ -61,23 +61,23 @@ class TitleFragment : Fragment() {
          */
         binding.playButton.setOnClickListener { view: View ->
             view.findNavController()
-                    .navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
+                .navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
         }
         /**
          * The complete onClickListener with Navigation to the [RulesFragment]
          * using a `ActionOnlyNavDirections`
          */
-        binding.rulesButton.setOnClickListener {view: View ->
+        binding.rulesButton.setOnClickListener { view: View ->
             view.findNavController()
-                    .navigate(TitleFragmentDirections.actionTitleFragmentToRulesFragment())
+                .navigate(TitleFragmentDirections.actionTitleFragmentToRulesFragment())
         }
         /**
          * The complete onClickListener with Navigation to the [AboutFragment]
          * using a `ActionOnlyNavDirections`
          */
-        binding.aboutButton.setOnClickListener {view: View ->
+        binding.aboutButton.setOnClickListener { view: View ->
             view.findNavController()
-                    .navigate(TitleFragmentDirections.actionTitleFragmentToAboutFragment())
+                .navigate(TitleFragmentDirections.actionTitleFragmentToAboutFragment())
         }
         setHasOptionsMenu(true)
 
@@ -90,36 +90,52 @@ class TitleFragment : Fragment() {
         super.onAttach(context)
         Log.i("TitleFragment", "onAttach called")
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i("TitleFragment", "onCreate called")
     }
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        @Suppress("DEPRECATION")
-        super.onActivityCreated(savedInstanceState)
-        Log.i("TitleFragment", "onActivityCreated called")
+
+    /**
+     * Called when all saved state has been restored into the view hierarchy
+     * of the fragment.  This can be used to do initialization based on saved
+     * state that you are letting the view hierarchy track itself, such as
+     * whether check box widgets are currently checked.  This is called
+     * after [onViewCreated] and before [onStart].
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
+     */
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        Log.i("TitleFragment", "onViewStateRestored called")
     }
+
     override fun onStart() {
         super.onStart()
         Log.i("TitleFragment", "onStart called")
     }
+
     override fun onResume() {
         super.onResume()
         Log.i("TitleFragment", "onResume called")
     }
+
     override fun onPause() {
         super.onPause()
         Log.i("TitleFragment", "onPause called")
     }
+
     override fun onStop() {
         super.onStop()
         Log.i("TitleFragment", "onStop called")
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         Log.i("TitleFragment", "onDestroyView called")
     }
+
     override fun onDetach() {
         super.onDetach()
         Log.i("TitleFragment", "onDetach called")
@@ -153,7 +169,7 @@ class TitleFragment : Fragment() {
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-                || super.onOptionsItemSelected(item)
+            || super.onOptionsItemSelected(item)
     }
 
 }
