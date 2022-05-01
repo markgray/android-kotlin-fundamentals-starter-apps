@@ -47,7 +47,7 @@ class DevByteFragment : Fragment() {
      * lazy. This requires that viewModel not be referenced before onActivityCreated, which we
      * do in this Fragment. To verify that [onActivityCreated] has been called we use the
      * [requireNotNull] method which will throw an [IllegalArgumentException] with the message
-     * "You can only access the viewModel after onActivityCreated()" if the the [FragmentActivity]
+     * "You can only access the viewModel after onActivityCreated" if the the [FragmentActivity]
      * this fragment is currently associated is `null` and if it is not `null` we set our variable
      * `val activity` to our [FragmentActivity]. Then we initialize [viewModel] to the singleton
      * [DevByteViewModel] returned by the [ViewModelProvider.get] method when it uses the
@@ -55,7 +55,7 @@ class DevByteFragment : Fragment() {
      */
     private val viewModel: DevByteViewModel by lazy {
         val activity: FragmentActivity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onActivityCreated()"
+            "You can only access the viewModel after onActivityCreated"
         }
         ViewModelProvider(this, DevByteViewModel.Factory(activity.application))
             .get(DevByteViewModel::class.java)
