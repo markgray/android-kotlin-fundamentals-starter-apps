@@ -35,7 +35,7 @@ data class SleepNight(
          * The start time of the [SleepNight] entry, it is set when the START button is clicked.
          */
         @ColumnInfo(name = "start_time_milli")
-        val startTimeMilli: Long = System.currentTimeMillis(),
+        var startTimeMilli: Long = System.currentTimeMillis(),
 
         /**
          * The stop time of the [SleepNight] entry, it is set when the STOP button is clicked.
