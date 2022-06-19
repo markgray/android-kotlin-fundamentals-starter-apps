@@ -195,6 +195,7 @@ class GdgListFragment : Fragment() {
      * permission request).
      */
     private fun requestLocationPermission() {
+        @Suppress("DEPRECATION")
         requestPermissions(arrayOf(LOCATION_PERMISSION), LOCATION_PERMISSION_REQUEST)
     }
 
@@ -260,11 +261,12 @@ class GdgListFragment : Fragment() {
             return
         }
 
+        @Suppress("DEPRECATION")
         val request = LocationRequest.create().setPriority(LocationRequest.PRIORITY_LOW_POWER)
         val callback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 val location = locationResult.lastLocation
-                viewModel.onLocationUpdated(location)
+                viewModel.onLocationUpdated(location!!)
             }
         }
         fusedLocationClient.requestLocationUpdates(request, callback, Looper.myLooper()!!)
@@ -282,11 +284,13 @@ class GdgListFragment : Fragment() {
      * @param permissions the permissions requested.
      * @param grantResults the grant results for the corresponding permissions in [permissions]
      */
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
+        @Suppress("DEPRECATION")
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             LOCATION_PERMISSION_REQUEST -> {

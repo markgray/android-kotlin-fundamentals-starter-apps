@@ -98,5 +98,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.1'
 
     // Client for retrieving location
-    implementation 'com.google.android.gms:play-services-location:19.0.1'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
 }
