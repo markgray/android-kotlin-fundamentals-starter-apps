@@ -36,6 +36,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val myName: MyName = MyName("Mark Gray")
 
+    /**
+     * Called when the activity is starting. First we call our super's implementation of `onCreate`.
+     * We then initialize our [ActivityMainBinding] field [binding] to the binding associated with
+     * our content view which the [DataBindingUtil.setContentView] method creates when it inflates
+     * our layout file `layout/activity_main.xml` We then use [binding] to set the `myName` variable
+     * of our UI to our [MyName] field [myName], and to set the `OnClickListener` of the
+     * `doneButton` in our UI to a lambda which calls our [addNickname] method with the [View] that
+     * was clicked (the `doneButton` itself of course).
+     *
+     * @param savedInstanceState we do not override [onSaveInstanceState] so do not use.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
