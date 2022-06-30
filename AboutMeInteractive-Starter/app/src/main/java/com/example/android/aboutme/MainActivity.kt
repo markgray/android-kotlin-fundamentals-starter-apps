@@ -20,6 +20,7 @@ package com.android.example.aboutme
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
 /**
  * Main Activity of the AboutMe app. This app demonstrates:
  *     * EditText
@@ -27,6 +28,12 @@ import android.os.Bundle
  */
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Called when the activity is starting. First we call our super's implementation of `onCreate`.
+     * Then we set our content view to  our layout file `layout/activity_main.xml`.
+     *
+     * @param savedInstanceState we do not override [onSaveInstanceState] so do not use.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
