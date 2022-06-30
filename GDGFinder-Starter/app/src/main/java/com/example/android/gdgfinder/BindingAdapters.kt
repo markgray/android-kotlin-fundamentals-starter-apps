@@ -24,7 +24,17 @@ import com.example.android.gdgfinder.network.GdgChapter
 import com.example.android.gdgfinder.search.GdgListAdapter
 
 /**
- * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
+ * This binding adapter is used in layout/fragment_gdg_list.xml for the [RecyclerView] with the ID
+ * [R.id.gdg_chapter_list] using the attribute app:listData="@{viewModel.gdgList}". The `gdgList`
+ * field of the `GdgListViewModel` variable `viewModel` is a `LiveData` wrapped list of [GdgChapter]
+ * objects. First we initialize our [GdgListAdapter] variable `val adapter` by retrieving the
+ * adapter of our [RecyclerView] parameter [recyclerView]. We then call the `submitList` method of
+ * `adapter` to have it set the new list to be displayed to our [data] parameter supplying a lambda
+ * for the runnable to be executed when the List is committed which will scroll the list to the top
+ * after the diffs are calculated and posted.
+ *
+ * @param recyclerView the [RecyclerView] which is using the attribute "app:listData".
+ * @param data the list of [GdgChapter] objects passed as the attribute value of "app:listData".
  */
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<GdgChapter>?) {
@@ -35,6 +45,15 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<GdgChapter>?) {
     }
 }
 
+/**
+ * This binding adapter is used in layout/fragment_gdg_list.xml for the "Waiting for location and
+ * network result..." `TextView` using the attribute app:showOnlyWhenEmpty="@{viewModel.gdgList}".
+ * If the [data] list of [GdgChapter] value of the attribute is `null` or empty it sets the
+ * visibility of the view with our attribute to [View.VISIBLE], otherwise it sets the visibility to
+ * [View.GONE].
+ *
+ * @param data the list of [GdgChapter] objects passed as the attribute value of app:showOnlyWhenEmpty
+ */
 @BindingAdapter("showOnlyWhenEmpty")
 fun View.showOnlyWhenEmpty(data: List<GdgChapter>?) {
     visibility = when {

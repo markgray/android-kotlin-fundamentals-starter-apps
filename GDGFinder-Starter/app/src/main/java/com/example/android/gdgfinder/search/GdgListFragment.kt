@@ -217,13 +217,14 @@ class GdgListFragment : Fragment() {
     private fun requestLastLocationOrStartLocationUpdates() {
         // if we don't have permission ask for it and wait until the user grants it
         if (ContextCompat.checkSelfPermission(requireContext(), LOCATION_PERMISSION)
-            != PackageManager.PERMISSION_GRANTED) {
+            != PackageManager.PERMISSION_GRANTED
+        ) {
             requestLocationPermission()
             return
         }
 
-        val fusedLocationClient: FusedLocationProviderClient
-                = LocationServices.getFusedLocationProviderClient(requireContext())
+        val fusedLocationClient: FusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
 
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             if (location == null) {
@@ -256,7 +257,11 @@ class GdgListFragment : Fragment() {
      */
     private fun startLocationUpdates(fusedLocationClient: FusedLocationProviderClient) {
         // if we don't have permission ask for it and wait until the user grants it
-        if (ContextCompat.checkSelfPermission(requireContext(), LOCATION_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                LOCATION_PERMISSION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             requestLocationPermission()
             return
         }
@@ -266,10 +271,10 @@ class GdgListFragment : Fragment() {
         val callback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 val location = locationResult.lastLocation
-                viewModel.onLocationUpdated(location!!)
+                viewModel.onLocationUpdated(location ?: return)
             }
         }
-        fusedLocationClient.requestLocationUpdates(request, callback, Looper.myLooper()!!)
+        fusedLocationClient.requestLocationUpdates(request, callback, Looper.myLooper() ?: return)
     }
 
     /**

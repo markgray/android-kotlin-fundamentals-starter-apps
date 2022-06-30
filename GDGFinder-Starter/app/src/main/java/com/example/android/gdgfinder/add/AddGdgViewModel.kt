@@ -21,33 +21,40 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+/**
+ * [ViewModel] "controlling" our `AddGdgFragment` fragment.
+ */
 class AddGdgViewModel : ViewModel() {
 
     /**
-     * Request a toast by setting this value to true.
-     *
-     * This is private because we don't want to expose setting this value to the Fragment.
+     * Request a `Snackbar` by setting this value to true. This is private because we don't want to
+     * expose setting this value to the Fragment, the public read only version is our property
+     * [showSnackBarEvent].
      */
     private var _showSnackbarEvent = MutableLiveData<Boolean?>()
 
     /**
-     * If this is true, immediately `show()` a toast and call `doneShowingSnackbar()`.
+     * If this is `true`, an `Observer` in `AddGdgFragment` will immediately `show()` a `Snackbar`
+     * and then call `doneShowingSnackbar()` to reset it to `null`.
      */
     val showSnackBarEvent: LiveData<Boolean?>
         get() = _showSnackbarEvent
 
     /**
-     * Call this immediately after calling `show()` on a toast.
-     *
-     * It will clear the toast request, so if the user rotates their phone it won't show a duplicate
-     * toast.
+     * Call this immediately after calling `show()` on the `Snackbar` shown after [showSnackBarEvent]
+     * toggles to `true`. It will clear the `Snackbar` request, so if the user rotates their phone
+     * it won't show a duplicate `Snackbar`.
      */
     fun doneShowingSnackbar() {
         _showSnackbarEvent.value = null
     }
 
+    /**
+     * Triggers the showing of a `Snackbar` by setting our [_showSnackbarEvent] property to `true`.
+     * It is called by a binding expression for the "android:onClick" attribute of the button with
+     * ID `R.id.button` (binding property `button`) in the layout/add_gdg_fragment.xml layout file.
+     */
     fun onSubmitApplication() {
         _showSnackbarEvent.value = true
-
     }
 }
