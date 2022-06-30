@@ -23,6 +23,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.devbyteviewer.database.getDatabase
+import com.example.android.devbyteviewer.domain.DevByteVideo
 import com.example.android.devbyteviewer.repository.VideosRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -65,7 +66,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
     /**
      * A playlist of videos displayed on the screen.
      */
-    val playlist = videosRepository.videos
+    val playlist: LiveData<List<DevByteVideo>> = videosRepository.videos
 
     /**
      * Event triggered for network error. This is private to avoid exposing a
@@ -113,7 +114,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
             } catch (networkError: IOException) {
                 // Show a Toast error message and hide the progress bar.
-                if(playlist.value!!.isEmpty())
+                if ((playlist.value ?: return@launch).isEmpty())
                     _eventNetworkError.value = true
             }
         }
@@ -139,9 +140,21 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * Factory for constructing DevByteViewModel with parameter
      */
     @Suppress("MemberVisibilityCanBePrivate")
-    class Factory(val app: Application) : ViewModelProvider.Factory {
-        @Suppress("WRONG_NULLABILITY_FOR_JAVA_OVERRIDE")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    class Factory(
+        /**
+         * the [Application] that owns this activity.
+         */
+        val app: Application) : ViewModelProvider.Factory {
+        /**
+         * Creates a new instance of the given [Class]. After a sanity check to make sure we are
+         * only being used to create a [DevByteViewModel] instance we return a [DevByteViewModel]
+         * constructed to use our [app] property as its [Application] property `app`.
+         *
+         * @param modelClass a [Class] whose instance is requested
+         * @param T          The type parameter for the ViewModel.
+         * @return a newly created [DevByteViewModel] view model.
+         */
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DevByteViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return DevByteViewModel(app) as T

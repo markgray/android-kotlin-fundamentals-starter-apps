@@ -31,12 +31,27 @@ import com.example.android.devbyteviewer.domain.DevByteVideo
  */
 @Entity
 data class DatabaseVideo constructor(
-        @PrimaryKey
-        val url: String,
-        val updated: String,
-        val title: String,
-        val description: String,
-        val thumbnail: String)
+    /**
+     * The YouTube Url for the video, our PrimaryKey.
+     */
+    @PrimaryKey
+    val url: String,
+    /**
+     * The date that the video was last updated
+     */
+    val updated: String,
+    /**
+     * The title of the video
+     */
+    val title: String,
+    /**
+     * The description of the video
+     */
+    val description: String,
+    /**
+     * The Url for the app:imageUrl binding adapter attribute of the `ImageView`
+     */
+    val thumbnail: String)
 
 /**
  * Map DatabaseVideos to domain entities
@@ -44,10 +59,10 @@ data class DatabaseVideo constructor(
 fun List<DatabaseVideo>.asDomainModel(): List<DevByteVideo> {
     return map {
         DevByteVideo(
-                url = it.url,
-                title = it.title,
-                description = it.description,
-                updated = it.updated,
-                thumbnail = it.thumbnail)
+            url = it.url,
+            title = it.title,
+            description = it.description,
+            updated = it.updated,
+            thumbnail = it.thumbnail)
     }
 }

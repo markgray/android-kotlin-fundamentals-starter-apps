@@ -28,7 +28,7 @@ import com.bumptech.glide.Glide
 fun hideIfNetworkError(view: View, isNetWorkError: Boolean, playlist: Any?) {
     view.visibility = if (playlist != null) View.GONE else View.VISIBLE
 
-    if(isNetWorkError) {
+    if (isNetWorkError) {
         view.visibility = View.GONE
     }
 }

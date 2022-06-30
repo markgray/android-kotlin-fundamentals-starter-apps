@@ -28,6 +28,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -153,7 +154,7 @@ class DevByteFragment : Fragment() {
      * Method for displaying a Toast error message for network errors.
      */
     private fun onNetworkError() {
-        if (!viewModel.isNetworkErrorShown.value!!) {
+        if (!(viewModel.isNetworkErrorShown.value ?: return)) {
             Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }
@@ -171,25 +172,52 @@ class DevByteFragment : Fragment() {
 
 /**
  * Click listener for Videos. By giving the block a name it helps a reader understand what it does.
+ * Used as the value of the `videoCallback` variable in the binding for each item View created from
+ * the layout file layout/devbyte_item.xml for the `RecylerView`. The `onClick` override is called
+ * with the [DevByteVideo] instance held by the view due to a binding expression for the
+ * "android:onClick" attribute of the `R.id.clickableOverlay` view that overlays the entire
+ * view group.
  *
+ * @param block a lambda which takes a [DevByteVideo] and returns [Unit] (ie. void).
  */
-class VideoClick(val block: (DevByteVideo) -> Unit) {
+class VideoClick(
+    /**
+     * a lambda which takes a [DevByteVideo] and returns [Unit] (ie. void).
+     */
+    val block: (DevByteVideo) -> Unit) {
     /**
      * Called when a video is clicked
      *
-     * @param video the video that was clicked
+     * @param video the [DevByteVideo] held by the view that was clicked
      */
-    fun onClick(video: DevByteVideo) = block(video)
+    fun onClick(video: DevByteVideo): Unit = block(video)
 }
 
 /**
  * RecyclerView Adapter for setting up data binding on the items in the list.
+ *
+ * @param callback the [VideoClick] every element in our RecyclerView should use for its
+ * `videoCallback` variable, and then call when its view is clicked.
  */
 @Suppress("MemberVisibilityCanBePrivate")
-class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteViewHolder>() {
+class DevByteAdapter(
+    /**
+     * the [VideoClick] every element in our RecyclerView should use for its
+     * `videoCallback` variable, and then call when its view is clicked.
+     */
+    val callback: VideoClick) : RecyclerView.Adapter<DevByteViewHolder>() {
 
     /**
-     * The videos that our Adapter will show
+     * The videos that our Adapter will show. It is set to the value of the `LiveData` wrapped
+     * `playlist` field of the [DevByteViewModel] field [DevByteFragment.viewModelAdapter] in the
+     * lambda of the [Observer] added to it in the `onViewStateRestored` override of [DevByteFragment]
+     * when it changes to a non-null value. Its size is returned by our [getItemCount] override, and
+     * its contents are referenced in our [onBindViewHolder] override to retrieve the [DevByteVideo]
+     * that the [DevByteViewHolder] should hold and display. The setter sets the backing field of
+     * [videos] (`field` is the keyword used to access the backing field) to its `List<DevByteVideo>`
+     * parameter `value` then calls the [notifyDataSetChanged] method to notify any registered
+     * observers that the data set has changed. This will cause every element in our [RecyclerView]
+     * to be invalidated.
      */
     var videos: List<DevByteVideo> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
@@ -203,8 +231,18 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
         }
 
     /**
-     * Called when RecyclerView needs a new [DevByteViewHolder] of the given type to represent
-     * an item.
+     * Called when [RecyclerView] needs a new [DevByteViewHolder] of the given type to represent
+     * an item. We initialize our variable `val withDataBinding` to the [DevbyteItemBinding] binding
+     * object that the [DataBindingUtil.inflate] returns when it inflates the [R.layout.devbyte_item]
+     * layout file layout/devbyte_item.xml using our [ViewGroup] parameter [parent] for the layout
+     * params without attaching to it. Then we return a new instance of [DevByteViewHolder]
+     * constructed to use `withDataBinding` as the [DevbyteItemBinding] binding to the view it
+     * should display in.
+     *
+     * @param parent The [ViewGroup] into which the new View will be added after it is bound to
+     * an adapter position.
+     * @param viewType The view type of the new View.
+     * @return A new ViewHolder that holds a View of the given view type.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DevByteViewHolder {
         val withDataBinding: DevbyteItemBinding = DataBindingUtil.inflate(
@@ -216,12 +254,25 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
         return DevByteViewHolder(withDataBinding)
     }
 
-    override fun getItemCount() = videos.size
+    /**
+     * Returns the total number of items in the data set held by the adapter. We just return the
+     * `size` of our `List<DevByteVideo>` field [videos].
+     *
+     * @return The total number of items in this adapter.
+     */
+    override fun getItemCount(): Int = videos.size
 
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
-     * update the contents of the [DevByteViewHolder.itemView] to reflect the item at the given
-     * position.
+     * update the contents of the "itemView" of the [DevByteViewHolder] parameter [holder] to
+     * reflect the item at the position [position] in our data set. We use the [also] extension
+     * function on the `viewDataBinding` field of [holder] to set the `video` variable of the
+     * [DevbyteItemBinding] to the [DevByteVideo] at [position] in our data set [videos] list,
+     * and its `videoCallback` variable to our [VideoClick] field [callback].
+     *
+     * @param holder The ViewHolder which should be updated to represent the contents of the
+     * item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: DevByteViewHolder, position: Int) {
         holder.viewDataBinding.also {
@@ -229,16 +280,27 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
             it.videoCallback = callback
         }
     }
-
 }
 
 /**
- * ViewHolder for DevByte items. All work is done by data binding.
+ * ViewHolder for DevByte items. All work is done by data binding. The class itself consists only
+ * of the [DevbyteItemBinding] field [viewDataBinding] it is constructed to hold and a companion
+ * object defining an alias for the resource ID of the layout file layout/devbyte_item.xml that is
+ * the underlying View used to create a new [DevbyteItemBinding] for us to use.
+ *
+ * @param viewDataBinding the [DevbyteItemBinding] binding object for the view we are to display in.
  */
-class DevByteViewHolder(val viewDataBinding: DevbyteItemBinding) :
+class DevByteViewHolder(
+    /**
+     * the [DevbyteItemBinding] binding object for the view we are to display in.
+     */
+    val viewDataBinding: DevbyteItemBinding) :
     RecyclerView.ViewHolder(viewDataBinding.root) {
     companion object {
+        /**
+         * Just a more convenient way to refer to the layout file used for an item
+         */
         @LayoutRes
-        val LAYOUT = R.layout.devbyte_item
+        val LAYOUT: Int = R.layout.devbyte_item
     }
 }

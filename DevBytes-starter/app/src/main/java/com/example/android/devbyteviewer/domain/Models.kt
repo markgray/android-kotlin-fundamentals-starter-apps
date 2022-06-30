@@ -29,14 +29,32 @@ import com.example.android.devbyteviewer.util.smartTruncate
 /**
  * Videos represent a devbyte that can be played.
  */
-data class DevByteVideo(val title: String,
-                        val description: String,
-                        val url: String,
-                        val updated: String,
-                        val thumbnail: String) {
+data class DevByteVideo(
+    /**
+     * the title of the video
+     */
+    val title: String,
+    /**
+     * the description of the video
+     */
+    val description: String,
+    /**
+     * the YouTube Url for the video.
+     */
+    val url: String,
+    /**
+     * the date that the video was last updated
+     */
+    val updated: String,
+    /**
+     * the Url for the thumbnail image
+     */
+    val thumbnail: String) {
 
     /**
-     * Short description is used for displaying truncated descriptions in the UI
+     * Short description is used for displaying truncated descriptions in the UI. We return the
+     * [String] returned by the `smartTruncate` extension function when it truncates our
+     * [description] property to 200 characters.
      */
     val shortDescription: String
         get() = description.smartTruncate(200)
