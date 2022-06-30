@@ -57,22 +57,22 @@ class GameOverFragment : Fragment() {
      * @return Return the [View] for the fragment's UI, or null.
      */
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         /**
          * Inflate the layout for this fragment
          */
         val binding: FragmentGameOverBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_game_over, container, false)
+            inflater, R.layout.fragment_game_over, container, false)
         /**
          * Add OnClick Handler for Try Again button, it will navigate to
          * the [GameFragment] when clicked.
          */
         binding.tryAgainButton.setOnClickListener { view: View ->
             view.findNavController()
-                    .navigate(GameOverFragmentDirections.actionGameOverFragmentToGameFragment())
+                .navigate(GameOverFragmentDirections.actionGameOverFragmentToGameFragment())
         }
         return binding.root
     }

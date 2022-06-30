@@ -86,11 +86,22 @@ class TitleFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Debugging override of `onAttach` which simply logs the fact that it was called
+     *
+     * @param context the [Context] this fragment is running in.
+     */
     override fun onAttach(context: Context) {
         super.onAttach(context)
         Log.i("TitleFragment", "onAttach called")
     }
 
+    /**
+     * Debugging override of `onCreate` which simply logs the fact that it was called
+     *
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state,
+     * this is the state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i("TitleFragment", "onCreate called")
@@ -111,31 +122,49 @@ class TitleFragment : Fragment() {
         Log.i("TitleFragment", "onViewStateRestored called")
     }
 
+    /**
+     * Debugging override of `onStart` which simply logs the fact that it was called
+     */
     override fun onStart() {
         super.onStart()
         Log.i("TitleFragment", "onStart called")
     }
 
+    /**
+     * Debugging override of `onResume` which simply logs the fact that it was called
+     */
     override fun onResume() {
         super.onResume()
         Log.i("TitleFragment", "onResume called")
     }
 
+    /**
+     * Debugging override of `onPause` which simply logs the fact that it was called
+     */
     override fun onPause() {
         super.onPause()
         Log.i("TitleFragment", "onPause called")
     }
 
+    /**
+     * Debugging override of `onStop` which simply logs the fact that it was called
+     */
     override fun onStop() {
         super.onStop()
         Log.i("TitleFragment", "onStop called")
     }
 
+    /**
+     * Debugging override of `onDestroyView` which simply logs the fact that it was called
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         Log.i("TitleFragment", "onDestroyView called")
     }
 
+    /**
+     * Debugging override of `onDetach` which simply logs the fact that it was called
+     */
     override fun onDetach() {
         super.onDetach()
         Log.i("TitleFragment", "onDetach called")

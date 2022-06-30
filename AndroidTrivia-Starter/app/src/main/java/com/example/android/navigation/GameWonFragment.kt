@@ -57,52 +57,79 @@ class GameWonFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         /**
          * Inflate the layout for this fragment
          */
         val binding: FragmentGameWonBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_game_won, container, false)
+            inflater, R.layout.fragment_game_won, container, false)
         /**
          * Add OnClick Handler for Next Match button, it will navigate to
          * the [GameFragment] when clicked.
          */
         binding.nextMatchButton.setOnClickListener { view: View ->
             view.findNavController()
-                    .navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
+                .navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
         }
         val args = GameWonFragmentArgs.fromBundle(requireArguments())
         Toast.makeText(
-                context,
-                "NumCorrect: ${args.numCorrect}, NumQuestions: ${args.numQuestions}",
-                Toast.LENGTH_LONG
+            context,
+            "NumCorrect: ${args.numCorrect}, NumQuestions: ${args.numQuestions}",
+            Toast.LENGTH_LONG
         ).show()
 
         setHasOptionsMenu(true)
         return binding.root
     }
 
-    // Creating our Share Intent
-    private fun getShareIntent() : Intent {
+    /**
+     * Creating our Share Intent. We initialize our [GameWonFragmentArgs] variable `val args`
+     * to the safe `NavArgs` class that the [GameWonFragmentArgs.fromBundle]  method creates
+     * from the arguments supplied when the fragment was instantiated (it contains getters for
+     * the `numCorrect` and `numQuestions` safe arguments). We initialize our [Intent] variable
+     * `val shareIntent` with the action [Intent.ACTION_SEND] (Deliver some data to someone else).
+     * We set the type of `shareIntent` to "text/plain" and add an [Intent.EXTRA_TEXT] extra which
+     * consists of a formatted string displaying the `numCorrect` (number correctly answered) and
+     * `numQuestions` (total number of questions asked) properties of `args`. Finally we return
+     * `shareIntent` to the caller.
+     *
+     * @return an [Intent] whose action is [Intent.ACTION_SEND] and whose extra is a formatted
+     * string reporting the results of playing the game.
+     */
+    private fun getShareIntent(): Intent {
         val args = GameWonFragmentArgs.fromBundle(requireArguments())
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.setType("text/plain")
-                .putExtra(
-                        Intent.EXTRA_TEXT,
-                        getString(R.string.share_success_text, args.numCorrect, args.numQuestions)
-                )
+            .putExtra(
+                Intent.EXTRA_TEXT,
+                getString(R.string.share_success_text, args.numCorrect, args.numQuestions)
+            )
         return shareIntent
     }
 
-    // Starting an Activity with our new Intent
+    /**
+     * Starting an Activity with our new Intent. We just call the [startActivity] method with the
+     * [Intent] created by our [getShareIntent] method. Called from our [onOptionsItemSelected]
+     * override when the `itemId` of the [MenuItem] selected is [R.id.share].
+     */
     private fun shareSuccess() {
         startActivity(getShareIntent())
     }
 
-    // Showing the Share Menu Item Dynamically
+    /**
+     * Initialize the contents of the Fragment host's standard options menu. First we call our
+     * super's implementation of `onCreateOptionsMenu`, then we use our [MenuInflater] parameter
+     * [inflater] to inflate our menu layout file [R.menu.winner_menu] into our [Menu] parameter
+     * [menu]. If the `resolveActivity` method of the [Intent] created by our [getShareIntent]
+     * method is unable to find an activity which can handle we set the visibility of the menu
+     * item in [menu] with the id [R.id.share] to invisible.
+     *
+     * @param menu The options menu in which you place your items.
+     * @param inflater a [MenuInflater] one can use to inflate an XML menu file.
+     */
     @SuppressLint("QueryPermissionsNeeded")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -114,7 +141,16 @@ class GameWonFragment : Fragment() {
         }
     }
 
-    // Sharing from the Menu
+    /**
+     * This hook is called whenever an item in your options menu is selected. When the ID of our
+     * [MenuItem] parameter [item] is [R.id.share] we call our method [shareSuccess] (which will
+     * launch another activity which will "share" our game results). In any case we then return the
+     * value returned by our super's implementation of `onOptionsItemSelected`.
+     *
+     * @param item The menu item that was selected.
+     * @return boolean Return `false` to allow normal menu processing to proceed, `true` to
+     * consume it here.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.share -> shareSuccess()
