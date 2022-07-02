@@ -16,6 +16,7 @@
 
 package com.example.android.trackmysleepquality.sleepquality
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,17 +35,35 @@ import com.example.android.trackmysleepquality.databinding.FragmentSleepQualityB
 class SleepQualityFragment : Fragment() {
 
     /**
-     * Called when the Fragment is ready to display content to the screen.
+     * Called to have the fragment instantiate its user interface view. First we use the
+     * [DataBindingUtil.inflate] method to inflate our layout file R.layout.fragment_sleep_quality
+     * into an instance of [FragmentSleepQualityBinding] to initialize our variable `val binding`
+     * to. Then we initialize our [Application] variable `val application` to the application that
+     * owns this activity (unused for now).
      *
-     * This function uses DataBindingUtil to inflate R.layout.fragment_sleep_quality.
+     * Finally we return the outermost [View] in the layout file associated with `binding` to the
+     * caller.
+     *
+     * @param inflater The [LayoutInflater] object that can be used to inflate
+     * any views in the fragment.
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI will be attached to. The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return Return the [View] for the fragment's UI, or null.
      */
     @Suppress("RedundantNullableReturnType")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepQualityBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_quality, container, false)
+            inflater, R.layout.fragment_sleep_quality, container, false)
 
         @Suppress("UNUSED_VARIABLE")
         val application = requireNotNull(this.activity).application

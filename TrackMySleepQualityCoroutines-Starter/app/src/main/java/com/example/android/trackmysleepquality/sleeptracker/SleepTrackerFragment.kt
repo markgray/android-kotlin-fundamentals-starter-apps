@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.app.Activity
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
+import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerBinding
 
 /**
@@ -36,19 +37,48 @@ import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerB
  * (Because we have not learned about RecyclerView yet.)
  */
 class SleepTrackerFragment : Fragment() {
-
     /**
-     * Called when the Fragment is ready to display content to the screen.
+     * Called to have the fragment instantiate its user interface view. This will be called between
+     * [onCreate] and [onActivityCreated]. We initialize our [FragmentSleepTrackerBinding] variable
+     * `val binding` by having the [DataBindingUtil.inflate] method use our [LayoutInflater] parameter
+     * [inflater] to inflate our layout file R.layout.fragment_sleep_tracker with our [ViewGroup]
+     * parameter [container] supplying the LayoutParams. We initialize our [Application] variable
+     * `val application` to the application that owns this activity. We use `application` in a call
+     * to the [SleepDatabase.getInstance] to retrieve the singleton [SleepDatabase] and initialize
+     * our [SleepDatabaseDao] variable `val dataSource` to the `sleepDatabaseDao` field of the
+     * [SleepDatabase]. We then initialize our [SleepTrackerViewModelFactory] variable
+     * `val viewModelFactory` to an instance constructed to use `dataSource` and `application`,
+     * and then use `viewModelFactory` in a call to [ViewModelProvider] to retrieve the singleton
+     * [SleepTrackerViewModel] (creating it if need be) and initialize our [SleepTrackerViewModel]
+     * variable `val sleepTrackerViewModel` to it.
      *
-     * This function uses DataBindingUtil to inflate R.layout.fragment_sleep_quality.
+     * We set the `LifecycleOwner` that should be used for observing changes of [LiveData] in `binding`
+     * to `this`, and we set the `sleepTrackerViewModel` variable of `binding` to `sleepTrackerViewModel`
+     * to allow the binding to use the view model.
+     *
+     * Finally we return the outermost [View] in the layout file associated with `binding` to the
+     * caller.
+     *
+     * @param inflater The [LayoutInflater] object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI will be attached to. The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return Return the View for the fragment's UI, or null.
      */
     @Suppress("RedundantNullableReturnType")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepTrackerBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_tracker, container, false)
+            inflater, R.layout.fragment_sleep_tracker, container, false)
 
         val application = requireNotNull<Activity>(this.activity).application
 
@@ -59,8 +89,7 @@ class SleepTrackerFragment : Fragment() {
 
         // Get a reference to the ViewModel associated with this fragment.
         val sleepTrackerViewModel =
-                ViewModelProviders.of(this, viewModelFactory)
-                        .get(SleepTrackerViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory)[SleepTrackerViewModel::class.java]
         binding.sleepTrackerViewModel = sleepTrackerViewModel
 
         binding.lifecycleOwner = this
