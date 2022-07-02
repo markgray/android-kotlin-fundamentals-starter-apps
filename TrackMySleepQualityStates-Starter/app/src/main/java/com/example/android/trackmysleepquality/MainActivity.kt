@@ -25,25 +25,37 @@ import androidx.appcompat.app.AppCompatActivity
  * Android App Development in Kotlin course on Udacity(https://www.udacity.com/course/???).
  *
  * The SleepQualityTracker app is a demo app that helps you collect information about your sleep.
- * - Start time, end time, quality, and time slept
+ *  - Start time, end time, quality, and time slept
  *
  * This app demonstrates the following views and techniques:
- * - Room database, DAO, and Coroutines
+ *  - Room database, DAO, and Coroutines
  *
  * It also uses and builds on the following techniques from previous lessons:
- * - Transformation map
- * - Data Binding in XML files
- * - ViewModel Factory
- * - Using Backing Properties to protect MutableLiveData
- * - Observable state LiveData variables to trigger navigation
+ *  - Transformation map
+ *  - Data Binding in XML files
+ *  - ViewModel Factory
+ *  - Using Backing Properties to protect MutableLiveData
+ *  - Observable state LiveData variables to trigger navigation
  */
 
 /**
- * This main activity is just a container for our fragments,
- * where the real action is.
+ * Our MainActivity is only responsible for setting the content view that contains the
+ * Navigation Host.
  */
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Called when the activity is starting. First we call our super's implementation of `onCreate`,
+     * then we set our content view to our layout file [R.layout.activity_main]. It consists only
+     * of a `fragment` container for android:name="androidx.navigation.fragment.NavHostFragment",
+     * with an app:defaultNavHost="true" attribute (to ensure that our `NavHostFragment` intercepts
+     * the system Back button) and an app:navGraph="@navigation/navigation" attribute (associates the
+     * `NavHostFragment` with the navigation graph navigation/navigation.xml). The app:startDestination
+     * attribute of the navigation graph specifies [R.id.sleep_tracker_fragment] to be the starting
+     * fragment (`sleeptracker/SleepTrackerFragment.kt`)
+     *
+     * @param savedInstanceState we do not override [onSaveInstanceState] so do not use.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
