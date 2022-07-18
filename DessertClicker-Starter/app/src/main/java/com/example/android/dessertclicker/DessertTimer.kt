@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.example.android.dessertclicker
 
 import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import timber.log.Timber
 
 /**
- * This is a class representing a timer that you can start or stop. The secondsCount outputs a count of
- * how many seconds since it started, every one second.
+ * This is a class representing a timer that you can start or stop. The secondsCount outputs a
+ * count of how many seconds since it started, once a second.
  *
  * -----
  *
@@ -35,25 +38,46 @@ import timber.log.Timber
  * threading:
  *
  * https://developer.android.com/guide/components/processes-and-threads
- *
  */
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver {
 
-    // The number of seconds counted since the timer started
-    var secondsCount = 0
+    /**
+     * The number of seconds counted since the timer started
+     */
+    var secondsCount: Int = 0
 
     /**
      * [Handler] is a class meant to process a queue of messages (known as [android.os.Message]s)
      * or actions (known as [Runnable]s)
      */
-    private var handler = Handler()
+    private var handler = Handler(Looper.myLooper()!!)
+
+    /**
+     * This [Runnable] is a lambda created in our [startTimer] method which increments [secondsCount]
+     * then logs the timer value and re-adds itself to the queue of the [Handler] field [handler]
+     * with a delay of 1000 milliseconds.
+     */
     private lateinit var runnable: Runnable
 
     init {
+        /**
+         * Add this as a lifecycle Observer, which allows for the class to react to changes in this
+         * activity's lifecycle state using `OnLifecycleEvent` annotations on methods.
+         */
         lifecycle.addObserver(this)
     }
 
+    /**
+     * The `OnLifecycleEvent` annotation for the [Lifecycle.Event.ON_START] event causes this method
+     * to be run when the [Lifecycle] we are observing emits an `onStart` event. We initialize our
+     * [Runnable] field [runnable] with a new instance whose `run` override is a lambda which
+     * increments our field [secondsCount], logs the timer value, then re-adds [runnable] to the
+     * queue of our [Handler] field [handler] with a delay of 1000 milliseconds. Finally we add
+     * [runnable] to the queue of our [Handler] field [handler] with a delay of 1000 milliseconds
+     * to start the timer running.
+     */
+    @Suppress("unused", "DEPRECATION")
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun startTimer() {
         // Create the runnable action, which prints out a log and increments the seconds counter
@@ -73,6 +97,14 @@ class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver {
         // In this case, no looper is defined, and it defaults to the main or UI thread.
     }
 
+    /**
+     * The `OnLifecycleEvent` annotation for the [Lifecycle.Event.ON_STOP] event causes this method
+     * to be run when the [Lifecycle] we are observing emits an `onStop` event. We removed all
+     * pending posts of [Runnable] field [runnable] from our [Handler] field [handler] stopping
+     * the timer until the next time we receive a [Lifecycle.Event.ON_START] event and our
+     * [startTimer] method is run.
+     */
+    @Suppress("unused", "DEPRECATION")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun stopTimer() {
         // Removes all pending posts of runnable from the handler's queue, effectively stopping the
