@@ -81,6 +81,7 @@ class GameWonFragment : Fragment() {
             Toast.LENGTH_LONG
         ).show()
 
+        @Suppress("DEPRECATION")
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -131,6 +132,7 @@ class GameWonFragment : Fragment() {
      * @param inflater a [MenuInflater] one can use to inflate an XML menu file.
      */
     @SuppressLint("QueryPermissionsNeeded")
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.winner_menu, menu)
@@ -151,6 +153,7 @@ class GameWonFragment : Fragment() {
      * @return boolean Return `false` to allow normal menu processing to proceed, `true` to
      * consume it here.
      */
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.share -> shareSuccess()
