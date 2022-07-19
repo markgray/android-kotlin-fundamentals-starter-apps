@@ -58,8 +58,7 @@ class DevByteFragment : Fragment() {
         val activity: FragmentActivity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated"
         }
-        ViewModelProvider(this, DevByteViewModel.Factory(activity.application))
-            .get(DevByteViewModel::class.java)
+        ViewModelProvider(this, DevByteViewModel.Factory(activity.application))[DevByteViewModel::class.java]
     }
 
     /**
