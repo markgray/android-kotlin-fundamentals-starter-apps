@@ -19,7 +19,7 @@ class ScoreViewModelFactory(private val finalScore: Int) : ViewModelProvider.Fac
      * @param T          The type parameter for the ViewModel
      * @return a newly created ViewModel
      */
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
         if (modelClass.isAssignableFrom(ScoreViewModel::class.java)) {
             return ScoreViewModel(finalScore) as T

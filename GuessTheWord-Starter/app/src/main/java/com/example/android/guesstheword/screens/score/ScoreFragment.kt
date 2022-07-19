@@ -39,6 +39,7 @@ class ScoreFragment : Fragment() {
      * The [ScoreViewModel] that holds the data and business logic for our fragment.
      */
     private lateinit var viewModel: ScoreViewModel
+
     /**
      * The [ScoreViewModelFactory] that we use to build our [ScoreViewModel] field
      * [viewModel]
@@ -76,26 +77,25 @@ class ScoreFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         /**
          * Inflate view and obtain an instance of the binding class.
          */
         val binding: ScoreFragmentBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.score_fragment,
-                container,
-                false
+            inflater,
+            R.layout.score_fragment,
+            container,
+            false
         )
 
         viewModelFactory = ScoreViewModelFactory(
-                ScoreFragmentArgs.fromBundle(requireArguments()).score
+            ScoreFragmentArgs.fromBundle(requireArguments()).score
         )
-        viewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(ScoreViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[ScoreViewModel::class.java]
 
         binding.scoreViewModel = viewModel
         // Specify the current activity as the lifecycle owner of the binding.

@@ -14,6 +14,7 @@ class ScoreViewModel(finalScore: Int) : ViewModel() {
      * The private final score Mutable backing field
      */
     private val _score = MutableLiveData<Int>()
+
     /**
      * The public final score immutable field
      */
@@ -24,6 +25,7 @@ class ScoreViewModel(finalScore: Int) : ViewModel() {
      * The private play again backing field for [eventPlayAgain]
      */
     private val _eventPlayAgain = MutableLiveData<Boolean>()
+
     /**
      * The public play again immutable field, will trigger an observer which will navigate back to
      * the `GameFragment` when it changes to *true*.

@@ -17,6 +17,10 @@ class GameViewModel : ViewModel() {
      * The current word
      */
     private val _word = MutableLiveData<String>()
+
+    /**
+     * Public read-only access to our [_word] property.
+     */
     val word: LiveData<String>
         get() = _word
 
@@ -24,6 +28,10 @@ class GameViewModel : ViewModel() {
      * The current score
      */
     private val _score = MutableLiveData<Int>()
+
+    /**
+     * Public read-only access to our [_score] property.
+     */
     val score: LiveData<Int>
         get() = _score
 
@@ -36,6 +44,11 @@ class GameViewModel : ViewModel() {
      * Event which triggers the end of the game
      */
     private val _eventGameFinish = MutableLiveData<Boolean>()
+
+    /**
+     * Public read-only access to our [_eventGameFinish] property. An observer is added to it in
+     * the `onCreateView` override of [GameFragment]
+     */
     val eventGameFinish: LiveData<Boolean>
         get() = _eventGameFinish
 
@@ -43,6 +56,10 @@ class GameViewModel : ViewModel() {
      * Countdown time
      */
     private val _currentTime = MutableLiveData<Long>()
+
+    /**
+     * Public read-only access to our [_currentTime] property.
+     */
     val currentTime: LiveData<Long>
         get() = _currentTime
 
@@ -50,17 +67,17 @@ class GameViewModel : ViewModel() {
      * The String version of the current time, its value is set by the [Transformations.map] method
      * with a lambda which converts our [currentTime] field to a [String]
      */
-    val currentTimeString = Transformations.map(currentTime) { time ->
+    val currentTimeString: LiveData<String> = Transformations.map(currentTime) { time ->
         DateUtils.formatElapsedTime(time)
     }
 
     /**
      * The Hint for the current word
      */
-    val wordHint = Transformations.map(word) { word ->
+    val wordHint: LiveData<String> = Transformations.map(word) { word ->
         val randomPosition = (1..word.length).random()
         "Current word has " + word.length + " letters" +
-                "\nThe letter at position " + randomPosition + " is " +
+            "\nThe letter at position " + randomPosition + " is " +
             word[randomPosition - 1].uppercaseChar()
     }
 
@@ -90,7 +107,7 @@ class GameViewModel : ViewModel() {
         timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
 
             override fun onTick(millisUntilFinished: Long) {
-                _currentTime.value = millisUntilFinished/ONE_SECOND
+                _currentTime.value = millisUntilFinished / ONE_SECOND
             }
 
             override fun onFinish() {
@@ -120,27 +137,27 @@ class GameViewModel : ViewModel() {
      */
     fun resetList() {
         wordList = mutableListOf(
-                "queen",
-                "hospital",
-                "basketball",
-                "cat",
-                "change",
-                "snail",
-                "soup",
-                "calendar",
-                "sad",
-                "desk",
-                "guitar",
-                "home",
-                "railway",
-                "zebra",
-                "jelly",
-                "car",
-                "crow",
-                "trade",
-                "bag",
-                "roll",
-                "bubble"
+            "queen",
+            "hospital",
+            "basketball",
+            "cat",
+            "change",
+            "snail",
+            "soup",
+            "calendar",
+            "sad",
+            "desk",
+            "guitar",
+            "home",
+            "railway",
+            "zebra",
+            "jelly",
+            "car",
+            "crow",
+            "trade",
+            "bag",
+            "roll",
+            "bubble"
         )
         wordList.shuffle()
     }
