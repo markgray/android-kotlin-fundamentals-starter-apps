@@ -28,14 +28,15 @@ import com.example.android.marsrealestate.network.MarsProperty
  * @param app the [Application] we are associated with, which we use to access resources
  */
 class DetailViewModel(
-        marsProperty: MarsProperty,
-        app: Application
+    marsProperty: MarsProperty,
+    app: Application
 ) : AndroidViewModel(app) {
 
     /**
      * The internal MutableLiveData that contains the [MarsProperty] we are to display
      */
     private val _selectedProperty = MutableLiveData<MarsProperty>()
+
     /**
      * The external immutable LiveData for the [MarsProperty] we are to display
      */
@@ -57,12 +58,12 @@ class DetailViewModel(
      * to specify the text displayed using an android:text="@{viewModel.displayPropertyPrice}"
      * attribute.
      */
-    val displayPropertyPrice = Transformations.map(selectedProperty) {
+    val displayPropertyPrice: LiveData<String> = Transformations.map(selectedProperty) {
         app.applicationContext.getString(
-                when (it.isRental) {
-                    true -> R.string.display_price_monthly_rental
-                    false -> R.string.display_price
-                }, it.price)
+            when (it.isRental) {
+                true -> R.string.display_price_monthly_rental
+                false -> R.string.display_price
+            }, it.price)
     }
 
     /**
@@ -72,12 +73,12 @@ class DetailViewModel(
      * to specify the text displayed using an android:text="@{viewModel.displayPropertyType}"
      * attribute.
      */
-    val displayPropertyType = Transformations.map(selectedProperty) {
+    val displayPropertyType: LiveData<String> = Transformations.map(selectedProperty) {
         app.applicationContext.getString(R.string.display_type,
-                app.applicationContext.getString(
-                        when (it.isRental) {
-                            true -> R.string.type_rent
-                            false -> R.string.type_sale
-                        }))
+            app.applicationContext.getString(
+                when (it.isRental) {
+                    true -> R.string.type_rent
+                    false -> R.string.type_sale
+                }))
     }
 }

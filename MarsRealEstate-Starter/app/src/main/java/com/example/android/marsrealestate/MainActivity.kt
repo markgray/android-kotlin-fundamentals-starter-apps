@@ -20,11 +20,23 @@ package com.example.android.marsrealestate
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
+/**
+ * Our MainActivity is only responsible for setting the content view that contains the
+ * Navigation Host.
+ */
 class MainActivity : AppCompatActivity() {
 
     /**
-     * Our MainActivity is only responsible for setting the content view that contains the
-     * Navigation Host.
+     * Called when the activity is starting. First we call our super's implementation of `onCreate`,
+     * then we set our content view to our layout file [R.layout.activity_main]. It consists only
+     * of a `fragment` container for android:name="androidx.navigation.fragment.NavHostFragment",
+     * with an app:defaultNavHost="true" attribute (to ensure that our `NavHostFragment` intercepts
+     * the system Back button) and an app:navGraph="@navigation/nav_graph" attribute (associates the
+     * `NavHostFragment` with the navigation graph navigation/nav_graph.xml). The app:startDestination
+     * attribute of the navigation graph specifies [R.id.overviewFragment] to be the starting
+     * fragment (`overview/OverviewFragment.kt`)
+     *
+     * @param savedInstanceState we do not override [onSaveInstanceState] so do not use.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

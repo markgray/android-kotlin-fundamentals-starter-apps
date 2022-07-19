@@ -25,10 +25,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.marsrealestate.databinding.GridViewItemBinding
 import com.example.android.marsrealestate.network.MarsProperty
 
+/**
+ * This class implements a [ListAdapter] for [RecyclerView]  which uses Data Binding to present
+ * [List] data, including computing diffs between lists. Its constructor includes a [OnClickListener]
+ * parameter which will be invoked when any of the views displayed by a view holder is clicked.
+ *
+ * @param onClickListener the [OnClickListener] which every [MarsPropertyViewHolder] should call
+ * with the [MarsProperty] it is holding when its view is clicked.
+ */
 @Suppress("MemberVisibilityCanBePrivate")
-class PhotoGridAdapter( private val onClickListener: OnClickListener ) :
-        ListAdapter<MarsProperty,
-                PhotoGridAdapter.MarsPropertyViewHolder>(DiffCallback) {
+class PhotoGridAdapter(private val onClickListener: OnClickListener) :
+    ListAdapter<MarsProperty, PhotoGridAdapter.MarsPropertyViewHolder>(DiffCallback) {
     /**
      * Called when RecyclerView needs a new `ViewHolder` of the given type to represent an item.
      *
@@ -57,30 +64,57 @@ class PhotoGridAdapter( private val onClickListener: OnClickListener ) :
         holder.bind(marsProperty)
     }
 
-    class MarsPropertyViewHolder(var binding: GridViewItemBinding): RecyclerView.ViewHolder(binding.root) {
+    /**
+     * The MarsPropertyViewHolder constructor takes the binding variable from the associated
+     * GridViewItem, which nicely gives it access to the full [MarsProperty] information.
+     *
+     * @param binding the [GridViewItemBinding] for the view we are to display our item in
+     */
+    class MarsPropertyViewHolder(var binding: GridViewItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
+        /**
+         * Binds a [MarsProperty] to this [MarsPropertyViewHolder]. Called from the `onBindViewHolder`
+         * override of [PhotoGridAdapter]. We set the `property` variable of our [GridViewItemBinding]
+         * field [binding] to our parameter [marsProperty] then call the `executePendingBindings`
+         * method of [binding] to have it evaluate the pending bindings, updating any Views that
+         * have expressions bound to modified variables.
+         *
+         * @param marsProperty the [MarsProperty] item we are to display.
+         */
         fun bind(marsProperty: MarsProperty) {
             binding.property = marsProperty
             binding.executePendingBindings()
         }
     }
 
-    class OnClickListener(val clickListener: (marsProperty:MarsProperty) -> Unit) {
-        fun onClick(marsProperty:MarsProperty) = clickListener(marsProperty)
+    /**
+     * Custom listener that handles clicks on [RecyclerView] items. Passes the [MarsProperty]
+     * associated with the current item to the [onClick] function.
+     *
+     * @param clickListener lambda that will be called with the current [MarsProperty]
+     */
+    class OnClickListener(val clickListener: (marsProperty: MarsProperty) -> Unit) {
+        /**
+         * This method will be called with the [MarsProperty] object corresponding to the item that
+         * was clicked in the [RecyclerView]. It just calls the [clickListener] method that was
+         * passed to its constructor with that [MarsProperty] object.
+         */
+        fun onClick(marsProperty: MarsProperty): Unit = clickListener(marsProperty)
     }
 
+    /**
+     * Allows the RecyclerView to determine which items have changed when the [List] of [MarsProperty]
+     * has been updated.
+     */
     companion object DiffCallback : DiffUtil.ItemCallback<MarsProperty>() {
         /**
-         * Called to check whether two objects represent the same item. For example, if your items
-         * have unique ids, this method should check their id equality.
-         *
-         * Note: `null` items in the list are assumed to be the same as another `null` item and are
-         * assumed to not be the same as a non-`null` item. This callback will not be invoked for
-         * either of those cases.
+         * Called to check whether two objects represent the same item. We return the results of
+         * comparing our parameters [oldItem] and [newItem] using kotlin's referential equality
+         * operator (`true` if both point to the same object).
          *
          * @param oldItem The item in the old list.
          * @param newItem The item in the new list.
-         * @return *true* if the two items represent the same object or *false* if they are different.
+         * @return `true` if the two items represent the same object or `false` if they are different.
          */
         override fun areItemsTheSame(oldItem: MarsProperty, newItem: MarsProperty): Boolean {
             return oldItem === newItem
@@ -88,18 +122,14 @@ class PhotoGridAdapter( private val onClickListener: OnClickListener ) :
 
         /**
          * Called to check whether two items have the same data. This information is used to detect
-         * if the contents of an item have changed. This method to check equality instead of
-         * [Object.equals] so that you can change its behavior depending on your UI. For example,
-         * if you are using DiffUtil with a [RecyclerView.Adapter], you should return whether the
-         * items' visual representations are the same. This method is called only if [areItemsTheSame]
-         * returns `true` for these items.
-         *
-         * Note: Two `null` items are assumed to represent the same contents. This callback will not
-         * be invoked for this case.
+         * if the contents of an item have changed. This method is called only if [areItemsTheSame]
+         * returns `true` for these items. We return the results of comparing the `id` field of
+         * our parameters [oldItem] and [newItem] using kotlin's structural equality operator
+         * (`true` if both have identical `id` fields).
          *
          * @param oldItem The item in the old list.
          * @param newItem The item in the new list.
-         * @return *true* if the contents of the items are the same or *false* if they are different.
+         * @return True if the contents of the items are the same or false if they are different.
          */
         override fun areContentsTheSame(oldItem: MarsProperty, newItem: MarsProperty): Boolean {
             return oldItem.id == newItem.id

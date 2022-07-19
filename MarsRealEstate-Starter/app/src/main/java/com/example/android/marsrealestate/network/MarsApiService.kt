@@ -27,13 +27,35 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
- * Enum used by the options menu of `OverViewFragment` to select a filter string to use when forming
- * a Retrofit query.
+ * The values of this enum are used to append a "Query" parameter to the URL. Which [MarsApiFilter]
+ * to use is selected in the `onOptionsItemSelected` override of `OverViewFragment` when the user
+ * uses the option menu to select a filter. The `updateFilter` method of `OverviewViewModel` is
+ * then called with the new [MarsApiFilter] to have the `getMarsRealEstateProperties` method reload
+ * the [List] of [MarsProperty] from the internet using the new filter as the query.
  */
-enum class MarsApiFilter(val value: String) {
+enum class MarsApiFilter(
+    /**
+     * The [String] that is the value of the enum constant.
+     */
+    val value: String) {
+    /**
+     * Causes the `getMarsRealEstateProperties` method to reload the [List] of [MarsProperty] from
+     * the internet with only properties which can be rented.
+     */
     SHOW_RENT("rent"),
+
+    /**
+     * Causes the `getMarsRealEstateProperties` method to reload the [List] of [MarsProperty] from
+     * the internet with only properties which can be bought.
+     */
     SHOW_BUY("buy"),
-    SHOW_ALL("all") }
+
+    /**
+     * Causes the `getMarsRealEstateProperties` method to reload the [List] of [MarsProperty] from
+     * the internet with all properties.
+     */
+    SHOW_ALL("all")
+}
 
 /**
  * The API base URL for our Retrofit query.
@@ -47,8 +69,8 @@ private const val BASE_URL = " https://android-kotlin-fun-mars-server.appspot.co
  * to the corresponding property in the Kotlin class when the Json is converted.
  */
 private val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
+    .add(KotlinJsonAdapterFactory())
+    .build()
 
 /**
  * The Refrofit instance we use for our queries. It uses a converter factory created from our field
@@ -57,10 +79,10 @@ private val moshi = Moshi.Builder()
  * a CallBack one, and uses [BASE_URL] as its base url.
  */
 private val retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .baseUrl(BASE_URL)
-        .build()
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .addCallAdapterFactory(CoroutineCallAdapterFactory())
+    .baseUrl(BASE_URL)
+    .build()
 
 /**
  * The interface we use to fetch the [List] of [MarsProperty] objects from the REST service.
@@ -76,11 +98,16 @@ interface MarsApiService {
      */
     @GET("realestate")
     fun getProperties(@Query("filter") type: String):
-            Deferred<List<MarsProperty>>
+        Deferred<List<MarsProperty>>
 }
 
+/**
+ * A public Api object that exposes the lazy-initialized Retrofit service
+ */
 object MarsApi {
-    val retrofitService : MarsApiService by lazy {
-        retrofit.create(MarsApiService::class.java)
-    }
+    /**
+     * The lazy-initialized [MarsApiService] Retrofit service that is an implementation of the API
+     * endpoints defined by the service interface in this [MarsApiService]
+     */
+    val retrofitService: MarsApiService by lazy { retrofit.create(MarsApiService::class.java) }
 }

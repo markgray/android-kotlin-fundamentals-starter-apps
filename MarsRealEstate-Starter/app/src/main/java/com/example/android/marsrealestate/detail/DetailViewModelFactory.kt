@@ -25,8 +25,8 @@ import com.example.android.marsrealestate.network.MarsProperty
  * Simple ViewModel factory that provides the MarsProperty and context to the ViewModel.
  */
 class DetailViewModelFactory(
-        private val marsProperty: MarsProperty,
-        private val application: Application) : ViewModelProvider.Factory {
+    private val marsProperty: MarsProperty,
+    private val application: Application) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
 
     /**
@@ -41,7 +41,7 @@ class DetailViewModelFactory(
      * @param T          The type parameter for the ViewModel.
      * @return a newly created [DetailViewModel]
      */
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(marsProperty, application) as T
         }

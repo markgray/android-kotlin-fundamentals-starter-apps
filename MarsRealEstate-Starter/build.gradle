@@ -5,17 +5,7 @@ buildscript {
         // Versions for all the dependencies we plan to use. It's particularly useful for kotlin and
         // navigation where the versions of the plugin needs to be the same as the version of the
         // library defined in the app Gradle file
-        version_android_gradle_plugin = '7.2.1'
-        version_core = '1.8.0'
-        version_constraint_layout = '2.1.4'
-        version_glide = '4.13.2'
-        version_kotlin = "1.7.0"
-        version_kotlin_coroutines = '1.6.2'
-        version_lifecycle_extensions = "2.2.0"
-        version_moshi = '1.13.0'
-        version_navigation = '2.4.2'
-        version_retrofit = '2.9.0'
-        version_retrofit_coroutines_adapter = "0.9.2"
+        version_kotlin = "1.7.10"
         version_recyclerview = '1.2.1'
     }
 
@@ -24,9 +14,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:${version_android_gradle_plugin}"
+        classpath "com.android.tools.build:gradle:7.2.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_kotlin"
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.4.2'
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0'
     }
 }
 
