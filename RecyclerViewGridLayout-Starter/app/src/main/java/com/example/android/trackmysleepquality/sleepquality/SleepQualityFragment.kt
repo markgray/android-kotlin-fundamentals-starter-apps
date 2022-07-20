@@ -53,7 +53,7 @@ class SleepQualityFragment : Fragment() {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepQualityBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_quality, container, false)
+            inflater, R.layout.fragment_sleep_quality, container, false)
 
         val application = requireNotNull(this.activity).application
         val arguments = SleepQualityFragmentArgs.fromBundle(requireArguments())
@@ -64,8 +64,8 @@ class SleepQualityFragment : Fragment() {
 
         // Get a reference to the ViewModel associated with this fragment.
         val sleepQualityViewModel =
-                ViewModelProviders.of(
-                        this, viewModelFactory).get(SleepQualityViewModel::class.java)
+            ViewModelProviders.of(
+                this, viewModelFactory)[SleepQualityViewModel::class.java]
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
