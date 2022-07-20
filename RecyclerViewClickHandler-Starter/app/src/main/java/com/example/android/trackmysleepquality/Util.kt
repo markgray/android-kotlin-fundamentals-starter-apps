@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("unused")
-
 package com.example.android.trackmysleepquality
 
 import android.annotation.SuppressLint
@@ -34,7 +32,14 @@ import java.util.concurrent.TimeUnit
  * These functions create a formatted string that can be set in a TextView.
  */
 
+/**
+ * Number of milliseconds in one minute
+ */
 private val ONE_MINUTE_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)
+
+/**
+ * Number of milliseconds in one hour
+ */
 private val ONE_HOUR_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
 
 /**
@@ -42,13 +47,34 @@ private val ONE_HOUR_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
  *
  * Examples:
  *
- * 6 seconds on Wednesday
- * 2 minutes on Monday
- * 40 hours on Thursday
+ *     6 seconds on Wednesday
+ *     2 minutes on Monday
+ *     40 hours on Thursday
+ *
+ * We initialize our [Long] variable `val durationMilli` to our parameter [endTimeMilli] minus our
+ * parameter [startTimeMilli]. We initialize our [String] variable `val weekdayString` to the result
+ * of formatting [startTimeMilli] according to to a [SimpleDateFormat] constructed for the pattern
+ * "EEEE" (Day name in week) for the default locale. Then we branch on the value of `durationMilli`:
+ *
+ *  - less than [ONE_MINUTE_MILLIS] we initialize our variable `val seconds` to the result of
+ *  converting `durationMilli` to seconds and return the string formatted using the format
+ *  [R.string.seconds_length] ("%d seconds on %s") for `seconds` and `weekdayString`.
+ *
+ *  - less than [ONE_HOUR_MILLIS] we initialize our variable `val minutes` to the result of
+ *  converting `durationMilli` to minutes and return the string formatted using the format
+ *  [R.string.minutes_length] ("%d minutes on %s") for `minutes` and `weekdayString`.
+ *
+ *  - For larger values we initialize our variable `val hours` to the result of converting
+ *  `durationMilli` to hours and return the string formatted using the format
+ *  [R.string.hours_length] ("%d hours on %s") for `hours` and `weekdayString`.
+ *
+ * Used to set the text of the `sleepLength` [TextView] of the `ViewHolder` used by our
+ * `SleepNightAdapter` class.
  *
  * @param startTimeMilli the start of the interval
  * @param endTimeMilli the end of the interval
  * @param res resources used to load formatted strings
+ * @return a [String] which displays the duration of sleep in idiomatic way.
  */
 fun convertDurationToFormatted(startTimeMilli: Long, endTimeMilli: Long, res: Resources): String {
     val durationMilli = endTimeMilli - startTimeMilli
@@ -70,7 +96,13 @@ fun convertDurationToFormatted(startTimeMilli: Long, endTimeMilli: Long, res: Re
 }
 
 /**
- * Returns a string representing the numeric quality rating.
+ * Returns a string describing the quality of sleep based on the numeric quality rating. Used to set
+ * the text of the `quality` [TextView] of the `ViewHolder` used by our `SleepNightAdapter` class,
+ * and also used by our [formatNights] method.
+ *
+ * @param quality the numeric rating of the sleep quality.
+ * @param resources [Resources] used to load formatted strings.
+ * @return [String] describing the quality of sleep.
  */
 fun convertNumericQualityToString(quality: Int, resources: Resources): String {
     var qualityString = resources.getString(R.string.three_ok)
@@ -90,15 +122,19 @@ fun convertNumericQualityToString(quality: Int, resources: Resources): String {
  * Take the Long milliseconds returned by the system and stored in Room,
  * and convert it to a nicely formatted string for display.
  *
- * EEEE - Display the long letter version of the weekday
- * MMM - Display the letter abbreviation of the nmotny
- * dd-yyyy - day in month and full year numerically
- * HH:mm - Hours and minutes in 24hr format
+ *     EEEE - Display the long letter version of the weekday
+ *     MMM - Display the letter abbreviation of the month
+ *     dd-yyyy - day in month and full year numerically
+ *     HH:mm - Hours and minutes in 24hr format
+ *
+ * @param systemTime the difference, measured in milliseconds, between the time and midnight,
+ * January 1, 1970 UTC.
+ * @return the date and time of [systemTime] in the format: "Tuesday Aug-11-2020 Time: 22:42"
  */
 @SuppressLint("SimpleDateFormat")
 fun convertLongToDateString(systemTime: Long): String {
     return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
-            .format(systemTime).toString()
+        .format(systemTime).toString()
 }
 
 /**
@@ -108,11 +144,22 @@ fun convertLongToDateString(systemTime: Long): String {
  * applicable per word. So, we build a formatted string using HTML. This is handy, but we will
  * learn a better way of displaying this data in a future lesson.
  *
- * @param   nights - List of all SleepNights in the database.
- * @param   resources - Resources object for all the resources defined for our app.
+ * We initialize our [StringBuilder] variable `val sb` with a new instance. Then we use the `apply`
+ * extension function on `sb` to perform a block of operations on `sb`, starting by appending a
+ * `<h3>` header follow by looping through each of the [SleepNight] objects in the [nights] list
+ * and appending html formatting strings and formatted representations of the fields in the
+ * [SleepNight] being processed.
  *
- * @return  Spanned - An interface for text that has formatting attached to it.
- *           See: https://developer.android.com/reference/android/text/Spanned
+ * When done building the [StringBuilder] we convert `sb` to a [String] and return the [Spanned]
+ * returned by the [Html.fromHtml] method for that [String], using the two parameter version if our
+ * device is running Android greater than or equal to SDK 24, or the one parameter version if our
+ * device is older.
+ *
+ * @param   nights List of all SleepNights in the database.
+ * @param   resources Resources object for all the resources defined for our app.
+ *
+ * @return  [Spanned] An interface for text that has formatting attached to it.
+ * See: https://developer.android.com/reference/android/text/Spanned
  */
 fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
     val sb = StringBuilder()
@@ -153,17 +200,8 @@ fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
  *
  * A ViewHolder holds a view for the [RecyclerView] as well as providing additional information
  * to the RecyclerView such as where on the screen it was last drawn during scrolling.
+ *
+ * @param textView the [TextView] to use as our view.
  */
-class
-
-
-
-
-
-
-
-
-
-
-
-TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
+@Suppress("unused", "CanBeParameter", "MemberVisibilityCanBePrivate")
+class TextItemViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
