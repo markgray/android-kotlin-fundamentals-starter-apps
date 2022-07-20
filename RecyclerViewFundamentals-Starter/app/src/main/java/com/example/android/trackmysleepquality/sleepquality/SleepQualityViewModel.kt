@@ -34,13 +34,13 @@ import kotlinx.coroutines.withContext
  * @param sleepNightKey The key of the current night we are working on.
  */
 class SleepQualityViewModel(
-        private val sleepNightKey: Long = 0L,
-        dataSource: SleepDatabaseDao) : ViewModel() {
+    private val sleepNightKey: Long = 0L,
+    dataSource: SleepDatabaseDao) : ViewModel() {
 
     /**
      * Hold a reference to SleepDatabase via its SleepDatabaseDao.
      */
-    val database = dataSource
+    val database: SleepDatabaseDao = dataSource
 
     /** Coroutine setup variables */
 
