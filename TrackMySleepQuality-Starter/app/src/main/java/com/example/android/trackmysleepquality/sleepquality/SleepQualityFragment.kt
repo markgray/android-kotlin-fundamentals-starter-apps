@@ -44,7 +44,7 @@ class SleepQualityFragment : Fragment() {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepQualityBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_quality, container, false)
+            inflater, R.layout.fragment_sleep_quality, container, false)
 
         @Suppress("UNUSED_VARIABLE")
         val application = requireNotNull(this.activity).application

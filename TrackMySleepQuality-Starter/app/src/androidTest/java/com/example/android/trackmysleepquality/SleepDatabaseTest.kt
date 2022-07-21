@@ -48,9 +48,9 @@ class SleepDatabaseTest {
         // Using an in-memory database because the information stored here disappears when the
         // process is killed.
         db = Room.inMemoryDatabaseBuilder(context, SleepDatabase::class.java)
-                // Allowing main thread queries, just for testing.
-                .allowMainThreadQueries()
-                .build()
+            // Allowing main thread queries, just for testing.
+            .allowMainThreadQueries()
+            .build()
         sleepDao = db.sleepDatabaseDao
     }
 
@@ -78,7 +78,7 @@ class SleepDatabaseTest {
             sleepDao.insert(night)
         }
         repeat(10) {
-            night = sleepDao.get(it.toLong()+1)!!
+            night = (sleepDao.get(it.toLong() + 1) ?: return@repeat)
             assertEquals(night.sleepQuality, it)
         }
         sleepDao.clear()
@@ -92,10 +92,10 @@ class SleepDatabaseTest {
             night.sleepQuality = it
             sleepDao.insert(night)
         }
-        val newNight = sleepDao.get(10)!!
+        val newNight = sleepDao.get(10) ?: return
         newNight.sleepQuality = 5
         sleepDao.update(newNight)
-        night = sleepDao.get(10)!!
+        night = (sleepDao.get(10) ?: return)
         assertEquals(newNight, night)
     }
 }
