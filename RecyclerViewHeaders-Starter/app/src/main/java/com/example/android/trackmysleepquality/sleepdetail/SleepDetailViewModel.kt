@@ -32,13 +32,13 @@ import kotlinx.coroutines.Job
  * @param dataSource the [SleepDatabaseDao] that provides access to our database.
  */
 class SleepDetailViewModel(
-        private val sleepNightKey: Long = 0L,
-        dataSource: SleepDatabaseDao) : ViewModel() {
+    private val sleepNightKey: Long = 0L,
+    dataSource: SleepDatabaseDao) : ViewModel() {
 
     /**
      * Hold a reference to SleepDatabase via its SleepDatabaseDao.
      */
-    val database = dataSource
+    val database: SleepDatabaseDao = dataSource
 
     /** Coroutine setup variables */
 
@@ -55,14 +55,14 @@ class SleepDetailViewModel(
     /**
      * Getter for our [night] field.
      */
-    fun getNight() = night
+    fun getNight(): LiveData<SleepNight> = night
 
     /**
      * We just initialize our `night` field by querying the database for the night whose `nightId`
      * PrimaryKey is the same as our field `sleepNightKey`
      */
     init {
-        night=database.getNightWithId(sleepNightKey)
+        night = database.getNightWithId(sleepNightKey)
     }
 
     /**

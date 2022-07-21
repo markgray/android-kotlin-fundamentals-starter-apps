@@ -34,13 +34,13 @@ import kotlinx.coroutines.withContext
  * @param dataSource the [SleepDatabaseDao] that provides access to our database.
  */
 class SleepQualityViewModel(
-        private val sleepNightKey: Long = 0L,
-        dataSource: SleepDatabaseDao) : ViewModel() {
+    private val sleepNightKey: Long = 0L,
+    dataSource: SleepDatabaseDao) : ViewModel() {
 
     /**
      * Hold a reference to SleepDatabase via its SleepDatabaseDao.
      */
-    val database = dataSource
+    val database: SleepDatabaseDao = dataSource
 
     /** Coroutine setup variables */
 

@@ -105,7 +105,7 @@ class SleepQualityFragment : Fragment() {
         val sleepQualityViewModel =
             ViewModelProvider(
                 this, viewModelFactory
-            ).get(SleepQualityViewModel::class.java)
+            )[SleepQualityViewModel::class.java]
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
