@@ -55,7 +55,7 @@ interface VideoDao {
  * access it, the [VideoDao] field [videoDao] (the table name is the default "databasevideo" since
  * the `@Entity` annotation lacks a "tableName" parameter).
  */
-@Database(entities = [DatabaseVideo::class], version = 1)
+@Database(entities = [DatabaseVideo::class], version = 1, exportSchema = false)
 abstract class VideosDatabase : RoomDatabase() {
     /**
      * The [VideoDao] to use to run "Room" queries.
