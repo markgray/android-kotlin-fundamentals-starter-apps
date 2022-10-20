@@ -55,7 +55,7 @@
 
     <string name="header_text">Sleep Results</string>
     <string name="close">Close</string>
-    <string name="minutes_length" tools:ignore="PluralsCandidate">%d minutes on %s</string>
-    <string name="hours_length" tools:ignore="PluralsCandidate">%d hours on %s</string>
-    <string name="seconds_length" tools:ignore="PluralsCandidate">%d seconds on %s</string>
+    <string name="minutes_length" tools:ignore="PluralsCandidate">%1$d minutes on %2$s</string>
+    <string name="hours_length" tools:ignore="PluralsCandidate">%1$d hours on %2$s</string>
+    <string name="seconds_length" tools:ignore="PluralsCandidate">%1$d seconds on %2$s</string>
 </resources>
