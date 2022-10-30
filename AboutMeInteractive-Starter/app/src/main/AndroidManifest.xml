@@ -28,7 +28,7 @@
         android:theme="@style/AppTheme"
         android:dataExtractionRules="@xml/data_extraction_rules"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".MainActivity"
+        <activity android:name="com.example.android.aboutme.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-@file:Suppress("PackageDirectoryMismatch")
-
-package com.android.example.aboutme
+package com.example.android.aboutme
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.android.example.aboutme.R
 
 /**
  * Main Activity of the AboutMe app. This app demonstrates:

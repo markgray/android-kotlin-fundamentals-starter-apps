@@ -23,7 +23,7 @@
     android:orientation="vertical"
     android:paddingStart="@dimen/layout_padding"
     android:paddingEnd="@dimen/layout_padding"
-    tools:context=".MainActivity">
+    tools:context="com.example.android.aboutme.MainActivity">
 
     <TextView
         android:id="@+id/name_text"
