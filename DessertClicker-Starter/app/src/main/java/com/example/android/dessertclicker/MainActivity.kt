@@ -341,8 +341,7 @@ class MainActivity : AppCompatActivity() {
      * `shareIntent`.
      */
     private fun onShare() {
-        @Suppress("DEPRECATION")
-        val shareIntent = ShareCompat.IntentBuilder.from(this)
+        val shareIntent = ShareCompat.IntentBuilder(this)
             .setText(getString(R.string.share_text, dessertsSold, revenue))
             .setType("text/plain")
             .intent
