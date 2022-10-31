@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION", "RedundantNullableReturnType")
-
 package com.example.android.gdgfinder.add
 
 import android.os.Bundle
@@ -8,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.android.gdgfinder.R
 import com.example.android.gdgfinder.databinding.AddGdgFragmentBinding
 import com.google.android.material.snackbar.Snackbar
@@ -44,7 +42,7 @@ class AddGdgFragment : Fragment() {
      * then call the `doneShowingSnackbar` method of [AddGdgViewModel] to reset it to `false`.
      */
     private val viewModel: AddGdgViewModel by lazy {
-        ViewModelProviders.of(this)[AddGdgViewModel::class.java]
+        ViewModelProvider(this)[AddGdgViewModel::class.java]
     }
 
     /**
@@ -76,7 +74,7 @@ class AddGdgFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI, or null.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we override returns nullable
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -101,6 +99,7 @@ class AddGdgFragment : Fragment() {
             }
         }
 
+        @Suppress("DEPRECATION") // TODO: Replace with MenuHost
         setHasOptionsMenu(true)
         return binding.root
     }

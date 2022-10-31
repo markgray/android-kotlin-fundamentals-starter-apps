@@ -48,7 +48,7 @@ private const val BASE_URL = "https://android-kotlin-fun-mars-server.appspot.com
  * A retrofit service to fetch and parse the JSON list of Google Development Groups into [GdgResponse]
  * objects for display.
  */
-@Suppress("DeferredIsResult")
+@Suppress("DeferredIsResult") // A rose is a rose is a rose
 interface GdgApiService {
     /**
      * Called from `GdgChapterRepository` in order to fetch the JSON list of Google Development

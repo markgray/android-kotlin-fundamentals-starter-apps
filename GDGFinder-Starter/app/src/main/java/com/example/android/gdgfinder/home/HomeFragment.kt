@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
         /**
          * Called to create a new instance of [HomeFragment] which it returns.
          */
-        @Suppress("unused")
+        @Suppress("unused") // Unused but instructional
         fun newInstance(): HomeFragment = HomeFragment()
     }
 
@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we override returns nullable
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
