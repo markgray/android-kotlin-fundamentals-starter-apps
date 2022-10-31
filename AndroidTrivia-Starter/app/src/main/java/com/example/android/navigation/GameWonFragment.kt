@@ -16,7 +16,6 @@
 
 package com.example.android.navigation
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -55,7 +54,7 @@ class GameWonFragment : Fragment() {
      * saved state as given here.
      * @return Return the [View] for the fragment's UI, or null.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we override returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -81,7 +80,7 @@ class GameWonFragment : Fragment() {
             Toast.LENGTH_LONG
         ).show()
 
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: Replace with MenuHost
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -131,8 +130,7 @@ class GameWonFragment : Fragment() {
      * @param menu The options menu in which you place your items.
      * @param inflater a [MenuInflater] one can use to inflate an XML menu file.
      */
-    @SuppressLint("QueryPermissionsNeeded")
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace with MenuHost
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.winner_menu, menu)
@@ -153,7 +151,7 @@ class GameWonFragment : Fragment() {
      * @return boolean Return `false` to allow normal menu processing to proceed, `true` to
      * consume it here.
      */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace with MenuHost
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.share -> shareSuccess()

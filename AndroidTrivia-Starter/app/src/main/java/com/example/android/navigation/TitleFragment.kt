@@ -43,7 +43,7 @@ class TitleFragment : Fragment() {
      * saved state as given here.
      * @return Return the [View] for the fragment's UI, or null.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we override returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -79,7 +79,7 @@ class TitleFragment : Fragment() {
             view.findNavController()
                 .navigate(TitleFragmentDirections.actionTitleFragmentToAboutFragment())
         }
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: Replace with MenuHost
         setHasOptionsMenu(true)
 
         Log.i("TitleFragment", "onCreateView called")
@@ -180,7 +180,7 @@ class TitleFragment : Fragment() {
      * @param menu The options menu in which you place your items.
      * @param inflater the [MenuInflater] you can use to inflate an xml [Menu] layout file.
      */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace with MenuHost
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.options_menu, menu)
@@ -198,7 +198,7 @@ class TitleFragment : Fragment() {
      * @return boolean Return false to allow normal menu processing to
      *         proceed, true to consume it here.
      */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace with MenuHost
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
             || super.onOptionsItemSelected(item)
