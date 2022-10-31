@@ -139,7 +139,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
     /**
      * Factory for constructing DevByteViewModel with parameter
      */
-    @Suppress("MemberVisibilityCanBePrivate")
+    @Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
     class Factory(
         /**
          * the [Application] that owns this activity.
@@ -156,7 +156,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
          */
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DevByteViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
+                @Suppress("UNCHECKED_CAST") // The cast is checked by above if statement
                 return DevByteViewModel(app) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")

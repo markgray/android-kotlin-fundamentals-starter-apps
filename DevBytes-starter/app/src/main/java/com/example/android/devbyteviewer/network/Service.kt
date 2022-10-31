@@ -29,7 +29,7 @@ import retrofit2.http.GET
 /**
  * A retrofit service to fetch a devbyte playlist.
  */
-@Suppress("DeferredIsResult")
+@Suppress("DeferredIsResult") // A rose is a rose is a rose
 interface DevbyteService {
     /**
      * Called from the `refreshVideos` method of `VideosRepository` to retrieve the list of videos
@@ -65,7 +65,7 @@ object DevByteNetwork {
     /**
      * This is the [DevbyteService] implementation created by retrofit.
      */
-    @Suppress("HasPlatformType")
+    @Suppress("HasPlatformType") // It is an Android only app after all
     val devbytes: DevbyteService? = retrofit.create(DevbyteService::class.java)
 
 }

@@ -84,7 +84,7 @@ data class NetworkVideo(
  * @return a list of [DevByteVideo] domain objects containing all the information in the receiver's
  * `videos` list of [NetworkVideo] objects
  */
-@Suppress("unused")
+@Suppress("unused") // Unused but instructional
 fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
     return videos.map {
         DevByteVideo(
