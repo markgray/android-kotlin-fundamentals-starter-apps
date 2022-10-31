@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModel
 /**
  * The [ViewModel] that holds all the data and business logic for the [GameFragment].
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
 class GameViewModel : ViewModel() {
     /**
      * The current word

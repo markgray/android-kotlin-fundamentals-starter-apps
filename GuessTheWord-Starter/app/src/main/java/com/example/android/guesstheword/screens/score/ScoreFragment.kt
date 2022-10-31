@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.example.android.guesstheword.screens.score
 
 import android.os.Bundle
@@ -25,7 +23,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.ScoreFragmentBinding
@@ -54,7 +52,7 @@ class ScoreFragment : Fragment() {
      * `LayoutParams`) without attaching to it. We initialize our [ScoreViewModelFactory]
      * field [viewModelFactory] to an instance constructed using the [Int] stored under
      * the key `score` in our arguments as its `finalScore` parameter. We then use the
-     * [ViewModelProviders.of] method to initialize our [ScoreViewModel] field [viewModel]
+     * [ViewModelProvider] constructor to initialize our [ScoreViewModel] field [viewModel]
      * to an [ScoreViewModel] for our fragment's scope using either one that already exists
      * or creating a new one. We set the `scoreViewModel` variable of `binding` to our
      * [ScoreViewModelFactory] field [viewModel] and set the `LifecycleOwner` that should
@@ -75,7 +73,7 @@ class ScoreFragment : Fragment() {
      * from a previous saved state as given here.
      * @return Return the [View] for the fragment's UI, or null.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we override returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -95,7 +93,7 @@ class ScoreFragment : Fragment() {
         viewModelFactory = ScoreViewModelFactory(
             ScoreFragmentArgs.fromBundle(requireArguments()).score
         )
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[ScoreViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[ScoreViewModel::class.java]
 
         binding.scoreViewModel = viewModel
         // Specify the current activity as the lifecycle owner of the binding.
