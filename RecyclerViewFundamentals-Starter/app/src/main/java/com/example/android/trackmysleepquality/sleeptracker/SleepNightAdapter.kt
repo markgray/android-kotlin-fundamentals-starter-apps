@@ -33,7 +33,7 @@ import com.example.android.trackmysleepquality.database.SleepNight
  * The adapter we use for the [RecyclerView] with resource ID R.id.sleep_list in the layout file
  * layout/fragment_sleep_tracker.xml which displays the [SleepNight] records read from our database.
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
 class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
 
     /**
@@ -47,7 +47,7 @@ class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
      * data set has changed.
      */
     var data: List<SleepNight> = listOf()
-        @SuppressLint("NotifyDataSetChanged")
+        @SuppressLint("NotifyDataSetChanged") // The entire List changes, so needs NotifyDataSetChanged
         set(value) {
             field = value
             notifyDataSetChanged()
