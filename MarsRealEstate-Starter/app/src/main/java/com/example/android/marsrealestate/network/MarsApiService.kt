@@ -87,7 +87,7 @@ private val retrofit = Retrofit.Builder()
 /**
  * The interface we use to fetch the [List] of [MarsProperty] objects from the REST service.
  */
-@Suppress("DeferredIsResult")
+@Suppress("DeferredIsResult") // A rose is a rose is a rose
 interface MarsApiService {
     /**
      * Makes a GET request of our Retrofit service with the "filter" [type] added to the end of

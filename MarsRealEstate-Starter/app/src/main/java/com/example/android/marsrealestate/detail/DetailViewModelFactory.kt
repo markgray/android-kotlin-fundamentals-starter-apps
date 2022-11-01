@@ -27,7 +27,6 @@ import com.example.android.marsrealestate.network.MarsProperty
 class DetailViewModelFactory(
     private val marsProperty: MarsProperty,
     private val application: Application) : ViewModelProvider.Factory {
-    @Suppress("unchecked_cast")
 
     /**
      * Creates a new instance of the given [Class]. We perform a sanity check to make sure that
@@ -43,6 +42,7 @@ class DetailViewModelFactory(
      */
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST") // The above if statement checks the cast
             return DetailViewModel(marsProperty, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

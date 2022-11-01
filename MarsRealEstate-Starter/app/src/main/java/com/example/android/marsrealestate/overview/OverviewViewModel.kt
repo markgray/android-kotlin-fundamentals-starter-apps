@@ -74,7 +74,7 @@ class OverviewViewModel : ViewModel() {
      * with the [status] property of this [OverviewViewModel] in a binding expression. The `ImageView`
      * with resource ID `R.id.status_image` in the layout file layout/fragment_overview.xml does so.
      */
-    @Suppress("unused")
+    @Suppress("unused") // Unused but instructive
     val status: LiveData<MarsApiStatus>
         get() = _status
 

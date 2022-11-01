@@ -14,8 +14,6 @@
  *  limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.example.android.marsrealestate.detail
 
 import android.os.Bundle
@@ -23,7 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.android.marsrealestate.databinding.FragmentDetailBinding
 
 /**
@@ -55,7 +53,7 @@ class DetailFragment : Fragment() {
      * from a previous saved state as given here.
      * @return Return the [View] for the fragment's UI, or null.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we override returns nullable
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -64,7 +62,7 @@ class DetailFragment : Fragment() {
         binding.lifecycleOwner = this
         val marsProperty = DetailFragmentArgs.fromBundle(requireArguments()).selectedProperty
         val viewModelFactory = DetailViewModelFactory(marsProperty, application)
-        binding.viewModel = ViewModelProviders.of(
+        binding.viewModel = ViewModelProvider(
             this, viewModelFactory)[DetailViewModel::class.java]
         return binding.root
     }

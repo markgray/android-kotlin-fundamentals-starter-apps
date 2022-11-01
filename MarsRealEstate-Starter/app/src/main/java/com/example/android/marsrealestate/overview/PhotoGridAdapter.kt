@@ -33,7 +33,7 @@ import com.example.android.marsrealestate.network.MarsProperty
  * @param onClickListener the [OnClickListener] which every [MarsPropertyViewHolder] should call
  * with the [MarsProperty] it is holding when its view is clicked.
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
 class PhotoGridAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<MarsProperty, PhotoGridAdapter.MarsPropertyViewHolder>(DiffCallback) {
     /**
