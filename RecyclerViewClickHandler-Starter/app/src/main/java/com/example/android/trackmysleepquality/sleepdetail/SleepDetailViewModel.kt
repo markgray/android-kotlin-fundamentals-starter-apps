@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("JoinDeclarationAndAssignment")
-
 package com.example.android.trackmysleepquality.sleepdetail
 
 import androidx.lifecycle.LiveData
@@ -66,6 +64,7 @@ class SleepDetailViewModel(
      * sets the text of the `TextView` to one formatted based on the `startTimeMilli` and `endTimeMilli`
      * properties of [night]).
      */
+    @Suppress("JoinDeclarationAndAssignment") // It is easier to breakpoint if separated
     private val night: LiveData<SleepNight>
 
     /**
