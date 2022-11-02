@@ -224,7 +224,7 @@ class SleepTrackerViewModel(
      * of the "CLEAR" button in the layout file layout/fragment_sleep_tracker.xml when the user
      * clicks that button.
      */
-    @Suppress("MemberVisibilityCanBePrivate")
+    @Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
     suspend fun clear() {
         withContext(Dispatchers.IO) {
             database.clear()
