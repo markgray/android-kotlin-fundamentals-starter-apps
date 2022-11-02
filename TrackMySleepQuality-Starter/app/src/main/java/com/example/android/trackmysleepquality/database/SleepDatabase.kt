@@ -87,7 +87,7 @@ abstract class SleepDatabase : RoomDatabase() {
          * @param context The application context Singleton, used to get access to the filesystem.
          * @return our singleton [SleepDatabase] instance.
          */
-        @Suppress("MemberVisibilityCanBePrivate")
+        @Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
         fun getInstance(context: Context): SleepDatabase {
             synchronized(this) {
                 var instance = INSTANCE

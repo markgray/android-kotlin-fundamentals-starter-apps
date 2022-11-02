@@ -16,9 +16,9 @@
 
 package com.example.android.trackmysleepquality
 
-import android.annotation.SuppressLint
 import android.content.res.Resources
 import java.text.SimpleDateFormat
+import java.util.Locale
 
 /**
  * These functions create a formatted string that can be set in a TextView.
@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat
 /**
  * Returns a string representing the numeric quality rating.
  */
-@Suppress("unused")
+@Suppress("unused") // It used to be used
 fun convertNumericQualityToString(quality: Int, resources: Resources): String {
     var qualityString = resources.getString(R.string.three_ok)
     when (quality) {
@@ -51,10 +51,9 @@ fun convertNumericQualityToString(quality: Int, resources: Resources): String {
  * dd-yyyy - day in month and full year numerically
  * HH:mm - Hours and minutes in 24hr format
  */
-@Suppress("unused")
-@SuppressLint("SimpleDateFormat")
+@Suppress("unused") // It used to be used
 fun convertLongToDateString(systemTime: Long): String {
-    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
+    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm", Locale.US)
         .format(systemTime).toString()
 }
 
