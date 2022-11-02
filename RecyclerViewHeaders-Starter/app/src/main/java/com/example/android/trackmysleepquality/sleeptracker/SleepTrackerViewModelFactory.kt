@@ -44,9 +44,9 @@ class SleepTrackerViewModelFactory(
      * @param T          The type parameter for the ViewModel.
      * @return a newly created [ViewModel]
      */
-    @Suppress("unchecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SleepTrackerViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST") // It is checked by above if statement
             return SleepTrackerViewModel(dataSource, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

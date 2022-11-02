@@ -16,7 +16,6 @@
 
 package com.example.android.trackmysleepquality
 
-import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.os.Build
 import android.text.Html
@@ -138,9 +137,8 @@ fun convertNumericQualityToString(quality: Int, resources: Resources): String {
  * January 1, 1970 UTC.
  * @return the date and time of [systemTime] in the format: "Tuesday Aug-11-2020 Time: 22:42"
  */
-@SuppressLint("SimpleDateFormat")
 fun convertLongToDateString(systemTime: Long): String {
-    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
+    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm", Locale.US)
         .format(systemTime).toString()
 }
 
@@ -200,7 +198,7 @@ fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         return Html.fromHtml(sb.toString(), Html.FROM_HTML_MODE_LEGACY)
     } else {
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // Needed for Build.VERSION.SDK_INT < Build.VERSION_CODES.N
         return Html.fromHtml(sb.toString())
     }
 }
@@ -215,5 +213,5 @@ fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
  *
  * @param textView the [TextView] to use as our view.
  */
-@Suppress("unused", "CanBeParameter", "MemberVisibilityCanBePrivate")
+@Suppress("unused", "CanBeParameter", "MemberVisibilityCanBePrivate") // Unused but instructional
 class TextItemViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)

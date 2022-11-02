@@ -16,7 +16,6 @@
 
 package com.example.android.trackmysleepquality.sleeptracker
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.databinding.ListItemSleepNightBinding
+import com.example.android.trackmysleepquality.sleeptracker.DataItem.Header.id
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,7 +61,7 @@ private const val ITEM_VIEW_TYPE_ITEM = 1
  * file calls the `onClick` method of its `clickListener` variable with its `sleep` variable (the
  * [SleepNight] it displays).
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
 class SleepNightAdapter(
     val clickListener: SleepNightListener
 ) : ListAdapter<DataItem, RecyclerView.ViewHolder>(SleepNightDiffCallback()) {
@@ -284,7 +284,6 @@ class SleepNightDiffCallback : DiffUtil.ItemCallback<DataItem>() {
      * @param newItem The item in the new list.
      * @return `true` if the contents of the items are the same or `false` if they are different.
      */
-    @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
         return oldItem == newItem
     }

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("JoinDeclarationAndAssignment")
-
 package com.example.android.trackmysleepquality.sleepdetail
 
 import androidx.lifecycle.LiveData
@@ -50,6 +48,7 @@ class SleepDetailViewModel(
     /**
      * The [SleepNight] entry in our database with the `nightId` PrimaryKey.
      */
+    @Suppress("JoinDeclarationAndAssignment") // Easier to breakpoint if separated
     private val night: LiveData<SleepNight>
 
     /**

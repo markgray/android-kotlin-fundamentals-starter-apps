@@ -83,7 +83,7 @@ class SleepTrackerViewModel(
     /**
      * Converted nights to Spanned for displaying.
      */
-    @Suppress("unused")
+    @Suppress("unused") // It used to be used
     val nightsString: LiveData<Spanned> = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
     }

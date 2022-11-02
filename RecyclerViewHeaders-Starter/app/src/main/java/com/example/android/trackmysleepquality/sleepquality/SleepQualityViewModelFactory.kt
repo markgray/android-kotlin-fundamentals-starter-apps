@@ -42,9 +42,9 @@ class SleepQualityViewModelFactory(
      * primary key to the `SleepNight` of interest, and to use [dataSource] as the [SleepDatabaseDao]
      * to access the Room database.
      */
-    @Suppress("unchecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SleepQualityViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST") // It is checked by above if statement
             return SleepQualityViewModel(sleepNightKey, dataSource) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
