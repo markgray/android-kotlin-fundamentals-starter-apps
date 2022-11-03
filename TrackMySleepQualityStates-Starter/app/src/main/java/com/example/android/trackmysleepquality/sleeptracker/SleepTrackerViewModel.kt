@@ -37,7 +37,7 @@ import kotlinx.coroutines.withContext
  * @param database the [SleepDatabaseDao] to use to access the database
  * @param application the [Application] to use to access resources
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
 class SleepTrackerViewModel(
     val database: SleepDatabaseDao,
     application: Application

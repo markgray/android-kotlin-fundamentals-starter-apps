@@ -16,7 +16,6 @@
 
 package com.example.android.trackmysleepquality
 
-import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.os.Build
 import android.text.Html
@@ -24,6 +23,7 @@ import android.text.Spanned
 import androidx.core.text.HtmlCompat
 import com.example.android.trackmysleepquality.database.SleepNight
 import java.text.SimpleDateFormat
+import java.util.Locale
 
 /**
  * These functions create a formatted string that can be set in a TextView.
@@ -65,9 +65,8 @@ fun convertNumericQualityToString(quality: Int, resources: Resources): String {
  * January 1, 1970 UTC.
  * @return the date and time of [systemTime] in the format: "Tuesday Aug-11-2020 Time: 22:42"
  */
-@SuppressLint("SimpleDateFormat")
 fun convertLongToDateString(systemTime: Long): String {
-    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
+    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm", Locale.US)
         .format(systemTime).toString()
 }
 
