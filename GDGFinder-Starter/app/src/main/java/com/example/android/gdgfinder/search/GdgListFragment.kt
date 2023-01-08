@@ -194,7 +194,7 @@ class GdgListFragment : Fragment() {
      * permission request).
      */
     private fun requestLocationPermission() {
-        @Suppress("DEPRECATION") // TODO Use registerForActivityResult with ActivityResultContract
+        @Suppress("DEPRECATION") // TODO: Use registerForActivityResult with ActivityResultContract
         requestPermissions(arrayOf(LOCATION_PERMISSION), LOCATION_PERMISSION_REQUEST)
     }
 
@@ -265,7 +265,7 @@ class GdgListFragment : Fragment() {
             return
         }
 
-        @Suppress("DEPRECATION") // TODO Use LocationRequest.Builder instead.
+        @Suppress("DEPRECATION") // TODO: Use LocationRequest.Builder instead.
         val request = LocationRequest.create().setPriority(LocationRequest.PRIORITY_LOW_POWER)
         val callback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
@@ -294,7 +294,7 @@ class GdgListFragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        @Suppress("DEPRECATION") // TODO Use registerForActivityResult with ActivityResultContract
+        @Suppress("DEPRECATION") // TODO: Use registerForActivityResult with ActivityResultContract
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             LOCATION_PERMISSION_REQUEST -> {
