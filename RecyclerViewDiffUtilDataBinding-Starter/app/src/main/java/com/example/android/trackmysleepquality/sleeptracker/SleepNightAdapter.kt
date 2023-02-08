@@ -79,6 +79,7 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(
      *
      * @param binding the [ListItemSleepNightBinding] for the view we are to display our item in
      */
+    @Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
     class ViewHolder private constructor(
         val binding: ListItemSleepNightBinding
     ) : RecyclerView.ViewHolder(binding.root) {
