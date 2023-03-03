@@ -20,6 +20,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -42,6 +44,9 @@ class GameWonFragment : Fragment() {
      * `NavController` associated with the [View], which it then uses to navigate to the
      * [GameFragment] using a `ActionOnlyNavDirections`.
      *
+     * We initialize our [MenuHost] variable `val menuHost` to to the `FragmentActivity` this
+     * fragment is currently associated with, then call its [MenuHost.addMenuProvider] method to
+     * add our [MenuProvider] field [menuProvider] to add the [MenuProvider] to the [MenuHost].
      * Finally we return the `root` [View] of `binding` to the caller (this is outermost [View] in
      * the layout file associated with the Binding).
      *
@@ -80,9 +85,51 @@ class GameWonFragment : Fragment() {
             Toast.LENGTH_LONG
         ).show()
 
-        @Suppress("DEPRECATION") // TODO: Replace with MenuHost
-        setHasOptionsMenu(true)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(menuProvider, viewLifecycleOwner)
         return binding.root
+    }
+
+    /**
+     * Our  [MenuProvider]
+     */
+    private val menuProvider: MenuProvider = object : MenuProvider {
+        /**
+         * Initialize the contents of the Fragment host's standard options menu. We use our
+         * [MenuInflater] parameter [menuInflater] to inflate our menu layout file
+         * [R.menu.winner_menu] into our [Menu] parameter [menu]. If the `resolveActivity` method
+         * of the [Intent] created by our [getShareIntent] method is unable to find an activity
+         * which can handle we set the visibility of the menu item in [menu] with the id [R.id.share]
+         * to invisible.
+         *
+         * @param menu The options menu in which you place your items.
+         * @param menuInflater a [MenuInflater] one can use to inflate an XML menu file.
+         */
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.winner_menu, menu)
+            // check if the activity resolves
+            if (null == getShareIntent().resolveActivity(requireActivity().packageManager)) {
+                // hide the menu item if it doesn't resolve
+                menu.findItem(R.id.share)?.isVisible = false
+            }
+        }
+
+        /**
+         * This hook is called whenever an item in your options menu is selected. When the ID of our
+         * [MenuItem] parameter [menuItem] is [R.id.share] we call our method [shareSuccess] (which
+         * will launch another activity which will "share" our game results). In any case we then
+         * return `true` to consume the event here.
+         *
+         * @param menuItem The menu item that was selected.
+         * @return boolean Return `false` to allow normal menu processing to proceed, `true` to
+         * consume it here.
+         */
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            when (menuItem.itemId) {
+                R.id.share -> shareSuccess()
+            }
+            return true
+        }
     }
 
     /**
@@ -117,45 +164,5 @@ class GameWonFragment : Fragment() {
      */
     private fun shareSuccess() {
         startActivity(getShareIntent())
-    }
-
-    /**
-     * Initialize the contents of the Fragment host's standard options menu. First we call our
-     * super's implementation of `onCreateOptionsMenu`, then we use our [MenuInflater] parameter
-     * [inflater] to inflate our menu layout file [R.menu.winner_menu] into our [Menu] parameter
-     * [menu]. If the `resolveActivity` method of the [Intent] created by our [getShareIntent]
-     * method is unable to find an activity which can handle we set the visibility of the menu
-     * item in [menu] with the id [R.id.share] to invisible.
-     *
-     * @param menu The options menu in which you place your items.
-     * @param inflater a [MenuInflater] one can use to inflate an XML menu file.
-     */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace with MenuHost
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.winner_menu, menu)
-        // check if the activity resolves
-        if (null == getShareIntent().resolveActivity(requireActivity().packageManager)) {
-            // hide the menu item if it doesn't resolve
-            menu.findItem(R.id.share)?.isVisible = false
-        }
-    }
-
-    /**
-     * This hook is called whenever an item in your options menu is selected. When the ID of our
-     * [MenuItem] parameter [item] is [R.id.share] we call our method [shareSuccess] (which will
-     * launch another activity which will "share" our game results). In any case we then return the
-     * value returned by our super's implementation of `onOptionsItemSelected`.
-     *
-     * @param item The menu item that was selected.
-     * @return boolean Return `false` to allow normal menu processing to proceed, `true` to
-     * consume it here.
-     */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace with MenuHost
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.share -> shareSuccess()
-        }
-        return super.onOptionsItemSelected(item)
     }
 }
