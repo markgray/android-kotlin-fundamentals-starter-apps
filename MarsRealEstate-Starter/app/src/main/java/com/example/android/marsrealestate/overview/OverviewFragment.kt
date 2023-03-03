@@ -24,6 +24,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -67,9 +69,11 @@ class OverviewFragment : Fragment() {
      * method of [viewModel] to tell the ViewModel we've made the navigate call to prevent multiple
      * navigation (sets the value of its `_navigateToSelectedProperty` property to `null`).
      *
-     * Next we call [setHasOptionsMenu] with `true` to report that this fragment would like to
-     * participate in populating the options menu, and finally we return the outermost [View] in the
-     * layout file associated with `binding` to the caller.
+     * We initialize our [MenuHost] variable `val menuHost` to to the `FragmentActivity` this
+     * fragment is currently associated with, then call its [MenuHost.addMenuProvider] method to
+     * add our [MenuProvider] field [menuProvider] to add the [MenuProvider] to the [MenuHost].
+     * Finally we return the outermost [View] in the layout file associated with `binding` to the
+     * caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
      * any views in the fragment.
@@ -82,8 +86,11 @@ class OverviewFragment : Fragment() {
      * @return Return the [View] for the fragment's UI, or null.
      */
     @Suppress("RedundantNullableReturnType") // The method we override returns nullable
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = FragmentOverviewBinding.inflate(inflater)
         // val binding = GridViewItemBinding.inflate(inflater)
 
@@ -104,49 +111,51 @@ class OverviewFragment : Fragment() {
                 viewModel.displayPropertyDetailsComplete()
             }
         }
-        @Suppress("DEPRECATION") // TODO: Replace setHasOptionsMenu with MenuHost
-        setHasOptionsMenu(true)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(menuProvider, viewLifecycleOwner)
         return binding.root
     }
 
     /**
-     * Inflates the overflow menu that contains filtering options. We use our [MenuInflater] parameter
-     * [inflater] to inflate our menu layout file R.menu.overflow_menu into our [Menu] parameter
-     * [menu], then call our super's implementation of `onCreateOptionsMenu`.
-     *
-     * @param menu The options menu in which you place your items.
-     * @param inflater a [MenuInflater] you can use to inflate XML menu files.
+     * Our  [MenuProvider]
      */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace onCreateOptionsMenu with MenuHost
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.overflow_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+    private val menuProvider: MenuProvider = object : MenuProvider {
+        /**
+         * Initialize the contents of the Fragment host's standard options menu. We use our
+         * [MenuInflater] parameter [menuInflater] to inflate our menu layout file
+         * [R.menu.overflow_menu] into our [Menu] parameter [menu].
+         *
+         * @param menu The options menu in which you place your items.
+         * @param menuInflater a [MenuInflater] you can use to inflate an XML menu file with.
+         */
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.overflow_menu, menu)
+        }
 
-    /**
-     * Updates the filter in the [OverviewViewModel] when the menu items are selected from the
-     * overflow menu. This hook is called whenever an item in your options menu is selected.
-     * We call the `updateFilter` method of [OverviewViewModel] field [viewModel] with a parameter
-     * which depends on the `itemId` of the [item] that was selected:
-     *  - for R.id.show_rent_menu we use the enum [MarsApiFilter.SHOW_RENT]
-     *  - for R.id.show_rent_menu we use the enum [MarsApiFilter.SHOW_BUY]
-     *  - for any other item we use the enum [MarsApiFilter.SHOW_ALL]
-     *
-     * Then we return `true` to consume the event here.
-     *
-     * @param item The menu item that was selected.
-     * @return [Boolean] Return `false` to allow normal menu processing to
-     * proceed, `true` to consume it here.
-     */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace onOptionsItemSelected with MenuHost
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        viewModel.updateFilter(
-            when (item.itemId) {
-                R.id.show_rent_menu -> MarsApiFilter.SHOW_RENT
-                R.id.show_buy_menu -> MarsApiFilter.SHOW_BUY
-                else -> MarsApiFilter.SHOW_ALL
-            }
-        )
-        return true
+        /**
+         * Updates the filter in the [OverviewViewModel] when the menu items are selected from the
+         * overflow menu. This hook is called whenever an item in your options menu is selected.
+         * We call the `updateFilter` method of [OverviewViewModel] field [viewModel] with a parameter
+         * which depends on the `itemId` of the [menuItem] that was selected:
+         *  - for R.id.show_rent_menu we use the enum [MarsApiFilter.SHOW_RENT]
+         *  - for R.id.show_rent_menu we use the enum [MarsApiFilter.SHOW_BUY]
+         *  - for any other item we use the enum [MarsApiFilter.SHOW_ALL]
+         *
+         * Then we return `true` to consume the event here.
+         *
+         * @param menuItem The menu item that was selected.
+         * @return [Boolean] Return `false` to allow normal menu processing to
+         * proceed, `true` to consume it here.
+         */
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            viewModel.updateFilter(
+                when (menuItem.itemId) {
+                    R.id.show_rent_menu -> MarsApiFilter.SHOW_RENT
+                    R.id.show_buy_menu -> MarsApiFilter.SHOW_BUY
+                    else -> MarsApiFilter.SHOW_ALL
+                }
+            )
+            return true
+        }
     }
 }
