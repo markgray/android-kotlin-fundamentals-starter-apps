@@ -60,9 +60,8 @@ class AddGdgFragment : Fragment() {
      * `Button` with ID [R.id.button]) to "Submitted, no need to submit again" and the `text` of
      * that `Button` to "Done".
      *
-     * We then call `setHasOptionsMenu(true)` to report that this fragment would like to participate
-     * in populating the options menu, and finally return the `root` property of `binding` (the
-     * outermost [View] in the layout file associated with the Binding).
+     * Finally we return the `root` property of `binding` (the outermost [View] in the layout file
+     * associated with the Binding).
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
      * any views in the fragment
@@ -98,9 +97,6 @@ class AddGdgFragment : Fragment() {
                 binding.button.text = getString(R.string.done)
             }
         }
-
-        @Suppress("DEPRECATION") // TODO: Replace with MenuHost
-        setHasOptionsMenu(true)
         return binding.root
     }
 
