@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION") // TODO: Use DefaultLifecycleObserver or LifecycleEventObserver instead.
-
 package com.example.android.dessertclicker
 
 import android.os.Handler
 import android.os.Looper
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.LifecycleOwner
 import timber.log.Timber
 
 /**
@@ -38,9 +36,9 @@ import timber.log.Timber
  * threading:
  *
  * https://developer.android.com/guide/components/processes-and-threads
+ *
  */
-@Suppress("unused", "MemberVisibilityCanBePrivate") // I like to use kdoc [] references
-class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver {
+class DessertTimer(lifecycle: Lifecycle) : DefaultLifecycleObserver {
 
     /**
      * The number of seconds counted since the timer started
@@ -54,7 +52,7 @@ class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver {
     private var handler = Handler(Looper.myLooper()!!)
 
     /**
-     * This [Runnable] is a lambda created in our [startTimer] method which increments [secondsCount]
+     * This [Runnable] is a lambda created in our [onStart] override which increments [secondsCount]
      * then logs the timer value and re-adds itself to the queue of the [Handler] field [handler]
      * with a delay of 1000 milliseconds.
      */
@@ -77,9 +75,7 @@ class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver {
      * [runnable] to the queue of our [Handler] field [handler] with a delay of 1000 milliseconds
      * to start the timer running.
      */
-    @Suppress("unused", "DEPRECATION") // TODO: Use DefaultLifecycleObserver or LifecycleEventObserver instead.
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun startTimer() {
+    override fun onStart(lifecycleOwner: LifecycleOwner) {
         // Create the runnable action, which prints out a log and increments the seconds counter
         runnable = Runnable {
             secondsCount++
@@ -102,11 +98,9 @@ class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver {
      * to be run when the [Lifecycle] we are observing emits an `onStop` event. We removed all
      * pending posts of [Runnable] field [runnable] from our [Handler] field [handler] stopping
      * the timer until the next time we receive a [Lifecycle.Event.ON_START] event and our
-     * [startTimer] method is run.
+     * [onStart] override is run.
      */
-    @Suppress("unused", "DEPRECATION") // TODO: Use DefaultLifecycleObserver or LifecycleEventObserver instead.
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun stopTimer() {
+    override fun onStop(lifecycleOwner: LifecycleOwner) {
         // Removes all pending posts of runnable from the handler's queue, effectively stopping the
         // timer
         handler.removeCallbacks(runnable)
