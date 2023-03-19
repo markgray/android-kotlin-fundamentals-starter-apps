@@ -86,8 +86,8 @@ class GdgListFragment : Fragment() {
      * [Snackbar] asks the user to enable location in the settings app). We set an [Observer] on
      * the `regionList` [LiveData] wrapped list of [String] property of [viewModel] whose lambda
      * overrides the `onChanged` method with a method which returns having done nothing is its
-     * [List] of [String] parameter `data` is `null`. Otherwise it constructs [Chip] widgets for
-     * every [String] in the `data` [List] whose text and tag are both that string, sets the
+     * [List] of [String] parameter `value` is `null`. Otherwise it constructs [Chip] widgets for
+     * every [String] in the `value` [List] whose text and tag are both that string, sets the
      * chip's `OnCheckedChangeListener` to a lambda which calls the `onFilterChanged` method
      * of [viewModel] with the tag and the `isChecked` status of the chip. When done creating
      * the chips the `onChanged` override removes all views from the `regionList` `ChipGroup`
@@ -137,12 +137,12 @@ class GdgListFragment : Fragment() {
             }
         }
 
-        viewModel.regionList.observe(viewLifecycleOwner, object : Observer<List<String>> {
-            override fun onChanged(data: List<String>?) {
-                data ?: return
+        viewModel.regionList.observe(viewLifecycleOwner, object : Observer<List<String>?> {
+            override fun onChanged(value: List<String>?) {
+                value ?: return
                 val chipGroup = binding.regionList
                 val inflator = LayoutInflater.from(chipGroup.context)
-                val children = data.map { regionName ->
+                val children = value.map { regionName ->
                     val chip = inflator.inflate(R.layout.region, chipGroup, false) as Chip
                     chip.text = regionName
                     chip.tag = regionName
