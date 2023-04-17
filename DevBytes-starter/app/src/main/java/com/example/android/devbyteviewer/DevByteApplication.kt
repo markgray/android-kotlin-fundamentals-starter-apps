@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("unused") // It is used in AndroidManifest.xml
-
 package com.example.android.devbyteviewer
 
 import android.app.Application

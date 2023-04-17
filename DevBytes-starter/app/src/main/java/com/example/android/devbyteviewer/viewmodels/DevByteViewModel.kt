@@ -139,7 +139,6 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
     /**
      * Factory for constructing DevByteViewModel with parameter
      */
-    @Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
     class Factory(
         /**
          * the [Application] that owns this activity.
