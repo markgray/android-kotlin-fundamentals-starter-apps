@@ -1,4 +1,4 @@
-@file:Suppress("unused") // It is used in AndroidManifest.xml
+// It is used in AndroidManifest.xml
 
 package com.example.android.dessertclicker
 
