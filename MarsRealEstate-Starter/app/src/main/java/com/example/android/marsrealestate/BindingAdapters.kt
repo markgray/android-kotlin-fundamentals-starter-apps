@@ -99,13 +99,16 @@ fun bindStatus(statusImageView: ImageView, status: MarsApiStatus?) {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.loading_animation)
         }
+
         MarsApiStatus.ERROR -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.ic_connection_error)
         }
+
         MarsApiStatus.DONE -> {
             statusImageView.visibility = View.GONE
         }
+
         else -> {}
     }
 }
