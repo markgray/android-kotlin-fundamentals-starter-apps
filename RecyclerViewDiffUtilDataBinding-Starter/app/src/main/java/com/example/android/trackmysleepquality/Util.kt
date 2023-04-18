@@ -201,5 +201,5 @@ fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
  *
  * @param textView the [TextView] to use as our view.
  */
-@Suppress("unused", "CanBeParameter", "MemberVisibilityCanBePrivate") // Unused but instructive
+@Suppress("unused", "MemberVisibilityCanBePrivate") // Unused but instructive
 class TextItemViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
