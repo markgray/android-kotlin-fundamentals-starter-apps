@@ -83,10 +83,12 @@ fun convertDurationToFormatted(startTimeMilli: Long, endTimeMilli: Long, res: Re
             val seconds = TimeUnit.SECONDS.convert(durationMilli, TimeUnit.MILLISECONDS)
             res.getString(R.string.seconds_length, seconds, weekdayString)
         }
+
         durationMilli < ONE_HOUR_MILLIS -> {
             val minutes = TimeUnit.MINUTES.convert(durationMilli, TimeUnit.MILLISECONDS)
             res.getString(R.string.minutes_length, minutes, weekdayString)
         }
+
         else -> {
             val hours = TimeUnit.HOURS.convert(durationMilli, TimeUnit.MILLISECONDS)
             res.getString(R.string.hours_length, hours, weekdayString)
@@ -201,5 +203,5 @@ fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
  *
  * @param textView the [TextView] to use as our view.
  */
-@Suppress("unused", "CanBeParameter", "MemberVisibilityCanBePrivate") // Unused but instructive
+@Suppress("unused", "MemberVisibilityCanBePrivate") // Unused but instructive
 class TextItemViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
