@@ -57,7 +57,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<GdgChapter>?) {
 @BindingAdapter("showOnlyWhenEmpty")
 fun View.showOnlyWhenEmpty(data: List<GdgChapter>?) {
     visibility = when {
-        data == null || data.isEmpty() -> View.VISIBLE
+        data.isNullOrEmpty() -> View.VISIBLE
         else -> View.GONE
     }
 }
