@@ -5,8 +5,8 @@ import android.text.format.DateUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 
 /**
  * The [ViewModel] that holds all the data and business logic for the [GameFragment].
@@ -64,17 +64,17 @@ class GameViewModel : ViewModel() {
         get() = _currentTime
 
     /**
-     * The String version of the current time, its value is set by the [Transformations.map] method
+     * The String version of the current time, its value is set by the [map] method
      * with a lambda which converts our [currentTime] field to a [String]
      */
-    val currentTimeString: LiveData<String> = Transformations.map(currentTime) { time ->
+    val currentTimeString: LiveData<String> = currentTime.map { time ->
         DateUtils.formatElapsedTime(time)
     }
 
     /**
      * The Hint for the current word
      */
-    val wordHint: LiveData<String> = Transformations.map(word) { word ->
+    val wordHint: LiveData<String> = word.map { word ->
         val randomPosition = (1..word.length).random()
         "Current word has " + word.length + " letters" +
             "\nThe letter at position " + randomPosition + " is " +
