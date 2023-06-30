@@ -17,7 +17,7 @@
 package com.example.android.devbyteviewer.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.example.android.devbyteviewer.database.VideosDatabase
 import com.example.android.devbyteviewer.database.asDomainModel
 import com.example.android.devbyteviewer.domain.DevByteVideo
@@ -39,7 +39,7 @@ class VideosRepository(private val database: VideosDatabase) {
      * of `DatabaseVideo` database objects returned by the `getVideos` method of the `videoDao`
      * Room DAO when it reads all the entries in the database.
      */
-    val videos: LiveData<List<DevByteVideo>> = Transformations.map(database.videoDao.getVideos()) {
+    val videos: LiveData<List<DevByteVideo>> = database.videoDao.getVideos().map {
         it.asDomainModel()
     }
 
