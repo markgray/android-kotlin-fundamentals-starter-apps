@@ -58,7 +58,7 @@ class DetailViewModel(
      * to specify the text displayed using an android:text="@{viewModel.displayPropertyPrice}"
      * attribute.
      */
-    val displayPropertyPrice: LiveData<String> = Transformations.map(selectedProperty) {
+    val displayPropertyPrice: LiveData<String> = selectedProperty.map {
         app.applicationContext.getString(
             when (it.isRental) {
                 true -> R.string.display_price_monthly_rental
@@ -73,7 +73,7 @@ class DetailViewModel(
      * to specify the text displayed using an android:text="@{viewModel.displayPropertyType}"
      * attribute.
      */
-    val displayPropertyType: LiveData<String> = Transformations.map(selectedProperty) {
+    val displayPropertyType: LiveData<String> = selectedProperty.map {
         app.applicationContext.getString(R.string.display_type,
             app.applicationContext.getString(
                 when (it.isRental) {
