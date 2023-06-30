@@ -20,8 +20,8 @@ import android.app.Application
 import android.text.Spanned
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.formatNights
@@ -81,29 +81,29 @@ class SleepTrackerViewModel(
      * Converted nights to Spanned for displaying (used before the RecyclerView was added).
      */
     @Suppress("unused") // It used to be used
-    val nightsString: LiveData<Spanned> = Transformations.map(nights) { nights ->
+    val nightsString: LiveData<Spanned> = nights.map { nights ->
         formatNights(nights, application.resources)
     }
 
     /**
      * If tonight has not been set, then the START button should be visible.
      */
-    val startButtonVisible: LiveData<Boolean> = Transformations.map(tonight) {
+    val startButtonVisible: LiveData<Boolean> = tonight.map {
         null == it
     }
 
     /**
      * If tonight has been set, then the STOP button should be visible.
      */
-    val stopButtonVisible: LiveData<Boolean> = Transformations.map(tonight) {
+    val stopButtonVisible: LiveData<Boolean> = tonight.map {
         null != it
     }
 
     /**
      * If there are any nights in the database, show the CLEAR button.
      */
-    val clearButtonVisible: LiveData<Boolean?> = Transformations.map(nights) {
-        it?.isNotEmpty()
+    val clearButtonVisible: LiveData<Boolean?> = nights.map {
+        it.isNotEmpty()
     }
 
     /**
