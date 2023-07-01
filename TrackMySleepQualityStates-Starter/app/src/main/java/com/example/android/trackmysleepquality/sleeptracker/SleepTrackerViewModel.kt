@@ -21,7 +21,7 @@ import android.text.Spanned
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.formatNights
@@ -62,11 +62,11 @@ class SleepTrackerViewModel(
     private val nights = database.getAllNights()
 
     /**
-     * Converted [nights] to [Spanned] for displaying. We use the [Transformations.map] method to
+     * Converted [nights] to [Spanned] for displaying. We use the [map] method to
      * convert our [LiveData] wrapped list of [SleepNight]'s field [nights] into a [LiveData]
      * wrapped [Spanned] by applying our [formatNights] method to the value in [nights].
      */
-    val nightsString: LiveData<Spanned> = Transformations.map(nights) { nights ->
+    val nightsString: LiveData<Spanned> = nights.map { nights ->
         formatNights(nights, application.resources)
     }
 
@@ -101,38 +101,38 @@ class SleepTrackerViewModel(
 
     /**
      * If tonight has not been set, then the START button should be visible. We use the
-     * [Transformations.map] method to convert our [LiveData] wrapped [SleepNight] field
+     * [map] method to convert our [LiveData] wrapped [SleepNight] field
      * [tonight] to a [LiveData] wrapped [Boolean] which is `true` if [tonight] is `null`.
      * Used in a binding expression for the "android:enabled" attribute of the `Button` with
      * ID R.id.start_button in the file layout/fragment_sleep_tracker.xml (the layout file for
      * `SleepTrackerFragment`).
      */
-    val startButtonVisible: LiveData<Boolean> = Transformations.map(tonight) {
+    val startButtonVisible: LiveData<Boolean> = tonight.map {
         it == null
     }
 
     /**
      * If tonight has been set, then the STOP button should be visible. We use the
-     * [Transformations.map] method to convert our [LiveData] wrapped [SleepNight] field
+     * [map] method to convert our [LiveData] wrapped [SleepNight] field
      * [tonight] to a [LiveData] wrapped [Boolean] which is `true` if [tonight] is not `null`.
      * Used in a binding expression for the "android:enabled" attribute of the `Button` with
      * ID R.id.stop_button in the file layout/fragment_sleep_tracker.xml (the layout file for
      * `SleepTrackerFragment`).
      */
-    val stopButtonVisible: LiveData<Boolean> = Transformations.map(tonight) {
+    val stopButtonVisible: LiveData<Boolean> = tonight.map {
         it != null
     }
 
     /**
      * If there are any nights in the database, show the CLEAR button. We use the
-     * [Transformations.map] method to convert our [LiveData] wrapped list of [SleepNight] field
+     * [map] method to convert our [LiveData] wrapped list of [SleepNight] field
      * [nights] to a [LiveData] wrapped [Boolean] which is `true` if [tonight] is not empty.
      * Used in a binding expression for the "android:enabled" attribute of the `Button` with
      * ID R.id.clear_button in the file layout/fragment_sleep_tracker.xml (the layout file for
      * `SleepTrackerFragment`).
      */
-    val clearButtonVisible: LiveData<Boolean?> = Transformations.map(nights) {
-        it?.isNotEmpty()
+    val clearButtonVisible: LiveData<Boolean?> = nights.map {
+        it.isNotEmpty()
     }
 
     /**
