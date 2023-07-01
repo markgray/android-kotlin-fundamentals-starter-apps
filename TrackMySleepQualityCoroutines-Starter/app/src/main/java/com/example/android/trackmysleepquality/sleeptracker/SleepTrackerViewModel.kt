@@ -21,7 +21,7 @@ import android.text.Spanned
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.formatNights
@@ -59,11 +59,11 @@ class SleepTrackerViewModel(
     private val nights = database.getAllNights()
 
     /**
-     * Converted nights to Spanned for displaying. We use the [Transformations.map] method to
+     * Converted nights to Spanned for displaying. We use the [map] method to
      * convert our [LiveData] wrapped list of [SleepNight]'s field [nights] into a [LiveData]
      * wrapped [Spanned] by applying our [formatNights] method to the value in [nights].
      */
-    val nightsString: LiveData<Spanned> = Transformations.map(nights) { nights ->
+    val nightsString: LiveData<Spanned> = nights.map { nights ->
         formatNights(nights, application.resources)
     }
 
