@@ -20,7 +20,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 
 android {
-    compileSdkVersion 33
+    compileSdk 33
     defaultConfig {
         applicationId "com.example.android.devbyteviewer"
         minSdkVersion 21
@@ -72,8 +72,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
 
     // coroutines for getting off the UI thread
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
 
     // retrofit for networking
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -83,6 +83,7 @@ dependencies {
     // moshi for parsing the JSON format
     implementation "com.squareup.moshi:moshi:1.14.0"
     implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
+    //noinspection KaptUsageInsteadOfKsp TODO: Switch to ksp
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
 
     // joda time library for dealing with time
@@ -97,10 +98,12 @@ dependencies {
 
     // glide for images
     implementation 'com.github.bumptech.glide:glide:4.14.2'
+    //noinspection KaptUsageInsteadOfKsp TODO: Switch to ksp
     kapt 'com.github.bumptech.glide:compiler:4.14.2'
 
     // Room dependency
     implementation "androidx.room:room-runtime:2.5.2"
+    //noinspection KaptUsageInsteadOfKsp TODO: Switch to ksp
     kapt "androidx.room:room-compiler:2.5.2"
 
     // Work dependency
