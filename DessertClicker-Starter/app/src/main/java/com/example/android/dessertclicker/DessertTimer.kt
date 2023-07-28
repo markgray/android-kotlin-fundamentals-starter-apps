@@ -75,7 +75,7 @@ class DessertTimer(lifecycle: Lifecycle) : DefaultLifecycleObserver {
      * [runnable] to the queue of our [Handler] field [handler] with a delay of 1000 milliseconds
      * to start the timer running.
      */
-    override fun onStart(lifecycleOwner: LifecycleOwner) {
+    override fun onStart(owner: LifecycleOwner) {
         // Create the runnable action, which prints out a log and increments the seconds counter
         runnable = Runnable {
             secondsCount++
@@ -100,7 +100,7 @@ class DessertTimer(lifecycle: Lifecycle) : DefaultLifecycleObserver {
      * the timer until the next time we receive a [Lifecycle.Event.ON_START] event and our
      * [onStart] override is run.
      */
-    override fun onStop(lifecycleOwner: LifecycleOwner) {
+    override fun onStop(owner: LifecycleOwner) {
         // Removes all pending posts of runnable from the handler's queue, effectively stopping the
         // timer
         handler.removeCallbacks(runnable)
