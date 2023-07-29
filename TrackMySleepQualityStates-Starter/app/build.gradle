@@ -20,7 +20,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
 
 android {
-    compileSdkVersion 33
+    compileSdk 33
     defaultConfig {
         applicationId "com.example.android.trackmysleepquality"
         minSdkVersion 19
@@ -56,7 +56,7 @@ dependencies {
 
     // Support libraries
     implementation "androidx.appcompat:appcompat:1.6.1"
-    implementation "androidx.fragment:fragment-ktx:1.6.0"
+    implementation "androidx.fragment:fragment-ktx:1.6.1"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // Android KTX
@@ -65,12 +65,13 @@ dependencies {
     // Room and Lifecycle dependencies
     implementation "androidx.room:room-runtime:2.5.2"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    //noinspection KaptUsageInsteadOfKsp TODO: Switch to ksp
     kapt "androidx.room:room-compiler:2.5.2"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 
     // Co-routines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
