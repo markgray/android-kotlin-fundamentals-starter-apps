@@ -49,7 +49,6 @@ android {
         jvmTarget = '17'
     }
     namespace 'com.example.android.trackmysleepquality'
-
 }
 
 dependencies {
@@ -69,8 +68,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
 
     // Co-routines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
 
     // Room and Lifecycle dependencies
     implementation "androidx.room:room-runtime:2.5.2"
