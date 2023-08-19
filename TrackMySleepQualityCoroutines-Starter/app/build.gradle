@@ -74,7 +74,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
 
     // Navigation
+    //noinspection GradleDependency TODO: Newer version requires SDK 34
     implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
+    //noinspection GradleDependency TODO: Newer version requires SDK 34
     implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
 
     // Testing
