@@ -61,7 +61,9 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.10.1'
 
     // Navigation
+    //noinspection GradleDependency TODO: Newer version requires SDK 34
     implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
+    //noinspection GradleDependency TODO: Newer version requires SDK 34
     implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
 
     //ViewModel and LiveData
