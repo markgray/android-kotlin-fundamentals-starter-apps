@@ -18,13 +18,15 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'com.google.devtools.ksp'
 
 android {
-    compileSdk 33
+    compileSdk 34
     defaultConfig {
         applicationId "com.example.android.devbyteviewer"
         minSdkVersion 21
-        targetSdkVersion 33
+        //noinspection EditedTargetSdkVersion
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -53,7 +55,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //noinspection GradleDependency TODO: Newer version requires SDK 34
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     // support libraries
@@ -68,12 +69,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // navigation
-    //noinspection GradleDependency TODO: Newer version requires SDK 34
-    implementation "androidx.navigation:navigation-runtime-ktx:2.6.0"
-    //noinspection GradleDependency TODO: Newer version requires SDK 34
-    implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
-    //noinspection GradleDependency TODO: Newer version requires SDK 34
-    implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
+    implementation "androidx.navigation:navigation-runtime-ktx:2.7.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.1"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.1"
 
     // coroutines for getting off the UI thread
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
@@ -87,8 +85,7 @@ dependencies {
     // moshi for parsing the JSON format
     implementation "com.squareup.moshi:moshi:1.14.0"
     implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
-    //noinspection KaptUsageInsteadOfKsp TODO: Switch to ksp
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
+    ksp "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
 
     // joda time library for dealing with time
     implementation 'joda-time:joda-time:2.10.14'
@@ -102,13 +99,11 @@ dependencies {
 
     // glide for images
     implementation 'com.github.bumptech.glide:glide:4.14.2'
-    //noinspection KaptUsageInsteadOfKsp TODO: Switch to ksp
-    kapt 'com.github.bumptech.glide:compiler:4.14.2'
+    ksp 'com.github.bumptech.glide:compiler:4.14.2'
 
     // Room dependency
     implementation "androidx.room:room-runtime:2.5.2"
-    //noinspection KaptUsageInsteadOfKsp TODO: Switch to ksp
-    kapt "androidx.room:room-compiler:2.5.2"
+    ksp "androidx.room:room-compiler:2.5.2"
 
     // Work dependency
     implementation "androidx.work:work-runtime-ktx:2.8.1"
