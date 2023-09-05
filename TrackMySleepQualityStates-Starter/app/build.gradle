@@ -25,7 +25,6 @@ android {
     defaultConfig {
         applicationId "com.example.android.trackmysleepquality"
         minSdkVersion 19
-        //noinspection EditedTargetSdkVersion
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
