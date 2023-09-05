@@ -329,7 +329,7 @@ sealed class DataItem {
      * The [DataItem] subclass which holds our "Header" pseudo object, it overides its super's [id]
      * field and sets it to [Long.MIN_VALUE] (the minimum value an instance of [Long] can have).
      */
-    object Header : DataItem() {
+    data object Header : DataItem() {
         override val id: Long = Long.MIN_VALUE
     }
 
