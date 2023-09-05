@@ -16,6 +16,7 @@
 
 package com.example.android.devbyteviewer.util
 
+@Suppress("PrivatePropertyName")
 private val PUNCTUATION = listOf(", ", "; ", ": ", " ")
 
 /**

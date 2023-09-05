@@ -67,6 +67,7 @@ abstract class VideosDatabase : RoomDatabase() {
  * Our cached [VideosDatabase] singleton instance, which is lazily built the first time our factory
  * method [getDatabase] is called.
  */
+@Suppress("PrivatePropertyName")
 private lateinit var INSTANCE: VideosDatabase
 
 /**
