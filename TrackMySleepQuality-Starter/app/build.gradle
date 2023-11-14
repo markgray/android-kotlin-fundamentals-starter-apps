@@ -57,7 +57,7 @@ dependencies {
 
     // Support libraries
     implementation "androidx.appcompat:appcompat:1.6.1"
-    implementation "androidx.fragment:fragment-ktx:1.6.1"
+    implementation "androidx.fragment:fragment-ktx:1.6.2"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // Android KTX
@@ -67,8 +67,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 
-    implementation "androidx.navigation:navigation-fragment-ktx:2.7.4"
-    implementation "androidx.navigation:navigation-ui-ktx:2.7.4"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.5"
 
     // Room and Lifecycle dependencies
     implementation "androidx.room:room-runtime:2.6.0"
