@@ -30,7 +30,7 @@ import com.example.android.devbyteviewer.domain.DevByteVideo
  * DatabaseVideo represents a video entity in the database.
  */
 @Entity
-data class DatabaseVideo constructor(
+data class DatabaseVideo(
     /**
      * The YouTube Url for the video, our PrimaryKey.
      */
