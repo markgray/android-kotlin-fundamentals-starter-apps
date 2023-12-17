@@ -34,13 +34,13 @@ import java.util.concurrent.TimeUnit
 /**
  * Number of milliseconds in one minute
  */
-@Suppress("PrivatePropertyName") // It is a const of sorts
+// It is a const of sorts
 private val ONE_MINUTE_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)
 
 /**
  * Number of milliseconds in one hour
  */
-@Suppress("PrivatePropertyName") // It is a const of sorts
+// It is a const of sorts
 private val ONE_HOUR_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
 
 /**
