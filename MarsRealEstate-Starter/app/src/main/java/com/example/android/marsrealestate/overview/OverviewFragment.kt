@@ -63,7 +63,7 @@ class OverviewFragment : Fragment() {
      * [Observer] to the `navigateToSelectedProperty` property of [viewModel] which, if the
      * [MarsProperty] is not `null`, will find a `NavController` for our fragment and call its
      * `navigate` method to have it store the [MarsProperty] as a safe args for "selectedProperty"
-     * in the argument bundle for the action `actionShowDetail` of [OverviewFragmentDirections]
+     * in the argument bundle for the action `actionShowDetail` of `OverviewFragmentDirections`
      * (the action in the navigation graph with ID [R.id.action_showDetail]) and navigate to the
      * `DetailFragment`. After doing this the lambda will call the `displayPropertyDetailsComplete`
      * method of [viewModel] to tell the ViewModel we've made the navigate call to prevent multiple
