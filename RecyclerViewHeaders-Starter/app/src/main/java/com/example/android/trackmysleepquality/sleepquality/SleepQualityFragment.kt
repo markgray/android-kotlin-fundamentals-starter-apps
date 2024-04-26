@@ -49,12 +49,12 @@ class SleepQualityFragment : Fragment() {
      * our layout file R.layout.fragment_sleep_quality, with our [ViewGroup] parameter [container]
      * providing the `LayoutParams` without attaching to it. We initialize our `Application`
      * variable `val application` to the application that owns our activity, and our
-     * [SleepQualityFragmentArgs] variable `val arguments` with the safe arguments passed to our
+     * `SleepQualityFragmentArgs` variable `val arguments` with the safe arguments passed to our
      * fragment inside the arguments [Bundle] supplied when the fragment was instantiated. We
      * initialize our [SleepDatabaseDao] variable `val dataSource` to the singleton instance our
      * app can use to access our Room database, and then initialize [SleepQualityViewModelFactory]
      * variable `val viewModelFactory` to an instance constructed to use the `sleepNightKey` field
-     * of our [SleepQualityFragmentArgs] `arguments` as the `nightId` PrimaryKey for the `SleepNight`
+     * of our `SleepQualityFragmentArgs` `arguments` as the `nightId` PrimaryKey for the `SleepNight`
      * we are to have updated by our [SleepQualityViewModel] with the sleep quality value selected
      * by the user, and our [SleepDatabaseDao] `dataSource` as the Room handle to the database to use
      * to access that database. We then use the [ViewModelProvider.get] method to have the

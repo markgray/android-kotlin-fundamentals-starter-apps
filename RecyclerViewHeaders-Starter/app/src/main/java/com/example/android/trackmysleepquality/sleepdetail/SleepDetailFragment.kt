@@ -40,7 +40,7 @@ class SleepDetailFragment : Fragment() {
      * method inflate our layout file R.layout.fragment_sleep_detail using our [LayoutInflater]
      * parameter [inflater] and our [ViewGroup] parameter [container] without attaching to it.
      * We initialize our Application` variable `val application` to the application that owns this
-     * activity, and our [SleepDetailFragmentArgs] variable `val arguments` to the arguments supplied
+     * activity, and our `SleepDetailFragmentArgs` variable `val arguments` to the arguments supplied
      * when our fragment was instantiated. We initialize our `SleepDatabaseDao` variable `val dataSource`
      * to a handle to our database's `SleepDatabaseDao`. We initialize our [SleepDetailViewModelFactory]
      * variable `val viewModelFactory` with a new instance constructed to use the `SleepNight`
