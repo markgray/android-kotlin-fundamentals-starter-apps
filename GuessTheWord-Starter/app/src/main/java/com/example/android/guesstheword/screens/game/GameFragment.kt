@@ -111,7 +111,7 @@ class GameFragment : Fragment() {
 
     /**
      * Called when the game is finished. We toast the fact that the game has finished, then
-     * initialize our [GameFragmentDirections.ActionGameToScore] variable `val action` to
+     * initialize our `GameFragmentDirections.ActionGameToScore` variable `val action` to
      * the `NavDirections` for navigating to the `ScoreFragment`. We fetch the `score` value
      * of the `LiveData` field for the score from our [GameViewModel] field [viewModel] and
      * set the `score` field of `action` to it (defaulting to 0 is the `value` is *null*).
