@@ -42,7 +42,7 @@ class AboutFragment : Fragment() {
      * uses the [View] parameter `view` to call [View.findNavController] to fetch a handle to the
      * `NavController` associated with the [View], which it then uses to navigate to the
      * [GameFragment] using an `ActionOnlyNavDirections` (a `NavDirections` without any arguments)
-     * constructed by the method [AboutFragmentDirections.actionAboutFragmentToGameFragment].
+     * constructed by the method `AboutFragmentDirections.actionAboutFragmentToGameFragment`.
      *
      * Finally we return the `root` [View] of `binding` to the caller (this is the outermost [View]
      * in the layout file associated with the Binding).

@@ -133,8 +133,8 @@ class GameWonFragment : Fragment() {
     }
 
     /**
-     * Creating our Share Intent. We initialize our [GameWonFragmentArgs] variable `val args`
-     * to the safe `NavArgs` class that the [GameWonFragmentArgs.fromBundle]  method creates
+     * Creating our Share Intent. We initialize our `GameWonFragmentArgs` variable `val args`
+     * to the safe `NavArgs` class that the `GameWonFragmentArgs.fromBundle`  method creates
      * from the arguments supplied when the fragment was instantiated (it contains getters for
      * the `numCorrect` and `numQuestions` safe arguments). We initialize our [Intent] variable
      * `val shareIntent` with the action [Intent.ACTION_SEND] (Deliver some data to someone else).
