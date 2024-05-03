@@ -58,7 +58,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 
     // KTX
-    implementation 'androidx.core:core-ktx:1.13.0'
+    implementation 'androidx.core:core-ktx:1.13.1'
 
     // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.7.7'
