@@ -84,10 +84,10 @@ dependencies {
     // moshi for parsing the JSON format
     implementation "com.squareup.moshi:moshi:1.15.1"
     implementation "com.squareup.moshi:moshi-kotlin:1.15.1"
-    ksp "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
+    ksp "com.squareup.moshi:moshi-kotlin-codegen:1.15.1"
 
     // joda time library for dealing with time
-    implementation 'joda-time:joda-time:2.10.14'
+    implementation 'joda-time:joda-time:2.12.7'
 
     // arch components
     // ViewModel and LiveData
@@ -98,7 +98,7 @@ dependencies {
 
     // glide for images
     implementation 'com.github.bumptech.glide:glide:4.16.0'
-    ksp 'com.github.bumptech.glide:compiler:4.14.2'
+    ksp 'com.github.bumptech.glide:compiler:4.16.0'
 
     // Room dependency
     implementation "androidx.room:room-runtime:2.6.1"
