@@ -15,77 +15,77 @@
  *
  */
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
 apply plugin: "androidx.navigation.safeargs"
-apply plugin: 'kotlin-parcelize'
+apply plugin: "kotlin-parcelize"
 
 android {
-    compileSdk 34
+    compileSdk (34)
     buildFeatures {
-        dataBinding true
+        dataBinding (true)
     }
     defaultConfig {
-        applicationId "com.example.android.marsrealestate"
-        minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationId ("com.example.android.marsrealestate")
+        minSdkVersion (21)
+        targetSdkVersion (34)
+        versionCode (1)
+        versionName ("1.0")
+        testInstrumentationRunner ("androidx.test.runner.AndroidJUnitRunner")
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled (false)
+            proguardFiles (getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = "17"
     }
-    namespace 'com.example.android.marsrealestate'
+    namespace ("com.example.android.marsrealestate")
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation (fileTree(dir: "libs", include: ["*.jar"]))
 
     // Kotlin
 
     // Constraint Layout
-    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.7.7"
-    implementation "androidx.navigation:navigation-ui-ktx:2.7.7"
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     // Core with Ktx
-    implementation "androidx.core:core-ktx:1.13.1"
+    implementation ("androidx.core:core-ktx:1.13.1")
 
     // RecyclerView
-    implementation "androidx.recyclerview:recyclerview:1.3.2"
+    implementation ("androidx.recyclerview:recyclerview:1.3.2")
 
     // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
     // Moshi
-    implementation "com.squareup.moshi:moshi:1.15.1"
-    implementation "com.squareup.moshi:moshi-kotlin:1.15.1"
+    implementation ("com.squareup.moshi:moshi:1.15.1")
+    implementation ("com.squareup.moshi:moshi-kotlin:1.15.1")
 
     // Retrofit with Moshi Converter
-    implementation "com.squareup.retrofit2:retrofit:2.11.0"
-    implementation "com.squareup.retrofit2:converter-moshi:2.11.0"
+    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation ("com.squareup.retrofit2:converter-moshi:2.11.0")
 
     // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1"
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
     // Retrofit Coroutines Support
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+    implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // Glide
-    implementation "com.github.bumptech.glide:glide:4.16.0"
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 }
