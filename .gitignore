@@ -36,6 +36,7 @@ project.properties
 # idea project files
 .idea/
 .idea/.name
+.kotlin/
 *.iml
 *.ipr
 *.iws
