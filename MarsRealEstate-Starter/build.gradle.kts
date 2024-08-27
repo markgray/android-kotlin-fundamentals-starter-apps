@@ -2,7 +2,7 @@
 
 plugins {
     id("com.android.application") version "8.5.2" apply false
-    id("org.jetbrains.kotlin.android") version "2.0.0" apply false
-    id("org.jetbrains.kotlin.plugin.parcelize") version "2.0.0" apply false
+    id("org.jetbrains.kotlin.android") version "2.0.20" apply false
+    id("org.jetbrains.kotlin.plugin.parcelize") version "2.0.20" apply false
     id("androidx.navigation.safeargs") version "2.7.7" apply false
 }
