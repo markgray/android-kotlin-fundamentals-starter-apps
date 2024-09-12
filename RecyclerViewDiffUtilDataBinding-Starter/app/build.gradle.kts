@@ -59,7 +59,7 @@ android {
 dependencies {
     // Support libraries
     implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.fragment:fragment-ktx:1.8.2")
+    implementation("androidx.fragment:fragment-ktx:1.8.3")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
@@ -67,8 +67,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.13.1")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.0")
 
     // Co-routines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
