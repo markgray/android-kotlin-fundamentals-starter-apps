@@ -58,14 +58,15 @@ android {
 }
 
 dependencies {
+    implementation("androidx.activity:activity-ktx:1.9.2")
     // Kotlin
 
     // Constraint Layout
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.1")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.1")
 
     // Core with Ktx
     implementation("androidx.core:core-ktx:1.13.1")
@@ -83,7 +84,7 @@ dependencies {
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     // use viewModelScope from lifecycle-viewmodel-ktx
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.5")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
 
     // Moshi
     implementation("com.squareup.moshi:moshi:1.15.1")
