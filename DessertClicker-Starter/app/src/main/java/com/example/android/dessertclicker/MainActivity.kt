@@ -145,8 +145,8 @@ class MainActivity : AppCompatActivity() {
      * down then this [Bundle] contains the data it most recently supplied in [onSaveInstanceState].
      */
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
 
         Timber.i("onCreate called")
 

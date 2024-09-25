@@ -37,8 +37,8 @@ class DevByteActivity : AppCompatActivity() {
      * should go
      */
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dev_byte_viewer)
 
         val rootView = findViewById<FrameLayout>(R.id.root_view)
