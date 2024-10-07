@@ -63,8 +63,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.1")
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.1")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.2")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.2")
 
     // Core with Ktx
     implementation("androidx.core:core-ktx:1.13.1")
