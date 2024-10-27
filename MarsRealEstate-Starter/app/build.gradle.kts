@@ -24,14 +24,14 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     buildFeatures {
         dataBinding = true
     }
     defaultConfig {
         applicationId = "com.example.android.marsrealestate"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -84,8 +84,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
     // Retrofit Coroutines Support
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
