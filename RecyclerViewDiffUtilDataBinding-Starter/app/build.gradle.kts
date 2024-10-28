@@ -23,11 +23,11 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         applicationId = "com.example.android.trackmysleepquality"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -72,8 +72,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
 
     // Co-routines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
     // Room and Lifecycle dependencies
     implementation("androidx.room:room-runtime:2.6.1")
