@@ -60,14 +60,14 @@ dependencies {
     // Kotlin
 
     // Constraint Layout
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
 
     // Core with Ktx
-    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.core:core-ktx:1.15.0")
 
     // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.2")
