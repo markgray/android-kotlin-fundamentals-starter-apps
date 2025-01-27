@@ -190,7 +190,7 @@ class SleepNightAdapter(
              * Factory method for creating a [TextViewHolder]. We initialize our [LayoutInflater]
              * variable `val layoutInflater` to the [LayoutInflater] for the `Context` of our
              * [ViewGroup] parameter [parent], then use it to initialize our [View] variable
-             * `val view` by having it inflate our layout file [R.layout.header] using [parent]
+             * `val view` by having it inflate our layout file `R.layout.header` using [parent]
              * for the layout parameters into a [View] for its value. Finally we return a new
              * of [TextViewHolder] constructed to use `view` as its item view.
              *

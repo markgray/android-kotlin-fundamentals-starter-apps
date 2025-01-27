@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
      * Called when the activity is starting. First we call our super's implementation of `onCreate`,
      * and then we log the fact that we were called. We initialize our [ActivityMainBinding] field
      * [binding] to the binding to the view that the [DataBindingUtil.setContentView] creates when
-     * it inflates our layout file [R.layout.activity_main] and sets the view to be our content view.
+     * it inflates our layout file `R.layout.activity_main` and sets the view to be our content view.
      * We set the `OnClickListener` of the `dessertButton` ImageButton property of [binding] to a
      * lambda which calls our [onDessertClicked] method. We set our [DessertTimer] field [dessertTimer]
      * to a new instance constructed to use the `Lifecycle` of `this`. If our [Bundle] parameter
@@ -353,7 +353,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Menu method called when the [MenuItem] with ID [R.id.shareMenuButton] is selected. We create
+     * Menu method called when the [MenuItem] with ID `R.id.shareMenuButton` is selected. We create
      * an `Intent` for our variable `val shareIntent` which has the action `ACTION_SEND` whose
      * literal text data to be sent as part of the share is a formatted string displaying our
      * [dessertsSold] and [revenue] field and whose type is "text/plain". Then wrapped in a `try`
@@ -376,7 +376,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Initialize the contents of the Activity's standard options menu. You should place your menu
      * items in [menu]. We use a `MenuInflater` with this context to inflate our menu layout file
-     * [R.menu.main_menu] into our [Menu] parameter [menu]. Then we return the value returned by
+     * `R.menu.main_menu` into our [Menu] parameter [menu]. Then we return the value returned by
      * our super's implementation of `onCreateOptionsMenu`.
      *
      * @param menu The options menu in which you place your items.
@@ -390,7 +390,7 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * This hook is called whenever an item in your options menu is selected. When the `itemId`
-     * of our [MenuItem] parameter [item] is [R.id.shareMenuButton] we call our [onShare] method
+     * of our [MenuItem] parameter [item] is `R.id.shareMenuButton` we call our [onShare] method
      * to have it "share" our [dessertsSold] and [revenue] fields. In any case we return the value
      * returned by our super's implementation of `onOptionsItemSelected` to the caller.
      *

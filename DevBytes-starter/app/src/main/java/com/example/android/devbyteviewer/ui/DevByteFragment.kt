@@ -231,7 +231,7 @@ class DevByteAdapter(
     /**
      * Called when [RecyclerView] needs a new [DevByteViewHolder] of the given type to represent
      * an item. We initialize our variable `val withDataBinding` to the [DevbyteItemBinding] binding
-     * object that the [DataBindingUtil.inflate] returns when it inflates the [R.layout.devbyte_item]
+     * object that the [DataBindingUtil.inflate] returns when it inflates the `R.layout.devbyte_item`
      * layout file layout/devbyte_item.xml using our [ViewGroup] parameter [parent] for the layout
      * params without attaching to it. Then we return a new instance of [DevByteViewHolder]
      * constructed to use `withDataBinding` as the [DevbyteItemBinding] binding to the view it

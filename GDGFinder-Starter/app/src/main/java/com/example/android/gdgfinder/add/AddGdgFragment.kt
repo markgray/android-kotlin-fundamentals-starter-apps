@@ -36,7 +36,7 @@ class AddGdgFragment : Fragment() {
     /**
      * The [AddGdgViewModel] view model which holds the LiveData [Boolean] property `showSnackBarEvent`
      * that we use to control our display of a [Snackbar]. The "android:onClick" attribute of the
-     * `button` property in our layout (resource ID [R.id.button]) is a binding expression lambda
+     * `button` property in our layout (resource ID `R.id.button`) is a binding expression lambda
      * which calls the `onSubmitApplication` method of our [AddGdgViewModel] which sets this property
      * to `true`. We observe `showSnackBarEvent` and when it toggles to `true` we show the [Snackbar],
      * then call the `doneShowingSnackbar` method of [AddGdgViewModel] to reset it to `false`.
@@ -57,7 +57,7 @@ class AddGdgFragment : Fragment() {
      * controls the observer. The lambda of the [Observer] will, if `showSnackBarEvent` has toggled
      * to `true`, show a [Snackbar], call the `doneShowingSnackbar` method of [viewModel] to reset
      * it to `false`, and set the `contentDescription` of the `button` property of `binding` (the
-     * `Button` with ID [R.id.button]) to "Submitted, no need to submit again" and the `text` of
+     * `Button` with ID `R.id.button`) to "Submitted, no need to submit again" and the `text` of
      * that `Button` to "Done".
      *
      * Finally we return the `root` property of `binding` (the outermost [View] in the layout file

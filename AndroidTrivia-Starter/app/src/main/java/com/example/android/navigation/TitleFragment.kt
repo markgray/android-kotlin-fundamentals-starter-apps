@@ -99,7 +99,7 @@ class TitleFragment : Fragment() {
         /**
          * Initialize the contents of the Fragment host's standard options menu. We use our
          * [MenuInflater] parameter [menuInflater] to inflate our menu layout file
-         * [R.menu.options_menu] into our [Menu] parameter [menu].
+         * `R.menu.options_menu` into our [Menu] parameter [menu].
          *
          * @param menu The options menu in which you place your items.
          * @param menuInflater a [MenuInflater] you can use to inflate an XML menu file with.

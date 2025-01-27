@@ -25,7 +25,7 @@ import com.example.android.gdgfinder.search.GdgListAdapter
 
 /**
  * This binding adapter is used in layout/fragment_gdg_list.xml for the [RecyclerView] with the ID
- * [R.id.gdg_chapter_list] using the attribute app:listData="@{viewModel.gdgList}". The `gdgList`
+ * `R.id.gdg_chapter_list` using the attribute app:listData="@{viewModel.gdgList}". The `gdgList`
  * field of the `GdgListViewModel` variable `viewModel` is a `LiveData` wrapped list of [GdgChapter]
  * objects. First we initialize our [GdgListAdapter] variable `val adapter` by retrieving the
  * adapter of our [RecyclerView] parameter [recyclerView]. We then call the `submitList` method of

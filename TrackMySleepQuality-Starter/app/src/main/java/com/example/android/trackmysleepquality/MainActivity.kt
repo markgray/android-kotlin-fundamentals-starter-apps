@@ -51,12 +51,12 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Called when the activity is starting. First we call our super's implementation of `onCreate`,
-     * then we set our content view to our layout file [R.layout.activity_main]. It consists only
+     * then we set our content view to our layout file `R.layout.activity_main`. It consists only
      * of a `fragment` container for android:name="androidx.navigation.fragment.NavHostFragment",
      * with an app:defaultNavHost="true" attribute (to ensure that our `NavHostFragment` intercepts
      * the system Back button) and an app:navGraph="@navigation/navigation" attribute (associates the
      * `NavHostFragment` with the navigation graph navigation/navigation.xml). The app:startDestination
-     * attribute of the navigation graph specifies [R.id.sleep_tracker_fragment] to be the starting
+     * attribute of the navigation graph specifies `R.id.sleep_tracker_fragment` to be the starting
      * fragment (`sleeptracker/SleepTrackerFragment.kt`)
      *
      * @param savedInstanceState we do not override [onSaveInstanceState] so do not use.

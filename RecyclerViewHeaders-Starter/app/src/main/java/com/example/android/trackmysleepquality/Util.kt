@@ -59,15 +59,15 @@ private val ONE_HOUR_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
  *
  *  - less than [ONE_MINUTE_MILLIS] we initialize our variable `val seconds` to the result of
  *  converting `durationMilli` to seconds and return the string formatted using the format
- *  [R.string.seconds_length] ("%d seconds on %s") for `seconds` and `weekdayString`.
+ *  `R.string.seconds_length` ("%d seconds on %s") for `seconds` and `weekdayString`.
  *
  *  - less than [ONE_HOUR_MILLIS] we initialize our variable `val minutes` to the result of
  *  converting `durationMilli` to minutes and return the string formatted using the format
- *  [R.string.minutes_length] ("%d minutes on %s") for `minutes` and `weekdayString`.
+ *  `R.string.minutes_length` ("%d minutes on %s") for `minutes` and `weekdayString`.
  *
  *  - For larger values we initialize our variable `val hours` to the result of converting
  *  `durationMilli` to hours and return the string formatted using the format
- *  [R.string.hours_length] ("%d hours on %s") for `hours` and `weekdayString`.
+ *  `R.string.hours_length` ("%d hours on %s") for `hours` and `weekdayString`.
  *
  * Used by the `TextView.setSleepDurationFormatted` binding adapter, which is used for the
  * "app:sleepDurationFormatted" attribute for the [TextView]'s with ID R.id.sleep_length in
