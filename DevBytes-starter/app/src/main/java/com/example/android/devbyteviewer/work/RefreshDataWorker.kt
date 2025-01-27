@@ -1,3 +1,5 @@
+@file:Suppress("UnusedImport")
+
 package com.example.android.devbyteviewer.work
 
 import android.content.Context
@@ -49,7 +51,7 @@ class RefreshDataWorker(
         val repository = VideosRepository(database)
         try {
             repository.refreshVideos()
-        } catch (e: HttpException) {
+        } catch (_: HttpException) {
             return Result.retry()
         }
         return Result.success()
