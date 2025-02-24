@@ -59,7 +59,7 @@ android {
 
 dependencies {
     implementation("androidx.activity:activity-ktx:1.10.0")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.0")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
 
     // support libraries
     implementation("androidx.appcompat:appcompat:1.7.0")
@@ -73,13 +73,13 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
     // navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.8.6")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.6")
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.6")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.8.7")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.7")
 
     // coroutines for getting off the UI thread
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
 
     // retrofit for networking
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
