@@ -65,7 +65,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.4.0")
 
     // Android KTX
-    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.core:core-ktx:1.16.0")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.9")
@@ -76,9 +76,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
 
     // Room and Lifecycle dependencies
-    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-runtime:2.7.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    ksp("androidx.room:room-compiler:2.6.1")
+    ksp("androidx.room:room-compiler:2.7.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
     // Testing
