@@ -97,7 +97,7 @@ abstract class SleepDatabase : RoomDatabase() {
                         SleepDatabase::class.java,
                         "sleep_history_database"
                     )
-                        .fallbackToDestructiveMigration()
+                        .fallbackToDestructiveMigration(dropAllTables = true)
                         .build()
                     INSTANCE = instance
                 }
