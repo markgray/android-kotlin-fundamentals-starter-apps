@@ -42,11 +42,11 @@ data class GdgChapter(
     /**
      * The name of the GDG Chapter: "GDG Bordj Bou-Arréridj"
      */
-    @Json(name = "chapter_name") val name: String,
+    @param:Json(name = "chapter_name") val name: String,
     /**
      * The city that the Chapter is in: "Burj Bu Arririj"
      */
-    @Json(name = "cityarea") val city: String,
+    @param:Json(name = "cityarea") val city: String,
     /**
      * Country that the Chapter is in: "Algeria"
      */
@@ -85,7 +85,7 @@ data class LatLong(
     /**
      * the longitude of the location
      */
-    @Json(name = "lng")
+    @param:Json(name = "lng")
     val long: Double
 ) : Parcelable
 
@@ -102,11 +102,11 @@ data class GdgResponse(
     /**
      * the [Filter] list of region strings
      */
-    @Json(name = "filters_") val filters: Filter,
+    @param:Json(name = "filters_") val filters: Filter,
     /**
      * the [List] of [GdgChapter] objects parsed from the JSON
      */
-    @Json(name = "data") val chapters: List<GdgChapter>
+    @param:Json(name = "data") val chapters: List<GdgChapter>
 ) : Parcelable
 
 /**
@@ -119,7 +119,7 @@ data class Filter(
     /**
      * the list of region strings parsed from the JSON
      */
-    @Json(name = "region") val regions: List<String>
+    @param:Json(name = "region") val regions: List<String>
 ) : Parcelable
 
 //"chapter_name": "GDG Bordj Bou-Arréridj",
