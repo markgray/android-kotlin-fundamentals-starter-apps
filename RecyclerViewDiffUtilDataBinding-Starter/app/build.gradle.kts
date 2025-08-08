@@ -56,8 +56,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.16.0")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.9.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.9.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.9.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.9.3")
 
     // Co-routines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
@@ -71,6 +71,6 @@ dependencies {
 
     // Testing
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:runner:1.6.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("androidx.test:runner:1.7.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
 }
