@@ -56,7 +56,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.9.3")
 
     // Core with Ktx
-    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.core:core-ktx:1.17.0")
 
     // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.4.0")
