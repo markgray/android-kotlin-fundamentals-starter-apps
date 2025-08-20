@@ -47,7 +47,7 @@ android {
 
 dependencies {
     implementation("androidx.activity:activity-ktx:1.10.1")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.0")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.10")
 
     // support libraries
     implementation("androidx.appcompat:appcompat:1.7.1")
@@ -55,7 +55,7 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
 
     // Android KTX
-    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.core:core-ktx:1.17.0")
 
     // constraint layout
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")

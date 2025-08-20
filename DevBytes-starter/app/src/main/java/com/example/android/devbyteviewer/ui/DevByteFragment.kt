@@ -37,6 +37,7 @@ import com.example.android.devbyteviewer.databinding.DevbyteItemBinding
 import com.example.android.devbyteviewer.databinding.FragmentDevByteBinding
 import com.example.android.devbyteviewer.domain.DevByteVideo
 import com.example.android.devbyteviewer.viewmodels.DevByteViewModel
+import androidx.core.net.toUri
 
 /**
  * Show a list of DevBytes on screen.
@@ -128,7 +129,7 @@ class DevByteFragment : Fragment() {
             var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
             if (intent.resolveActivity(packageManager) == null) {
                 // YouTube app isn't found, use the web url
-                intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
+                intent = Intent(Intent.ACTION_VIEW, it.url.toUri())
             }
 
             startActivity(intent)
@@ -163,8 +164,8 @@ class DevByteFragment : Fragment() {
      */
     private val DevByteVideo.launchUri: Uri
         get() {
-            val httpUri = Uri.parse(url)
-            return Uri.parse("vnd.youtube:" + httpUri.getQueryParameter("v"))
+            val httpUri = url.toUri()
+            return ("vnd.youtube:" + httpUri.getQueryParameter("v")).toUri()
         }
 }
 
