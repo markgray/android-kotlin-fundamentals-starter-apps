@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnusedImport")
-
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.view.LayoutInflater
