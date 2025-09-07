@@ -52,7 +52,7 @@ dependencies {
     // support libraries
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("com.google.android.material:material:1.12.0")
+    implementation("com.google.android.material:material:1.13.0")
 
     // Android KTX
     implementation("androidx.core:core-ktx:1.17.0")
@@ -90,8 +90,8 @@ dependencies {
     implementation("com.jakewharton.timber:timber:5.0.1")
 
     // glide for images
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    ksp("com.github.bumptech.glide:compiler:4.16.0")
+    implementation("com.github.bumptech.glide:glide:5.0.4")
+    ksp("com.github.bumptech.glide:compiler:5.0.4")
 
     // Room dependency
     implementation("androidx.room:room-runtime:2.7.2")
