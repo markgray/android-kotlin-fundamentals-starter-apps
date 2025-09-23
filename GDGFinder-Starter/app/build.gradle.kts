@@ -45,15 +45,15 @@ android {
 }
 
 dependencies {
-    implementation("androidx.activity:activity-ktx:1.10.1")
+    implementation("androidx.activity:activity-ktx:1.11.0")
     // Kotlin
 
     // Constraint Layout
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.9.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.9.3")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.9.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.9.4")
 
     // Core with Ktx
     implementation("androidx.core:core-ktx:1.17.0")
@@ -71,7 +71,7 @@ dependencies {
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     // use viewModelScope from lifecycle-viewmodel-ktx
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4")
 
     // Moshi
     implementation("com.squareup.moshi:moshi:1.15.2")
@@ -85,7 +85,7 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // Glide
-    implementation("com.github.bumptech.glide:glide:5.0.4")
+    implementation("com.github.bumptech.glide:glide:5.0.5")
 
     // Client for retrieving location
     implementation("com.google.android.gms:play-services-location:21.3.0")
