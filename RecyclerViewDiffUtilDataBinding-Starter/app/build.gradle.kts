@@ -12,7 +12,7 @@ android {
     compileSdk = 36
     defaultConfig {
         applicationId = "com.example.android.trackmysleepquality"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -45,7 +45,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.activity:activity-ktx:1.10.1")
+    implementation("androidx.activity:activity-ktx:1.11.0")
     // Support libraries
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.fragment:fragment-ktx:1.8.9")
@@ -56,17 +56,17 @@ dependencies {
     implementation("androidx.core:core-ktx:1.17.0")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.9.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.9.3")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.9.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.9.4")
 
     // Co-routines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
 
     // Room and Lifecycle dependencies
-    implementation("androidx.room:room-runtime:2.7.2")
+    implementation("androidx.room:room-runtime:2.8.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    ksp("androidx.room:room-compiler:2.7.2")
+    ksp("androidx.room:room-compiler:2.8.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
     // Testing
