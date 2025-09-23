@@ -244,7 +244,7 @@ class SleepTrackerViewModel(
      * of the "CLEAR" button in the layout file layout/fragment_sleep_tracker.xml when the user
      * clicks that button.
      */
-    private suspend fun clear() {
+    private suspend fun clearDatabase() {
         withContext(Dispatchers.IO) {
             database.clear()
         }
@@ -309,7 +309,7 @@ class SleepTrackerViewModel(
     /**
      * Deletes all values from the "daily_sleep_quality_table" table without deleting the table
      * itself. We launch a new coroutine without blocking the current thread using the [CoroutineScope]
-     * of [uiScope] and call our suspend function [clear] to clear the database table. On resuming
+     * of [uiScope] and call our suspend function [clearDatabase] to clear the database table. On resuming
      * we set the value of our `MutableLiveData<SleepNight?>` field [tonight] to `null` (since it's
      * no longer in the database), and set our [MutableLiveData] wrapped [Boolean] field [_showSnackbarEvent]
      * to `true` causing an `Observer` of [showSnackBarEvent] to post a `SnackBar` informing the user
@@ -320,7 +320,7 @@ class SleepTrackerViewModel(
     fun onClear() {
         uiScope.launch {
             // Clear the database table.
-            clear()
+            clearDatabase()
 
             // And clear tonight since it's no longer in the database
             tonight.value = null
