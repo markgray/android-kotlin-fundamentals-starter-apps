@@ -16,6 +16,7 @@
 
 package com.example.android.devbyteviewer
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.os.Build
 import androidx.work.*
@@ -61,6 +62,7 @@ class DevByteApplication : Application() {
             .setRequiresBatteryNotLow(true)
             .setRequiresCharging(true)
             .apply {
+                @SuppressLint("ObsoleteSdkInt")
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     setRequiresDeviceIdle(true)
                 }

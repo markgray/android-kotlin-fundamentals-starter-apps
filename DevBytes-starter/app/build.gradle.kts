@@ -12,7 +12,7 @@ android {
     compileSdk = 36
     defaultConfig {
         applicationId = "com.example.android.devbyteviewer"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -46,8 +46,8 @@ android {
 }
 
 dependencies {
-    implementation("androidx.activity:activity-ktx:1.10.1")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.10")
+    implementation("androidx.activity:activity-ktx:1.11.0")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.20")
 
     // support libraries
     implementation("androidx.appcompat:appcompat:1.7.1")
@@ -61,9 +61,9 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
 
     // navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.9.3")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.9.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.9.3")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.9.4")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.9.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.9.4")
 
     // coroutines for getting off the UI thread
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
@@ -90,13 +90,13 @@ dependencies {
     implementation("com.jakewharton.timber:timber:5.0.1")
 
     // glide for images
-    implementation("com.github.bumptech.glide:glide:5.0.4")
-    ksp("com.github.bumptech.glide:compiler:5.0.4")
+    implementation("com.github.bumptech.glide:glide:5.0.5")
+    ksp("com.github.bumptech.glide:compiler:5.0.5")
 
     // Room dependency
-    implementation("androidx.room:room-runtime:2.7.2")
-    ksp("androidx.room:room-compiler:2.7.2")
+    implementation("androidx.room:room-runtime:2.8.0")
+    ksp("androidx.room:room-compiler:2.8.0")
 
     // Work dependency
-    implementation("androidx.work:work-runtime-ktx:2.10.3")
+    implementation("androidx.work:work-runtime-ktx:2.10.4")
 }
