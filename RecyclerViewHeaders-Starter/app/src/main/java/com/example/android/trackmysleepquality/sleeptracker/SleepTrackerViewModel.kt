@@ -251,7 +251,7 @@ class SleepTrackerViewModel(
      * [Dispatchers.IO] which calls the `clear` method of [database] to have Room clear all
      * entries in the database.
      */
-    private suspend fun clear() {
+    private suspend fun clearDatabase() {
         withContext(Dispatchers.IO) {
             database.clear()
         }
@@ -320,7 +320,7 @@ class SleepTrackerViewModel(
      * android:onClick="@{() -> sleepTrackerViewModel.onClear()}"
      *
      * We launch a lambda on the [CoroutineScope] of [uiScope] which calls our *suspending* method
-     * [clear] to clear all entries from our database, set the *value* of [tonight] to *null*, and
+     * [clearDatabase] to clear all entries from our database, set the *value* of [tonight] to *null*, and
      * set the *value* of [_showSnackbarEvent] to *true* (this will trigger a `SnackBar` message
      * announcing the deletion of all data due to an `Observer` of this field which is added in the
      * `onCreateView` method of [SleepTrackerFragment]).
@@ -328,7 +328,7 @@ class SleepTrackerViewModel(
     fun onClear() {
         uiScope.launch {
             // Clear the database table.
-            clear()
+            clearDatabase()
 
             // And clear tonight since it's no longer in the database
             tonight.value = null
