@@ -61,9 +61,9 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
 
     // navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.9.4")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.9.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.9.4")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.9.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.9.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.9.5")
 
     // coroutines for getting off the UI thread
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
@@ -94,9 +94,9 @@ dependencies {
     ksp("com.github.bumptech.glide:compiler:5.0.5")
 
     // Room dependency
-    implementation("androidx.room:room-runtime:2.8.0")
-    ksp("androidx.room:room-compiler:2.8.0")
+    implementation("androidx.room:room-runtime:2.8.1")
+    ksp("androidx.room:room-compiler:2.8.1")
 
     // Work dependency
-    implementation("androidx.work:work-runtime-ktx:2.10.4")
+    implementation("androidx.work:work-runtime-ktx:2.10.5")
 }
