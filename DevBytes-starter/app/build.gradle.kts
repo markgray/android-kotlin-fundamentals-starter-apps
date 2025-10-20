@@ -23,9 +23,10 @@ android {
         release {
             isMinifyEnabled = true
             proguardFiles(
-                getDefaultProguardFile("proguard-android.txt"),
+                getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -94,8 +95,8 @@ dependencies {
     ksp("com.github.bumptech.glide:compiler:5.0.5")
 
     // Room dependency
-    implementation("androidx.room:room-runtime:2.8.1")
-    ksp("androidx.room:room-compiler:2.8.1")
+    implementation("androidx.room:room-runtime:2.8.2")
+    ksp("androidx.room:room-compiler:2.8.2")
 
     // Work dependency
     implementation("androidx.work:work-runtime-ktx:2.10.5")
