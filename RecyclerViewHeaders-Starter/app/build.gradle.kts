@@ -23,9 +23,10 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android.txt"),
+                getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     buildFeatures {
@@ -63,8 +64,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.9.5")
 
     // Room and Lifecycle dependencies
-    implementation("androidx.room:room-runtime:2.8.1")
-    ksp("androidx.room:room-compiler:2.8.1")
+    implementation("androidx.room:room-runtime:2.8.2")
+    ksp("androidx.room:room-compiler:2.8.2")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
