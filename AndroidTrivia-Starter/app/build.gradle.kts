@@ -14,7 +14,7 @@ android {
     }
     defaultConfig {
         applicationId = "com.example.android.navigation"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -46,7 +46,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.activity:activity-ktx:1.11.0")
+    implementation("androidx.activity:activity-ktx:1.12.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.21")
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
