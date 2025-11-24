@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.activity:activity-ktx:1.11.0")
+    implementation("androidx.activity:activity-ktx:1.12.0")
     // Support libraries
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.fragment:fragment-ktx:1.8.9")
@@ -57,8 +57,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.17.0")
 
     // Room and Lifecycle dependencies
-    implementation("androidx.room:room-runtime:2.8.3")
-    ksp("androidx.room:room-compiler:2.8.3")
+    implementation("androidx.room:room-runtime:2.8.4")
+    ksp("androidx.room:room-compiler:2.8.4")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
