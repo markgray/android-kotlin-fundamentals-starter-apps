@@ -23,6 +23,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -47,13 +48,28 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
     /**
-     * Called when the activity is starting. First we call our super's implementation of `onCreate`.
-     * Then we initialize our [ActivityMainBinding] field [binding] to the binding returned by the
-     * [DataBindingUtil.setContentView] method when it inflates our `R.layout.activity_main` layout
-     * file and sets it as our content view. We call our [setupNavigation] to have it set up our
-     * action bar, and navigation drawer. Finally we call the [AppCompatDelegate.setDefaultNightMode]
-     * method to set the default night mode to [AppCompatDelegate.MODE_NIGHT_YES] (Night mode which
-     * uses always uses a dark mode, enabling night qualified resources regardless of the time.
+     * Called when the activity is starting. First we call [enableEdgeToEdge]
+     * to enable edge to edge display, then we call our super's
+     * implementation of `onCreate`. We initialize our [ActivityMainBinding] field [binding] to the
+     * binding returned by the [DataBindingUtil.setContentView] method when it inflates our
+     * `R.layout.activity_main` layout file and sets it as our content view. Then we call
+     * [ViewCompat.setOnApplyWindowInsetsListener] to take over over the policy
+     * for applying window insets to the root view of [binding], with the listener argument
+     * a lambda that accepts the [View] passed the lambda in variable `v` and
+     * the [WindowInsetsCompat] passed the lambda in variable `windowInsets`. It
+     * initializes its [Insets] variable `insets` to the [WindowInsetsCompat.getInsets]
+     * of `windowInsets` with [WindowInsetsCompat.Type.systemBars] as the
+     * argument, then it updates the layout parameters of `v` to be a
+     * [ViewGroup.MarginLayoutParams] with the left margin set to `insets.left`,
+     * the right margin set to `insets.right`, the top margin set to `insets.top`,
+     * and the bottom margin set to `insets.bottom`. Finally it returns
+     * [WindowInsetsCompat.CONSUMED] to the caller (so that the window insets
+     * will not keep passing down to descendant views).
+     *
+     * We call our [setupNavigation] to have it set up our action bar, and navigation drawer.
+     * Finally we call the [AppCompatDelegate.setDefaultNightMode] method to set the default
+     * night mode to [AppCompatDelegate.MODE_NIGHT_YES] (Night mode which uses always uses a
+     * dark mode, enabling night qualified resources regardless of the time.
      *
      * @param savedInstanceState we do not override [onSaveInstanceState] so do not use.
      */
@@ -61,8 +77,8 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v: View, windowInsets: WindowInsetsCompat ->
+            val insets: Insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             // Apply the insets as a margin to the view.
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 leftMargin = insets.left
