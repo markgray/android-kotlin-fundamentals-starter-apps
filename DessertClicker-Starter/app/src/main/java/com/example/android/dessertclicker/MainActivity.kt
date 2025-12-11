@@ -132,14 +132,16 @@ class MainActivity : AppCompatActivity() {
      * `R.layout.activity_main` and sets the view to be our content view. We call the
      * [ViewCompat.setOnApplyWindowInsetsListener] method to set an [OnApplyWindowInsetsListener] to
      * take over over the policy for applying window insets to the `root` view of [binding], with the
-     * `listener` argument a lambda that accepts the [View] passed the lambda in variable `v` and the
-     * [WindowInsetsCompat] passed the lambda in variable `windowInsets`. It initializes its [Insets]
-     * variable `insets` to the [WindowInsetsCompat.getInsets] of `windowInsets` with
-     * [WindowInsetsCompat.Type.systemBars] as the argument, then it updates the layout parameters of
-     * `v` to be a [ViewGroup.MarginLayoutParams] with the left margin set to `insets.left`, the
-     * right margin set to `insets.right`, the top margin set to `insets.top`, and the bottom margin
-     * set to `insets.bottom`. Finally it returns [WindowInsetsCompat.CONSUMED] to the caller (so
-     * that the window insets will not keep passing down to descendant views).
+     * `listener` argument a lambda that accepts the [View] passed the lambda in variable `v` and
+     * the [WindowInsetsCompat] passed the lambda in variable `windowInsets`. It initializes its
+     * [Insets] variable `systemBars` to the [WindowInsetsCompat.getInsets] of `windowInsets` with
+     * [WindowInsetsCompat.Type.systemBars] as the argument. It then gets the insets for the IME
+     * (keyboard) using [WindowInsetsCompat.Type.ime]. It then updates the layout parameters of `v`
+     * to be a [ViewGroup.MarginLayoutParams] with the left margin set to `systemBars.left`, the
+     * right margin set to `systemBars.right`, the top margin set to `systemBars.top`, and the
+     * bottom margin set to the maximum of the system bars bottom inset and the IME bottom inset.
+     * Finally it returns [WindowInsetsCompat.CONSUMED] to the caller (so that the window insets
+     * will not keep passing down to descendant views).
      *
      * We set the `OnClickListener` of the `dessertButton` ImageButton property of [binding] to a
      * lambda which calls our [onDessertClicked] method. We set our [DessertTimer] field [dessertTimer]
@@ -168,15 +170,16 @@ class MainActivity : AppCompatActivity() {
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v: View, windowInsets: WindowInsetsCompat ->
-            val insets: Insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val ime = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
+
             // Apply the insets as a margin to the view.
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                leftMargin = insets.left
-                bottomMargin = insets.bottom
-                rightMargin = insets.right
-                topMargin = insets.top
+                leftMargin = systemBars.left
+                rightMargin = systemBars.right
+                topMargin = systemBars.top
+                bottomMargin = systemBars.bottom.coerceAtLeast(ime.bottom)
             }
-
             // Return CONSUMED if you don't want want the window insets to keep passing
             // down to descendant views.
             WindowInsetsCompat.CONSUMED
